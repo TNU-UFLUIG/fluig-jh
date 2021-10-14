@@ -1,5 +1,5 @@
-body {}
-
+body {
+}
 
 /*.fluig-style-guide [hidden], .fluig-style-guide template {
     display: block !important;
@@ -28,4 +28,103 @@ body {}
   overflow-y: auto;
   overflow-x: hidden;
   padding: 50px;
+}
+.error {
+  border: 1px solid red !important;
+}
+
+.label-error {
+  color: red !important;
+  font-style: italic !important;
+  font-weight: normal !important;
+  font-size: smaller !important;
+}
+
+label-grid {
+  min-width: 100px !important;
+}
+
+#ds_observacao_geral {
+  resize: none;
+  height: 70px;
+}
+
+.panel-info {
+  border-color: black !important;
+}
+
+.panel-heading {
+  border-color: RGB(255, 204, 0) !important;
+  background-color: RGB(255, 204, 0) !important;
+}
+
+.panel-title {
+  color: black !important;
+}
+
+.title-option {
+  font-weight: bold !important;
+}
+
+.button-status {
+  width: 60px !important;
+}
+
+.button-accept {
+  width: 60px !important;
+}
+
+.label-grid {
+  min-width: 100px !important;
+}
+
+.spacer {
+  height: 5px;
+}
+
+.section-title {
+  display: block;
+  background-color: RGB(255, 255, 204);
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.wrapper {
+  position: relative;
+  width: 500px;
+  height: 350px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 500px;
+  height: 350px;
+  background-color: white;
+}
+
+.signature-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1600px;
+  height: 350px;
+  object-fit: cover;
+  background-color: white;
+}
+
+.button-title {
+  padding-top: 7.5px;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

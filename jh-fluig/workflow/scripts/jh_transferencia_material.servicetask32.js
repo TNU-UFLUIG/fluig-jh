@@ -16,6 +16,8 @@ function servicetask32(attempt, message) {
 			}
 		}
 
+		log.info(JSON.stringify(data));
+
 		var vo = clientService.invoke(JSON.stringify(data));
 
 		if (vo.getResult() == null || vo.getResult().isEmpty()) {
@@ -24,13 +26,14 @@ function servicetask32(attempt, message) {
 
 			log.info(vo.getResult());
 
-			// var json = JSON.parse(vo.getResult());
+			var json = JSON.parse(vo.getResult());
 
-			// if (json.CMESSAGE == null) {
-			// 	dataset.addRow([json.errormessage]);
-			// } else {
-			// 	dataset.addRow([json.CMESSAGE]);
-			// }
+			if (json.errorMessage) {
+
+				log.info(json.errorMessage);
+
+				throw json.errorMessage;
+			}
 		}
 
 

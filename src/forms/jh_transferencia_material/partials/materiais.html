@@ -41,7 +41,7 @@
                                     <label for="">Local Destino</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
                                         name="material_destinoDes" ng-model="material.destino"
-                                        dataset="protheus_consulta_local" display-key="descricao">
+                                        dataset="protheus_consulta_local" display-key="codigo">
                                 </div>
                             </div>
                             <div class="col-sm-6" ng-if="material.destino.codigo">
@@ -59,7 +59,7 @@
                             <input type="hidden" name="material_enderecoCod" ng-value="material.endereco.codigo">
                         </div>
                     </td>
-                    <td>
+                    <td class="fs-text-right">
                         <span ng-if="vm.Params.edit" ng-click="vm.removeChild(vm.Form.materiais, material)"
                             class="fluigicon fluigicon-md fluigicon-trash fs-cursor-pointer"></span>
                     </td>
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <label for="">Destino</label>
                     <input type="text" fluig-autocomplete class="form-control input-lg" name="armazemDestino"
-                        ng-model="vm.armazemDestino" dataset="protheus_consulta_local" display-key="descricao">
+                        ng-model="vm.armazemDestino" dataset="protheus_consulta_local" display-key="codigo">
                 </div>
             </div>
             <div class="col-sm-6" ng-if="vm.armazemDestino.codigo">
@@ -118,7 +118,7 @@
                 Cancelar
             </a>
 
-            <a class="btn btn-info btn-lg" ng-click="vm.alteraSelecionados()">
+            <a class="btn btn-success btn-lg" ng-click="vm.alteraSelecionados()">
                 Salvar
             </a>
 

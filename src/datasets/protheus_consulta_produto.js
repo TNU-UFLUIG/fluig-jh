@@ -26,9 +26,21 @@ function buscaDataset(fields, constraints, sortFields) {
   /*$$ partials/varsProtheusSoap.js $$*/
 
   const dataset = DatasetBuilder.newDataset();
+  for (var i = 0; i < campos.length; i++) {
+    dataset.addColumn(campos[i]);
+  }
+
   const params = getConstraints(constraints);
-  const sql =
-    `SELECT TOP 1000 B1_FILIAL AS FILIAL, B1_COD AS CODIGO, B1_DESC  AS DESCRICAO FROM SB1010 WHERE D_E_L_E_T_ = ''  AND B1_MSBLQL != '1'`;
+  let sql =
+    `SELECT TOP 100 B1_FILIAL AS FILIAL, B1_COD AS CODIGO, B1_DESC  AS DESCRICAO FROM SB1010 WHERE D_E_L_E_T_ = ''  AND B1_MSBLQL != '1'`;
+
+  if (params.codigo != '' && params.codigo != undefined) {
+    sql = sql + " AND LOWER(B1_COD) LIKE LOWER('%" + params.codigo + "%')"
+  }
+
+  if (params.descricao != '' && params.descricao != undefined) {
+    sql = sql + " AND LOWER(B1_DESC) LIKE LOWER('%" + params.descricao + "%')"
+  }
 
   log.info(sql);
 
