@@ -25,12 +25,20 @@
                                         dataset="protheus_consulta_produto" min-length="3" display-key="codigo">
                                 </div>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-7">
                                 <div class="form-group">
                                     <label for="">Descrição</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
                                         name="material_produtoDes" ng-model="material.produto"
                                         dataset="protheus_consulta_produto" min-length="3" display-key="descricao">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="">Quantidade</label>
+                                    <input type="text" fluig-number-mask class="form-control input-lg"
+                                        name="material_qty_i" ng-model="material.qty">
+                                    <input type="hidden" name="material_qty" ng-value="material.qty">
                                 </div>
                             </div>
                             <textarea hidden name="material_produto" ng-value="material.produto | json:0"></textarea>
@@ -56,7 +64,7 @@
                             <textarea hidden name="material_destino" ng-value="material.destino | json:0"></textarea>
                             <input type="hidden" name="material_destinoCod" ng-value="material.destino.codigo">
                             <textarea hidden name="material_endereco" ng-value="material.endereco | json:0"></textarea>
-                            <input type="hidden" name="material_enderecoCod" ng-value="material.endereco.codigo">
+                            <input type="hidden" name="material_enderecoCod" ng-value="material.endereco.endereco">
                         </div>
                     </td>
                     <td class="fs-text-right">

@@ -60,12 +60,21 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       };
 
       vm.removeSelecionados = (Array) => {
+        const selecionados = Array.filter(m => m.seleciona);
+        if (selecionados.length == 0) {
+          FLUIGC.message.error({
+            message: 'Selecione os materiais que deseja direcionar',
+            title: 'Oops'
+          });
+          return;
+        }
+
         FLUIGC.message.confirm({
           message: 'Deseja excluir os registros selecionados?',
           title: 'Excluir'
         }, (result) => {
           if (result) {
-            Array.filter(m => m.seleciona).forEach(item => {
+            selecionados.forEach(item => {
               Array.splice(Array.indexOf(item), 1);
             });
 
@@ -75,7 +84,15 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       }
 
       vm.alteraSelecionados = () => {
-        vm.Form.materiais.filter(m => m.seleciona).forEach(material => {
+        const selecionados = vm.Form.materiais.filter(m => m.seleciona);
+        if (selecionados.length == 0) {
+          FLUIGC.message.error({
+            message: 'Selecione os materiais que deseja direcionar',
+            title: 'Oops'
+          });
+          return;
+        }
+        selecionados.forEach(material => {
           material.destino = vm.armazemDestino;
           material.endereco = vm.enderecoDestino;
         })

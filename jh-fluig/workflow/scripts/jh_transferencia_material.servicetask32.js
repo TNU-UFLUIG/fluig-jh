@@ -32,6 +32,10 @@ function servicetask32(attempt, message) {
 
 				log.info(json.errorMessage);
 
+				if (json.errorMessage.message) {
+					throw json.errorMessage.message;
+				}
+
 				throw json.errorMessage;
 			}
 		}

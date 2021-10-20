@@ -12,7 +12,7 @@ function buscaMateriais() {
         "PRODUCTID": String(PRODUCTID),
         "DESTINATIONID": String(hAPI.getCardValue("material_destinoCod___" + i)),
         "DESTINATIONADDRESSID": String(hAPI.getCardValue("material_enderecoCod___" + i)),
-        "QTY": String(hAPI.getCardValue("material_enderecoQtd___" + i) || 1)
+        "QTY": Number(hAPI.getCardValue("material_qty___" + i) || 1)
       });
     }
   } while (PRODUCTID);

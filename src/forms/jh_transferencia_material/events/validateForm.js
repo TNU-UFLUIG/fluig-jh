@@ -2,8 +2,25 @@
 /*jshint -W116 */
 function validateForm(form) {
   const Errors = value(form, 'Errors');
+  const Params = value(form, 'Params');
 
-  const despesas = getChildren(form, 'despesas', ['despesaRef']);
+  const materiais = getChildren(form, 'materiais', ['material_produtoCod', 'material_destinoCod', 'material_enderecoCod']);
+
+  materiais.forEach((material, index) => {
+    if (Params.etapa == 'inicio') {
+      if (!material.material_produtoCod || material.material_produtoCod == '') {
+        Errors.push(`Informe o produto na linha ${index + 1}`);
+      }
+    }
+    if (Params.etapa == 'destinarMaterial') {
+      if (!material.material_destinoCod || material.material_destinoCod == '') {
+        Errors.push(`Informe o destino na linha ${index + 1}`);
+      }
+      if (!material.material_enderecoCod || material.material_enderecoCod == '') {
+        Errors.push(`Informe o endereço na linha ${index + 1}`);
+      }
+    }
+  });
 
   if (Errors && Errors.length > 0) {
     throw Errors.join('\n');
