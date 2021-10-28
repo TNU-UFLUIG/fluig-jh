@@ -1,0 +1,39 @@
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-non-bindable>
+        <tr ng-repeat="field in vm.Form.fields">
+            <td>
+                <div class="td-content">
+                    <input type="hidden" ng-value="field.label" name="field_label">
+                    <input type="hidden" ng-value="field.pre" name="field_pre">
+                    <input type="hidden" ng-value="field.pos" name="field_pos">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="form-group col-sm-3" ng-repeat="field in vm.Form.fields">
+        <label ng-class="{'label-no-content':!field.label}" contenteditable="true" ng-model="field.label"
+            for=""></label>
+        <i class="fluigicon fluigicon-remove icon-sm fs-float-right"
+            ng-click="vm.removeChild(vm.Form.fields,field)"></i>
+        <div class="input-group">
+            <span contenteditable="true" ng-model="field.pre" class="input-group-addon"></span>
+            <p type="text" class="form-control"></p>
+            <span contenteditable="true" ng-model="field.pos" class="input-group-addon"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.fields.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>
