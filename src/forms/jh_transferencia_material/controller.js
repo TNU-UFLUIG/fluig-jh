@@ -271,6 +271,5 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           })
         });
       }
-
     }
   ]);
