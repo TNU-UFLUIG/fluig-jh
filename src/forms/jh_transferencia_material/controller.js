@@ -27,13 +27,14 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       };
 
       vm.checkRules = function checkRules() {
-        vm.etapas = ['consulta', 'inicio', 'revisarSolicitacao', 'analisarErros'];
+        vm.etapas = ['consulta', 'inicio', 'destinarMaterial', 'revisarSolicitacao', 'analisarErros'];
 
         vm.regras = {};
         [
           { regra: 'showProudutos', def: true, etapas: vm.etapas },
           { regra: 'showHeader', def: true, etapas: vm.etapas },
           { regra: 'showDestino', def: true, etapas: ['consulta', 'destinarMaterial', 'analisarErros'] },
+          { regra: 'showOrigem', def: true, etapas: ['consulta', 'destinarMaterial', 'analisarErros'] },
           { regra: 'enableProdutos', def: true, etapas: ['inicio', 'destinarMaterial', 'analisarErros'] },
           { regra: 'enableDestino', def: true, etapas: ['destinarMaterial', 'analisarErros'] }
         ].forEach(o => {
@@ -93,10 +94,14 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           return;
         }
         selecionados.forEach(material => {
-          material.destino = vm.armazemDestino;
-          material.endereco = vm.enderecoDestino;
+          material.armazemDest = vm.armazemDestino;
+          material.enderecoDest = vm.enderecoDestino;
+          material.armazemOrig = vm.armazemOrigem;
+          material.enderecoOrig = vm.enderecoOrigem;
         })
 
+        vm.armazemOrigem = null;
+        vm.enderecoOrigem = null;
         vm.armazemDestino = null;
         vm.enderecoDestino = null;
         vm.direcionarModal = false;
@@ -116,15 +121,6 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
       vm.openModalDirecionar = () => {
         vm.direcionarModal = true;
-      }
-
-      vm.changeArmazem = (armazem, endereco) => {
-        vm.enderecoDestino = null;
-        if (vm.armazemDestino && vm.armazemDestino.enderecos) {
-          if (vm.armazemDestino.enderecos.length == 1) {
-            vm.enderecoDestino = vm.armazemDestino.enderecos[0];
-          }
-        }
       }
 
       vm.checkLocal = function checkLocal() {
@@ -271,6 +267,5 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           })
         });
       }
-
     }
   ]);
