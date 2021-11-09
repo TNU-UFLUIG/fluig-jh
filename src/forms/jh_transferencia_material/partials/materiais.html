@@ -43,28 +43,59 @@
                             </div>
                             <textarea hidden name="material_produto" ng-value="material.produto | json:0"></textarea>
                         </div>
-                        <div class="row" ng-show="vm.regras.showDestino">
+                        <div class="row" ng-show="vm.regras.showOrigem">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="">Local Destino</label>
+                                    <label for="">Armazém Origem</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
-                                        name="material_destinoDes" ng-model="material.destino"
+                                        name="material_armazemOrig_i" ng-model="material.armazemOrig"
                                         dataset="protheus_consulta_local" display-key="codigo">
                                 </div>
                             </div>
-                            <div class="col-sm-6" ng-if="material.destino.codigo">
+                            <div class="col-sm-6" ng-if="material.armazemOrig.codigo">
                                 <div class="form-group">
-                                    <label for="">Endereço</label>
+                                    <label for="">Endereço Origem</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
-                                        name="material_enderecoInput" ng-model="material.endereco"
+                                        name="material_enderecoOrig_i" ng-model="material.enderecoOrig"
                                         dataset="protheus_consulta_endereco"
-                                        filter-fields="['codLocal',material.destino.codigo]" display-key="endereco">
+                                        filter-fields="['codLocal',material.armazemOrig.codigo]" display-key="endereco">
                                 </div>
                             </div>
-                            <textarea hidden name="material_destino" ng-value="material.destino | json:0"></textarea>
-                            <input type="hidden" name="material_destinoCod" ng-value="material.destino.codigo">
-                            <textarea hidden name="material_endereco" ng-value="material.endereco | json:0"></textarea>
-                            <input type="hidden" name="material_enderecoCod" ng-value="material.endereco.endereco">
+                            <textarea hidden name="material_armazemOrig"
+                                ng-value="material.armazemOrig | json:0"></textarea>
+                            <input type="hidden" name="material_armazemOrigCod" ng-value="material.armazemOrig.codigo">
+                            <textarea hidden name="material_enderecoOrig"
+                                ng-value="material.enderecoOrig | json:0"></textarea>
+                            <input type="hidden" name="material_enderecoOrigCod"
+                                ng-value="material.enderecoOrig.endereco">
+                        </div>
+
+
+                        <div class="row" ng-show="vm.regras.showDestino">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Armazém Destino</label>
+                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                        name="material_armazemDest_i" ng-model="material.armazemDest"
+                                        dataset="protheus_consulta_local" display-key="codigo">
+                                </div>
+                            </div>
+                            <div class="col-sm-6" ng-if="material.armazemDest.codigo">
+                                <div class="form-group">
+                                    <label for="">Endereço Destino</label>
+                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                        name="material_enderecoDest_i" ng-model="material.enderecoDest"
+                                        dataset="protheus_consulta_endereco"
+                                        filter-fields="['codLocal',material.armazemDest.codigo]" display-key="endereco">
+                                </div>
+                            </div>
+                            <textarea hidden name="material_armazemDest"
+                                ng-value="material.armazemDest | json:0"></textarea>
+                            <input type="hidden" name="material_armazemDestCod" ng-value="material.armazemDest.codigo">
+                            <textarea hidden name="material_enderecoDest"
+                                ng-value="material.enderecoDest | json:0"></textarea>
+                            <input type="hidden" name="material_enderecoDestCod"
+                                ng-value="material.enderecoDest.endereco">
                         </div>
                     </td>
                     <td class="fs-text-right">
@@ -105,7 +136,23 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="">Destino</label>
+                    <label for="">Armazém Origem</label>
+                    <input type="text" fluig-autocomplete class="form-control input-lg" name="armazemOrigem"
+                        ng-model="vm.armazemOrigem" dataset="protheus_consulta_local" display-key="codigo">
+                </div>
+            </div>
+            <div class="col-sm-6" ng-if="vm.armazemOrigem.codigo">
+                <div class="form-group">
+                    <label for="">Endereço</label>
+                    <input type="text" fluig-autocomplete class="form-control input-lg" name="enderecoOrigem"
+                        ng-model="vm.enderecoOrigem" dataset="protheus_consulta_endereco"
+                        filter-fields="['codLocal',vm.armazemOrigem.codigo]" display-key="endereco">
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="">Armazém Destino</label>
                     <input type="text" fluig-autocomplete class="form-control input-lg" name="armazemDestino"
                         ng-model="vm.armazemDestino" dataset="protheus_consulta_local" display-key="codigo">
                 </div>
