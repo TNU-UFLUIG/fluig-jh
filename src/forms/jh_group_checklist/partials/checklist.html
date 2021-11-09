@@ -1,0 +1,34 @@
+<table hidden tablename="checklist" noaddbutton="true" nodeletebutton="true">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-non-bindable>
+        <tr ng-repeat="item in vm.Form.checklist">
+            <td>
+                <div class="td-content">
+                    <textarea hidden ng-value="item.item | json:0" ng-bind="item.item | json:0"
+                        name="item_item"></textarea>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row" ng-repeat="item in vm.Form.checklist">
+    <div class="form-group">
+        <label>Item</label>
+        <input class="form-control input-lg" fluig-autocomplete values="vm.ItemChecklist" display-key="title"
+            ng-model="item.item" name="item_item_i">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.checklist.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>

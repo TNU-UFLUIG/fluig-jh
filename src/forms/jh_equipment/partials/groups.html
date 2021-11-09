@@ -1,0 +1,47 @@
+<table hidden tablename="groups" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="group in vm.Form.groups">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="group.group | json:0" ng-bind="group.group | json:0" name="group_group"></textarea>
+
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="panel-body">
+
+  <table class="table table-condensed table-striped" tablename="groups" noaddbutton="true" nodeletebutton="true">
+    <thead>
+      <tr>
+        <th class="col-sm-11">Grupo</th>
+        <th class="col-sm-1"></th>
+      </tr>
+    </thead>
+    <tbody ng-non-bindable>
+      <tr ng-repeat="group in vm.Form.groups">
+        <td>
+          <input class="form-control input-lg" fluig-autocomplete values="vm.GroupChecklist" display-key="title"
+            ng-model="group.group" name="group_group_i">
+        </td>
+        <td class="fs-text-right">
+          <span ng-if="vm.Params.edit" ng-click="vm.removeChild(vm.Form.groups, group)"
+            class="fluigicon fluigicon-md fluigicon-trash fs-cursor-pointer"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel-footer">
+  <button class="btn btn-default" ng-click="vm.Form.groups.push({})">
+    Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+  </button>
+</div>

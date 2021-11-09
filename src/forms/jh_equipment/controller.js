@@ -1,4 +1,4 @@
-angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.directives'])
+angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
   .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile',
     function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile) {
@@ -41,8 +41,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
         if (window.location.hostname == 'localhost') {
           vm.Params = {
             edit: true,
+            etapa: "destinarMaterial", // destinarMaterial
             user: 'admin',
-            formMode: 'ADD' // MOD
+            formMode: 'MOD' // MOD
           };
 
           $http.get('/src/forms/partials/data.json').then(result => {
@@ -53,30 +54,5 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
           })
         }
       }
-
     }
-  ])
-  .directive('contenteditable', function () {
-    return {
-      require: 'ngModel',
-      restrict: 'A',
-      link: function (scope, elm, attr, ngModel) {
-
-        function updateViewValue() {
-          ngModel.$setViewValue(this.innerHTML);
-        }
-        //Binding it to keyup, lly bind it to any other events of interest 
-        //like change etc..
-        elm.on('keyup', updateViewValue);
-
-        scope.$on('$destroy', function () {
-          elm.off('keyup', updateViewValue);
-        });
-
-        ngModel.$render = function () {
-          elm.html(ngModel.$viewValue);
-        }
-
-      }
-    }
-  })
+  ]);

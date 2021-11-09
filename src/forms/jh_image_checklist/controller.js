@@ -23,6 +23,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
 
       vm.start = function start() {
         vm.checkLocal();
+        if (vm.Params.formMode == 'ADD') {
+          vm.Form.fields.push({});
+        }
       };
 
       vm.removeChild = function removeChild(Array, item) {

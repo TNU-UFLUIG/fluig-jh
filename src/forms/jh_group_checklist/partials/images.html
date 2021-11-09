@@ -1,0 +1,34 @@
+<table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-non-bindable>
+        <tr ng-repeat="image in vm.Form.images">
+            <td>
+                <div class="td-content">
+                    <textarea hidden ng-value="image.image | json:0" ng-bind="image.image | json:0"
+                        name="image_image"></textarea>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row" ng-repeat="image in vm.Form.images">
+    <div class="form-group">
+        <label>image</label>
+        <input class="form-control input-lg" fluig-autocomplete values="vm.ImageChecklist" display-key="title"
+            ng-model="image.image" name="image_image_i">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.images.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>

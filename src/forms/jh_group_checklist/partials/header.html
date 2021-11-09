@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <label class="control-label">Título do Grupo</label>
+                <input type="text" class="form-control input-lg" name="title" ng-model="vm.Form.title"
+                    ng-value="vm.Form.title">
+            </div>
+            <div class="col-sm-8">
+                <label class="control-label">Tipo do Grupo</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="checklist"> Cheklist
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="fields"> Campos
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="images"> Imagens
+                    </label>
+                    <input type="hidden" name="groupType" ng-value="vm.Form.groupType">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

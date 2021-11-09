@@ -59,71 +59,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         });
       };
 
-      vm.removeSelecionados = (Array) => {
-        const selecionados = Array.filter(m => m.seleciona);
-        if (selecionados.length == 0) {
-          FLUIGC.message.error({
-            message: 'Selecione os materiais que deseja direcionar',
-            title: 'Oops'
-          });
-          return;
-        }
+      vm.changeEquipment = () => {
+        if (vm.Form.equipment && vm.Form.equipment.documentid) {
 
-        FLUIGC.message.confirm({
-          message: 'Deseja excluir os registros selecionados?',
-          title: 'Excluir'
-        }, (result) => {
-          if (result) {
-            selecionados.forEach(item => {
-              Array.splice(Array.indexOf(item), 1);
-            });
-
-            $scope.$apply();
-          }
-        });
-      }
-
-      vm.alteraSelecionados = () => {
-        const selecionados = vm.Form.materiais.filter(m => m.seleciona);
-        if (selecionados.length == 0) {
-          FLUIGC.message.error({
-            message: 'Selecione os materiais que deseja direcionar',
-            title: 'Oops'
-          });
-          return;
-        }
-        selecionados.forEach(material => {
-          material.destino = vm.armazemDestino;
-          material.endereco = vm.enderecoDestino;
-        })
-
-        vm.armazemDestino = null;
-        vm.enderecoDestino = null;
-        vm.direcionarModal = false;
-      }
-
-      vm.selecionarTodos = () => {
-        vm.Form.materiais.forEach(material => {
-          material.seleciona = true;
-        })
-      }
-
-      vm.limparSelecao = () => {
-        vm.Form.materiais.forEach(material => {
-          material.seleciona = false;
-        })
-      }
-
-      vm.openModalDirecionar = () => {
-        vm.direcionarModal = true;
-      }
-
-      vm.changeArmazem = (armazem, endereco) => {
-        vm.enderecoDestino = null;
-        if (vm.armazemDestino && vm.armazemDestino.enderecos) {
-          if (vm.armazemDestino.enderecos.length == 1) {
-            vm.enderecoDestino = vm.armazemDestino.enderecos[0];
-          }
         }
       }
 
@@ -135,6 +73,14 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
             user: 'admin',
             formMode: 'MOD' // MOD
           };
+
+          $http.get('/src/forms/partials/data.json').then(result => {
+            vm.FieldChecklist = result.data.jh_field_checklist;
+            vm.GroupChecklist = result.data.jh_group_checklist;
+            vm.ImageChecklist = result.data.jh_image_checklist;
+            vm.ItemChecklist = result.data.jh_item_checklist;
+            vm.Equipments = result.data.jh_equipment;
+          })
 
           vm.Form.solicitante = { nome: "ALEX FERREIRA" };
           vm.Form.processInstanceId = 123;

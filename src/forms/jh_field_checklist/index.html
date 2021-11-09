@@ -1,7 +1,7 @@
 <html ng-app="jhApp">
 
 <head>
-	<!-- partial:../partials/head.html -->
+	<!-- partial:../partials/headLocal.html -->
 	<!-- partial -->
 	<title>Item de Checklist</title>
 </head>
@@ -22,18 +22,17 @@
 				<!-- partial -->
 				<!-- partial:partials/header.html -->
 				<!-- partial -->
-				<div class="panel panel-info">
+				<div class="panel panel-default" ng-if="vm.Form.fieldType == 'combo'">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							MATERIAIS
+							OPÇÕES
 						</h3>
 					</div>
-					<div class="panel-body">
-						<!-- partial:partials/materiais.html -->
-						<!-- partial -->
-					</div>
-				</div>
 
+					<!-- partial:partials/options.html -->
+					<!-- partial -->
+
+				</div>
 			</form>
 		</div>
 	</div>

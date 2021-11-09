@@ -1,0 +1,185 @@
+{
+  "jh_item_checklist": [
+    {
+      "documentid": 100,
+      "fields": [],
+      "title": "Aspecto geral",
+      "instruction": "Verificar traços de acidente, rodagem, ...",
+      "acceptanceCriteria": "Não são permitidos amassados no chassi e danos significativos"
+    },
+    {
+      "documentid": 101,
+      "fields": [],
+      "title": "Vazamentos constatados",
+      "instruction": "Identificar localização e componente com vazamento",
+      "acceptanceCriteria": "Não é permitido nenhum tipo de vazamento"
+    },
+    {
+      "documentid": 102,
+      "fields": [],
+      "title": "Elevação com carga",
+      "instruction": "Avaliar ruídos, vazamentos e pressão",
+      "acceptanceCriteria": "Não é permitido nenhum tipo de vazamento/ Não é permitido ruído fora do normal"
+    },
+    {
+      "documentid": 103,
+      "fields": [],
+      "title": "Pressão na elevação",
+      "instruction": "Elevar a carga com a capacidade nominal do equipamento",
+      "acceptanceCriteria": "O equipamento deve manter a carga na mesma posição por 5 minutos"
+    },
+    {
+      "documentid": 104,
+      "fields": [],
+      "title": "Marcha à Frente - Ré",
+      "instruction": "Movimentar equipamento frente - Ré",
+      "acceptanceCriteria": "Não são permitidos ruídos excessivos e mau funcionamento"
+    },
+    {
+      "documentid": 105,
+      "fields": [],
+      "title": "Frenagem",
+      "instruction": "Testar acionamento do freio",
+      "acceptanceCriteria": "Não é permitido mau funcionamento"
+    },
+    {
+      "documentid": 106,
+      "fields": [],
+      "title": "Freio de estacionamento",
+      "instruction": "Fazer teste funcional na rampa da expedição",
+      "acceptanceCriteria": "Não é permitido escorregamento do freio"
+    },
+    {
+      "documentid": 107,
+      "fields": [],
+      "title": "Pintura",
+      "instruction": "Fazer inspeção visual em todo equipamento",
+      "acceptanceCriteria": "Não são permitidos defeitos significativos (riscos/escorrimento/casca de laranja/diferença de tonalidade)"
+    },
+    {
+      "documentid": 108,
+      "fields": [],
+      "title": "Condição das fixações/soldas",
+      "instruction": "Verificar com torquimetro as fixações e verificar continuidade da solda",
+      "acceptanceCriteria": "Tolerância conforme manual da Maquina, não é permitido falha de continuidade na solda"
+    },
+    {
+      "documentid": 109,
+      "fields": [],
+      "title": "Condição das Guias do mastro",
+      "instruction": "Fazer inspeção visual",
+      "acceptanceCriteria": "Não é permitido folga excessiva nem irregularidades nas superfícies"
+    },
+    {
+      "documentid": 110,
+      "fields": [],
+      "title": "Pistão",
+      "instruction": "Fazer teste funcional",
+      "acceptanceCriteria": "Não são permitidos vazamentos, choques e travamentos"
+    },
+    {
+      "documentid": 111,
+      "fields": [],
+      "title": "Rolamentos do mastro e Carro de elevação",
+      "instruction": "Avaliar ruídos e folgas",
+      "acceptanceCriteria": "Não são permitidos ruídos nem folgas excessivas"
+    },
+    {
+      "documentid": 112,
+      "fields": [],
+      "title": "Corrente de levantamento (% de desgaste)",
+      "instruction": "Medir distancia entre os elos com régua especifica",
+      "acceptanceCriteria": "Conforme escala da régua especifica, não é permitido ferrugem"
+    },
+    {
+      "documentid": 113,
+      "fields": [],
+      "title": "Porta-garfos",
+      "instruction": "Verificar desgaste dos entalhes de ajuste dos garfos",
+      "acceptanceCriteria": "Não é permitido desgaste excessivo"
+    },
+    {
+      "documentid": 114,
+      "fields": [
+        {
+          "pre": "comprimento",
+          "pos": "mm"
+        },
+        {
+          "pre": "abertura",
+          "pos": "mm"
+        }
+      ],
+      "title": "Garfos",
+      "instruction": "Medir espessura e ângulo dos garfos",
+      "acceptanceCriteria": "Tolerâncias definidas no manual da maquina"
+    },
+    {
+      "documentid": 115,
+      "fields": [],
+      "title": "Patolas",
+      "instruction": "Verificar alinhamento (régua graduada) e abertura do compartimento das rodas de carga ( Simular montagem do eixo)",
+      "acceptanceCriteria": "Não são permitidos desvios significativos ( a abertura deve permitir a montagem do eixo)"
+    },
+    {
+      "documentid": 116,
+      "fields": [],
+      "title": "Rolamentos do mastro e porta-garfos",
+      "instruction": "Fazer teste funcional, verificar folgas e ruídos",
+      "acceptanceCriteria": "Não são permitidos ruídos e folgas excessivos"
+    },
+    {
+      "documentid": 117,
+      "fields": [],
+      "title": "Mangueiras",
+      "instruction": "Verificar integridade, deformação e vazamentos",
+      "acceptanceCriteria": "Não são permitidos vazamentos. Cuidado especial deve ser tomado em relação a deformação de alongamento das mangueiras"
+    }
+  ],
+  "jh_field_checklist": [
+    {
+      "documentid": 200,
+      "options": [
+        {
+          "$$hashKey": "object:3",
+          "value": "C",
+          "label": "Chumbo Acido"
+        },
+        {
+          "$$hashKey": "object:6",
+          "value": "L",
+          "label": "Litio"
+        },
+        {
+          "$$hashKey": "object:9",
+          "value": "E",
+          "label": "Ex-proof"
+        },
+        {
+          "$$hashKey": "object:12",
+          "value": "G",
+          "label": "Gel"
+        }
+      ],
+      "fieldType": "combo",
+      "title": "Tipo de Bateria",
+      "fieldName": "AA3_ZZTBAT"
+    }
+  ],
+  "jh_group_checklist": [
+    {
+      "documentid": 200
+    }
+  ],
+  "jh_image_checklist": [
+    {
+      "documentid": 300
+    }
+  ],
+  "jh_equipment": [
+    {
+      "documentid": 400,
+      "title": "Transpaleteira"
+    }
+  ]
+}

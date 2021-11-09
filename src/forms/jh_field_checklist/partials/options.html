@@ -1,0 +1,37 @@
+<table hidden tablename="options" noaddbutton="true" nodeletebutton="true">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-non-bindable>
+        <tr ng-repeat="option in vm.Form.options">
+            <td>
+                <div class="td-content">
+                    <input type="hidden" ng-value="option.label" name="option_label">
+                    <input type="hidden" ng-value="option.value" name="option_value">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-sm-3" ng-repeat="option in vm.Form.options">
+            <label>Valor / Título</label>
+            <i class="fluigicon fluigicon-remove icon-sm fs-float-right"
+                ng-click="vm.removeChild(vm.Form.options,option)"></i>
+            <div class="input-group">
+                <span contenteditable="true" ng-model="option.value" class="input-group-addon"></span>
+                <input type="text" class="form-control" ng-model="option.label" placeholder="Título do Campo">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-footer">
+    <button class="btn btn-default" ng-click="vm.Form.options.push({})">
+        Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+    </button>
+</div>

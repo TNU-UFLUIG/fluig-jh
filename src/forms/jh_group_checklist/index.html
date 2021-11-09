@@ -22,16 +22,40 @@
 				<!-- partial -->
 				<!-- partial:partials/header.html -->
 				<!-- partial -->
-				<div class="panel panel-default">
+				<div class="panel panel-default" ng-show="vm.Form.groupType == 'checklist'">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							ITENS DO CHECKLIST
+						</h3>
+					</div>
+					<div class="panel-body">
+						<!-- partial:partials/checklist.html -->
+						<!-- partial -->
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-show="vm.Form.groupType == 'images'">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							IMAGENS
+						</h3>
+					</div>
+					<div class="panel-body">
+						<!-- partial:partials/images.html -->
+						<!-- partial -->
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-show="vm.Form.groupType == 'fields'">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							CAMPOS
 						</h3>
 					</div>
-
-					<!-- partial:partials/fields.html -->
-					<!-- partial -->
-
+					<div class="panel-body">
+						<!-- partial:partials/fields.html -->
+						<!-- partial -->
+					</div>
 				</div>
 
 			</form>

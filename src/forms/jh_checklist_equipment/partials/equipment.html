@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="control-label">Tipo do Equipamento</label>
+                <input class="form-control input-lg" fluig-autocomplete values="vm.Equipments" display-key="title"
+                    ng-model="vm.Form.equipment" name="equipment_i" ng-change="vm.changeEquipment()">
+                <textarea hidden name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="control-label">Série</label>
+                <input class="form-control input-lg" fluig-autocomplete values="vm.Series" display-key="title"
+                    ng-model="vm.Form.serie" name="serie_i">
+                <textarea hidden name="serie" ng-value="vm.Form.serie | json:0"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
