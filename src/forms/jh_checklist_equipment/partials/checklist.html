@@ -1,5 +1,40 @@
 <div class="panel panel-default">
   <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.Form.checklist | filter: {documentid: group.group.documentid}">
+          <td>
+            <div class="row">
+              <div class="col-sm-9">
+                <h4>{{item.item.title}} / {{item.item.instruction}} / {{item.item.acceptanceCriteria}}</h4>
+              </div>
+              <div class="col-sm-3">
+                <div class="btn-group">
+                  <button type="button" class="btn" ng-class="{'btn-success':item.value=='ok'
+                    ,'btn-default':item.value!='ok' }" ng-click="item.value = 'ok'">OK</button>
+                  <button type="button" class="btn" ng-class="{'btn-danger':item.value=='nok'
+                    ,'btn-default':item.value!='nok'}" ng-click="item.value = 'nok'">NOK</button>
+                  <button type="button" class="btn" ng-class="{'btn-warning':item.value=='ac'
+                    ,'btn-default':item.value!='ac' }" ng-click="item.value = 'ac'">AC</button>
+                  <button type="button" class="btn" ng-class="{'btn-primary':item.value=='na'
+                    ,'btn-default':item.value!='na' }" ng-click="item.value = 'na'">NA</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <textarea class="form-control" name="item_obs_i" elastic ng-model="item.obs"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </div>

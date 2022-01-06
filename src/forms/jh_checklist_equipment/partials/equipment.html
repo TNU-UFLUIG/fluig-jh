@@ -5,15 +5,54 @@
                 <label class="control-label">Tipo do Equipamento</label>
                 <input class="form-control input-lg" fluig-autocomplete values="vm.Equipments" display-key="title"
                     ng-model="vm.Form.equipment" name="equipment_i" ng-change="vm.changeEquipment()">
-                <textarea hidden name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="control-label">Série</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="dsContratosLoc" min-length="3"
+                    display-key="COD_PRODUTO" ng-model="vm.Form.serie" name="serieCodigo" search-field="concatena">
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Modelo</label>
+                <input class="form-control input-lg" ng-value="vm.Form.serie.DESC_PRODUTO" name="serieDesc"
+                    ng-readonly="true">
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Cliente</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="dsClienteProt" display-key="codigo"
+                    ng-model="vm.Form.cliente" name="clienteCodigo">
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Loja</label>
+                <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja">
+            </div>
+            <div class="col-sm-4">
+                <label class="control-label">Nome</label>
+                <input class="form-control input-lg" ng-value="vm.Form.cliente.nome" name="clienteNome">
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <label class="control-label">Série</label>
-                <input class="form-control input-lg" fluig-autocomplete values="vm.Series" display-key="title"
-                    ng-model="vm.Form.serie" name="serie_i">
-                <textarea hidden name="serie" ng-value="vm.Form.serie | json:0"></textarea>
+                <label class="control-label">Horímetro</label>
+                <input class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.horimetro"
+                    name="horimetro_i">
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">Série da Bateria Incorporada</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt"
+                    display-key="B1_COD" ng-model="vm.Form.serieBateria" name="serieBateria_i">
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">Ativo Bat. (casp Sobresalente)</label>
+                <input class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.ativoBateria"
+                    name="ativoBateria" ng-readonly="true">
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">Série Carregador</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt"
+                    display-key="B1_COD" ng-model="vm.Form.serieCarregador" name="serieCarregador_i">
             </div>
         </div>
     </div>

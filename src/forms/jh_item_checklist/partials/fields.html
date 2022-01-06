@@ -1,22 +1,3 @@
-<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody ng-non-bindable>
-        <tr ng-repeat="field in vm.Form.fields">
-            <td>
-                <div class="td-content">
-                    <input type="hidden" ng-value="field.label" name="field_label">
-                    <input type="hidden" ng-value="field.pre" name="field_pre">
-                    <input type="hidden" ng-value="field.pos" name="field_pos">
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
 <div class="panel-body">
     <div class="form-group col-sm-4" ng-repeat="field in vm.Form.fields">
         <label ng-class="{'label-no-content':!field.label}" contenteditable="true" ng-model="field.label"
@@ -31,9 +12,7 @@
     </div>
 </div>
 <div class="panel-footer">
-
     <button class="btn btn-default" ng-click="vm.Form.fields.push({})">
         Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
     </button>
-
 </div>

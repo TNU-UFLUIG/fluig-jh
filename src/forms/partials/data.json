@@ -168,7 +168,66 @@
   ],
   "jh_group_checklist": [
     {
-      "documentid": 200
+      "checklist": [
+        {
+          "$$hashKey": "object:6",
+          "item": {
+            "documentid": 100,
+            "fields": [],
+            "title": "Aspecto geral",
+            "instruction": "Verificar traços de acidente, rodagem, ...",
+            "acceptanceCriteria": "Não são permitidos amassados no chassi e danos significativos"
+          }
+        },
+        {
+          "$$hashKey": "object:10",
+          "item": {
+            "documentid": 101,
+            "fields": [],
+            "title": "Vazamentos constatados",
+            "instruction": "Identificar localização e componente com vazamento",
+            "acceptanceCriteria": "Não é permitido nenhum tipo de vazamento"
+          }
+        },
+        {
+          "$$hashKey": "object:14",
+          "item": {
+            "documentid": 102,
+            "fields": [],
+            "title": "Elevação com carga",
+            "instruction": "Avaliar ruídos, vazamentos e pressão",
+            "acceptanceCriteria": "Não é permitido nenhum tipo de vazamento/ Não é permitido ruído fora do normal"
+          }
+        },
+        {
+          "$$hashKey": "object:18",
+          "item": {
+            "documentid": 103,
+            "fields": [],
+            "title": "Pressão na elevação",
+            "instruction": "Elevar a carga com a capacidade nominal do equipamento",
+            "acceptanceCriteria": "O equipamento deve manter a carga na mesma posição por 5 minutos"
+          }
+        },
+        {
+          "$$hashKey": "object:22",
+          "item": {
+            "documentid": 104,
+            "fields": [],
+            "title": "Marcha à Frente - Ré",
+            "instruction": "Movimentar equipamento frente - Ré",
+            "acceptanceCriteria": "Não são permitidos ruídos excessivos e mau funcionamento"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "$$hashKey": "object:3"
+        }
+      ],
+      "images": [],
+      "title": "1º Controle geral e teste funcional",
+      "groupType": "checklist"
     }
   ],
   "jh_image_checklist": [

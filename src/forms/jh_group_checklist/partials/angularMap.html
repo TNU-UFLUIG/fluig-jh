@@ -2,3 +2,57 @@
 <input name="Errors" type="hidden" id="Errors" ng-value="vm.Errors | json:0">
 
 <input name="displaykey" type="hidden" ng-value="vm.Form.title">
+
+<table hidden tablename="checklist" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="item in vm.Form.checklist">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="item.item | json:0" ng-bind="item.item | json:0" name="item_item"></textarea>
+          <input type="hidden" name="item_itemId" ng-value="item.item.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="field in vm.Form.fields">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="field.field | json:0" ng-bind="field.field | json:0" name="field_field"></textarea>
+          <input type="hidden" name="field_fieldId" ng-value="field.field.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="image in vm.Form.images">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="image.image | json:0" ng-bind="image.image | json:0" name="image_image"></textarea>
+          <input type="hidden" name="image_imageId" ng-value="image.image.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

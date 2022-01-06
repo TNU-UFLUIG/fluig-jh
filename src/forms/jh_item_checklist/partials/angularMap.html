@@ -2,3 +2,22 @@
 <input name="Errors" type="hidden" id="Errors" ng-value="vm.Errors | json:0">
 
 <input name="displaykey" type="hidden" ng-value="vm.Form.title">
+
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="field in vm.Form.fields">
+      <td>
+        <div class="td-content">
+          <input type="hidden" ng-value="field.label" name="field_label">
+          <input type="hidden" ng-value="field.pre" name="field_pre">
+          <input type="hidden" ng-value="field.pos" name="field_pos">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

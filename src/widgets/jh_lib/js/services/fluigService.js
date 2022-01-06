@@ -126,7 +126,7 @@ angular.module('jh.services')
           'metadata#active',
           'cardid',
           'companyid',
-          'documentid',
+          // 'documentid',
           'id',
           'tableid',
           'version'

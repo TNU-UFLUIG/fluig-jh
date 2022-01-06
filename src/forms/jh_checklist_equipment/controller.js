@@ -1,7 +1,7 @@
 angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
-  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile',
-    function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile) {
+  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', 'jhService', '$compile',
+    function jhController($scope, $http, $timeout, $log, formService, fluigService, jhService, $compile) {
       const vm = this;
 
       if (window.location.hostname == 'localhost') {
@@ -43,8 +43,13 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         if (vm.Params.etapa == 'inicio') {
           vm.Form.solicitante = fluigService.getUsuarios(vm.Params.user)[0];
           vm.Form.requestDate = new Date().getTime();
-          vm.Form.materiais.push({});
         }
+
+        vm.Equipments = jhService.getEquipment();
+        vm.GroupChecklist = jhService.getGroupChecklist();
+        vm.FieldChecklist = jhService.getFieldChecklist();
+        vm.ImageChecklist = jhService.getImageChecklist();
+        vm.ItemChecklist = jhService.getItemChecklist();
       }
 
       vm.removeChild = function removeChild(Array, item) {
@@ -60,8 +65,43 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       };
 
       vm.changeEquipment = () => {
-        if (vm.Form.equipment && vm.Form.equipment.documentid) {
 
+        console.log('changeEquipment');
+
+        vm.Form.fields = [];
+        vm.Form.images = [];
+        vm.Form.checklist = [];
+        vm.Form.options = [];
+
+        if (vm.Form.equipment && vm.Form.equipment.documentid) {
+          vm.Form.groups = jhService.getGroupEquipment(vm.Form.equipment.documentid);
+          vm.Form.groups.forEach(group => {
+            group.group = group.group_group;
+            let fields = (group.group.groupType == 'fields') ? jhService.getGroupFields(group.groupId) : [];
+            let images = (group.group.groupType == 'images') ? jhService.getGroupImages(group.groupId) : [];
+            let checklist = (group.group.groupType == 'checklist') ? jhService.getGroupItem(group.groupId) : [];
+
+            fields.forEach(field => {
+              field.field = field.field_field;
+              let options = jhService.getFieldOptions(field.field.documentid);
+              options.forEach(option => {
+                option.label = option.option_label;
+                option.value = option.option_value;
+              });
+
+              vm.Form.options = vm.Form.options.concat(options);
+            });
+            images.forEach(image => {
+              image.image = image.image_image;
+            });
+            checklist.forEach(item => {
+              item.item = item.item_item;
+            });
+
+            vm.Form.fields = vm.Form.fields.concat(fields);
+            vm.Form.images = vm.Form.images.concat(images);
+            vm.Form.checklist = vm.Form.checklist.concat(checklist);
+          });
         }
       }
 
@@ -83,139 +123,7 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           })
 
           vm.Form.solicitante = { nome: "ALEX FERREIRA" };
-          vm.Form.processInstanceId = 123;
-          vm.Form.requestDate = new Date().getTime();
-          vm.Form.area = "TECNOLOGIA DA INFORMAÇÃO";
-          vm.Form.materiais = [
-            {
-              "produto": {
-                "produto": {
-                  "descricao": "PRODUTO A"
-                },
-                "origem": {
-                  "codigo": 3,
-                  "descricao": "ARMAZEM C",
-                  "enderecos": [
-                    {
-                      "codigo": "PI03A01",
-                      "descricao": "PORTARIA 1",
-                      "endereco": "RUA SAO SEBASTIAO 80, VILA. OSASCO/SP",
-                      "displaykey": "PI03A01 - RUA SAO SEBASTIAO 80, VILA. OSASCO/SP"
-                    }
-                  ],
-                  "displaykey": "3 - ARMAZEM C"
-                },
-                "descricao": "PRODUTO A"
-              }
-            },
-            {
-              "produto": {
-                "produto": {
-                  "descricao": "PRODUTO B"
-                },
-                "origem": {
-                  "codigo": 2,
-                  "descricao": "ARMAZEM B",
-                  "enderecos": [
-                    {
-                      "codigo": "PI03A01",
-                      "descricao": "PORTARIA 1",
-                      "endereco": "RUA SAO PAULO 20, CENTRO. DIADEMA/SP",
-                      "displaykey": "PI03A01 - RUA SAO PAULO 20, CENTRO. DIADEMA/SP"
-                    }
-                  ],
-                  "displaykey": "2 - ARMAZEM B"
-                },
-                "descricao": "PRODUTO B"
-              }
-            },
-            {
-              "produto": {
-                "produto": {
-                  "descricao": "PRODUTO E"
-                },
-                "origem": {
-                  "codigo": 2,
-                  "descricao": "ARMAZEM B",
-                  "enderecos": [
-                    {
-                      "codigo": "PI03A01",
-                      "descricao": "PORTARIA 1",
-                      "endereco": "RUA SAO PAULO 20, CENTRO. DIADEMA/SP",
-                      "displaykey": "PI03A01 - RUA SAO PAULO 20, CENTRO. DIADEMA/SP"
-                    }
-                  ],
-                  "displaykey": "2 - ARMAZEM B"
-                },
-                "descricao": "PRODUTO E"
-              }
-            }
-          ];
         }
-        vm.Armazens = [
-          {
-            codigo: 1, descricao: 'ARMAZEM A', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA PADRAO 100, CENTRO. SAO PAULO/SP' },
-              { codigo: 'PI03A02', descricao: 'PORTARIA 2', endereco: 'RUA PADRAO 130, CENTRO. SAO PAULO/SP' },
-              { codigo: 'PI03A03', descricao: 'PORTARIA 3', endereco: 'RUA PADRAO 150, CENTRO. SAO PAULO/SP' },
-            ]
-          },
-          {
-            codigo: 2, descricao: 'ARMAZEM B', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA SAO PAULO 20, CENTRO. DIADEMA/SP' }
-            ]
-          },
-          {
-            codigo: 3, descricao: 'ARMAZEM C', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA SAO SEBASTIAO 80, VILA. OSASCO/SP' }
-            ]
-          },
-          {
-            codigo: 4, descricao: 'ARMAZEM D', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA JOSE BONIFACIO 220, CENTRO. ITUPEVA/SP' }
-            ]
-          },
-          {
-            codigo: 5, descricao: 'ARMAZEM E', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA ORIENTE 100, CENTRO. SAO PAULO/SP' }
-            ]
-          },
-          {
-            codigo: 6, descricao: 'ARMAZEM F', enderecos: [
-              { codigo: 'PI03A01', descricao: 'PORTARIA 1', endereco: 'RUA DOM BOSCO 100, BAIRRO PADRAO. CAMPINAS/SP' }
-            ]
-          },
-        ]
-
-        vm.Produtos = [
-          { descricao: 'PRODUTO A' },
-          { descricao: 'PRODUTO B' },
-          { descricao: 'PRODUTO C' },
-          { descricao: 'PRODUTO D' },
-          { descricao: 'PRODUTO E' },
-          { descricao: 'PRODUTO F' },
-          { descricao: 'PRODUTO G' },
-        ]
-
-        vm.Materiais = [
-          { produto: vm.Produtos[0], origem: vm.Armazens[2] },
-          { produto: vm.Produtos[1], origem: vm.Armazens[1] },
-          { produto: vm.Produtos[2], origem: vm.Armazens[0] },
-          { produto: vm.Produtos[3], origem: vm.Armazens[0] },
-          { produto: vm.Produtos[4], origem: vm.Armazens[1] },
-          { produto: vm.Produtos[5], origem: vm.Armazens[2] }
-        ]
-
-        vm.Materiais.forEach(material => {
-          material.descricao = `${material.produto.descricao}`
-        });
-
-        vm.Armazens.forEach(armazem => {
-          armazem.displaykey = `${armazem.codigo} - ${armazem.descricao}`;
-          armazem.enderecos.forEach(endereco => {
-            endereco.displaykey = `${endereco.codigo} - ${endereco.endereco}`;
-          })
-        });
       }
 
     }

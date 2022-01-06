@@ -1,26 +1,7 @@
-<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody ng-non-bindable>
-        <tr ng-repeat="field in vm.Form.fields">
-            <td>
-                <div class="td-content">
-                    <textarea hidden ng-value="field.field | json:0" ng-bind="field.field | json:0"
-                        name="field_field"></textarea>
-
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="row" ng-repeat="field in vm.Form.fields">
+<div ng-repeat="field in vm.Form.fields">
     <div class="form-group">
         <label>Campo</label>
-        <input class="form-control input-lg" fluig-autocomplete values="vm.FieldChecklist"  display-key="title"
+        <input class="form-control input-lg" fluig-autocomplete dataset="jh_field_checklist"  display-key="title"
             ng-model="field.field" name="field_field_i">
     </div>
 </div>

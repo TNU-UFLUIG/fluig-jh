@@ -1,7 +1,7 @@
 <html ng-app="jhApp">
 
 <head>
-	<!-- partial:../partials/headLocal.html -->
+	<!-- partial:../partials/head.html -->
 	<!-- partial -->
 	<title>Checklist de Equipamentos</title>
 </head>
@@ -34,24 +34,36 @@
 					</div>
 				</div>
 
-				<div class="panel panel-default" ng-repeat="group in vm.Form.groupChecklist">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							{{group.title}}
+							ORIENTAÇÕES
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div ng-if="group.groupType == 'checklist'">
+						<!-- partial:partials/orientacoes.html -->
+						<!-- partial -->
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-repeat="group in vm.Form.groups">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							{{group.group.title}}
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div ng-if="group.group.groupType == 'checklist'">
 							<!-- partial:partials/checklist.html -->
 							<!-- partial -->
 						</div>
 
-						<div ng-if="group.groupType == 'images'">
+						<div ng-if="group.group.groupType == 'images'">
 							<!-- partial:partials/images.html -->
 							<!-- partial -->
 						</div>
 
-						<div ng-if="group.groupType == 'fields'">
+						<div ng-if="group.group.groupType == 'fields'">
 							<!-- partial:partials/fields.html -->
 							<!-- partial -->
 						</div>

@@ -7,3 +7,109 @@
   ng-bind="vm.Form.solicitante | json:0"></textarea>
 <input type="hidden" name="requestDate" ng-value="vm.Form.requestDate">
 <input type="hidden" name="area" ng-value="vm.Form.area">
+<input type="hidden" name="horimetro" ng-value="vm.Form.horimetro">
+
+<textarea hidden name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
+<textarea hidden name="serie" ng-value="vm.Form.serie | json:0"></textarea>
+<textarea hidden name="cliente" ng-value="vm.Form.cliente | json:0"></textarea>
+<textarea hidden name="serieBateria" ng-value="vm.Form.serieBateria | json:0"></textarea>
+<textarea hidden name="serieCarregador" ng-value="vm.Form.serieBateria | json:0"></textarea>
+
+<table hidden tablename="groups" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="group in vm.Form.groups">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="group.group | json:0" ng-bind="group.group | json:0" name="group_group"></textarea>
+          <input type="hidden" name="group_documentid" ng-value="group.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table hidden tablename="checklist" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="item in vm.Form.checklist">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="item.item | json:0" ng-bind="item.item | json:0" name="item_item"></textarea>
+          <input type="hidden" name="item_documentid" ng-value="item.documentid">
+          <input type="hidden" name="item_groupId" ng-value="item.groupId">
+          <input type="hidden" name="item_value" ng-value="item.value">
+          <input type="hidden" name="item_obs" ng-value="item.obs">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="field in vm.Form.fields">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="field.field | json:0" ng-bind="field.field | json:0" name="field_field"></textarea>
+          <input type="hidden" name="field_documentid" ng-value="field.documentid">
+          <input type="hidden" name="field_groupId" ng-value="field.groupId">
+          <input type="hidden" name="field_value" ng-value="field.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="options" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="option in vm.Form.options">
+      <td>
+        <div class="td-content">
+          <input type="hidden" name="option_documentid" ng-value="option.documentid">
+          <input type="hidden" name="option_label" ng-value="option.label">
+          <input type="hidden" name="option_value" ng-value="option.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="image in vm.Form.images">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="image.image | json:0" ng-bind="image.image | json:0" name="image_image"></textarea>
+          <input type="hidden" name="image_documentid" ng-value="image.documentid">
+          <input type="hidden" name="image_groupId" ng-value="image.groupId">
+          <input type="hidden" name="image_value" ng-value="image.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

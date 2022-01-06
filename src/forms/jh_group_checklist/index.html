@@ -1,9 +1,9 @@
 <html ng-app="jhApp">
 
 <head>
-	<!-- partial:../partials/headLocal.html -->
+	<!-- partial:../partials/head.html -->
 	<!-- partial -->
-	<title>Item de Checklist</title>
+	<title>Grupos de Checklist</title>
 </head>
 
 <body ng-controller="jhController as vm">
@@ -22,7 +22,7 @@
 				<!-- partial -->
 				<!-- partial:partials/header.html -->
 				<!-- partial -->
-				<div class="panel panel-default" ng-show="vm.Form.groupType == 'checklist'">
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'checklist'">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							ITENS DO CHECKLIST
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 
-				<div class="panel panel-default" ng-show="vm.Form.groupType == 'images'">
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'images'">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							IMAGENS
@@ -46,7 +46,7 @@
 					</div>
 				</div>
 
-				<div class="panel panel-default" ng-show="vm.Form.groupType == 'fields'">
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'fields'">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							CAMPOS

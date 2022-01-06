@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="image in vm.Form.images | filter: {documentid: group.group.documentid}">
+          <td>
+            <div class="row">
+              <div class="col-sm-8">
+                <h4>{{image.image.title}}</h4>
+              </div>
+              <div class="col-sm-2">
+
+              </div>
+              <div class="col-sm-2">
+
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
