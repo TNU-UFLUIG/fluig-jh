@@ -10,13 +10,46 @@
         <tr ng-repeat="image in vm.Form.images | filter: {documentid: group.group.documentid}">
           <td>
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-3">
                 <h4>{{image.image.title}}</h4>
               </div>
-              <div class="col-sm-2">
-
+              <div class="col-sm-3">
+                <div class="btn-group">
+                  <button type="button" class="btn" ng-class="{'btn-success':image.value=='ok'
+                    ,'btn-default':image.value!='ok' }" ng-click="image.value = 'ok'">OK</button>
+                  <button type="button" class="btn" ng-class="{'btn-danger':image.value=='nok'
+                    ,'btn-default':image.value!='nok'}" ng-click="image.value = 'nok'">NOK</button>
+                  <button type="button" class="btn" ng-class="{'btn-warning':image.value=='ac'
+                    ,'btn-default':image.value!='ac' }" ng-click="image.value = 'ac'">AC</button>
+                  <button type="button" class="btn" ng-class="{'btn-primary':image.value=='na'
+                    ,'btn-default':image.value!='na' }" ng-click="image.value = 'na'">NA</button>
+                </div>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
+                <!-- <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja"
+                  ng-readonly="true"> -->
+
+                <input type="text" class="form-control" ng-model="image.docDesc" name="image_docDesc_i"
+                  ng-readonly="true">
+              </div>
+
+              <div class="col-sm-3">
+                <div class="btn-group">
+                  <button class="btn btn-default" type="button" ng-click="vm.upload(image, image.image.title)">
+                    Incluir
+                  </button>
+                  <button ng-if="image.docDesc && vm.Params.edit" class="btn btn-danger" type="button"
+                    ng-click="vm.deleteFile(image)">
+                    Excluir
+                  </button>
+                  <button type="button" ng-if="image.docId" class="btn btn-default"
+                    ng-click="vm.openDocument(image.docId, image.docVersion)">
+                    Visualizar
+                  </button>
+                  <!-- <a ng-if="image.docId" class="btn btn-default" target="_blank" ng-href="/portal/p/01/ecmnavigation?app_ecm_navigation_doc={{image.docId}}">
+                      <i class="fluigicon fluigicon-export" style="font-size: 20px;"></i>
+                    </a> -->
+                </div>
 
               </div>
             </div>

@@ -4,45 +4,85 @@
             <div class="col-sm-12">
                 <label class="control-label">Tipo do Equipamento</label>
                 <input class="form-control input-lg" fluig-autocomplete values="vm.Equipments" display-key="title"
-                    ng-model="vm.Form.equipment" name="equipment_i" ng-change="vm.changeEquipment()">
+                    ng-model="vm.Form.equipment" name="equipment_i" ng-change="vm.changeEquipment()"
+                    data-fluig-required="true" data-fluig-state-valid="0,4">
 
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <label class="control-label">Série</label>
-                <input class="form-control input-lg" fluig-autocomplete dataset="dsContratosLoc" min-length="3"
-                    display-key="COD_PRODUTO" ng-model="vm.Form.serie" name="serieCodigo" search-field="concatena">
+                <div class="input-group">
+                    <input type="text" id="serie_i" name="serie_i" class="form-control input-lg"
+                        ng-blur="vm.buscaSerie('serie', 'COD_PRODUTO')" data-fluig-required="true"
+                        data-fluig-state-valid="0,4" ng-value="vm.Form.serie.COD_PRODUTO" />
+                    <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                        ng-click="vm.zoomProdLoc('serie')">
+                        <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsContratosLoc" min-length="3"
+                    display-key="COD_PRODUTO" ng-model="vm.Form.serie" name="serieCodigo" search-field="concatena"> -->
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <label class="control-label">Modelo</label>
                 <input class="form-control input-lg" ng-value="vm.Form.serie.DESC_PRODUTO" name="serieDesc"
                     ng-readonly="true">
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <label class="control-label">Cliente</label>
-                <input class="form-control input-lg" fluig-autocomplete dataset="dsClienteProt" display-key="codigo"
-                    ng-model="vm.Form.cliente" name="clienteCodigo">
+
+                <div class="input-group">
+                    <input type="text" class="form-control input-lg zoom-tdi" id="cliente_i" name="cliente_i"
+                        data-fluig-required="true" data-fluig-state-valid="0,4" ng-value="vm.Form.cliente.codigo" />
+                    <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                        ng-click="vm.zoomClientes('cliente', 'codigo')">
+
+                        <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsClienteProt" min-length="3"
+                    display-key="codigo" ng-model="vm.Form.cliente" name="clienteCodigo" search-field="filtro"> -->
             </div>
             <div class="col-sm-2">
                 <label class="control-label">Loja</label>
-                <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja">
+                <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja"
+                    ng-readonly="true">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
                 <label class="control-label">Nome</label>
-                <input class="form-control input-lg" ng-value="vm.Form.cliente.nome" name="clienteNome">
+                <input class="form-control input-lg" ng-value="vm.Form.cliente.nome" name="clienteNome"
+                    ng-readonly="true">
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3">
                 <label class="control-label">Horímetro</label>
                 <input class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.horimetro"
-                    name="horimetro_i">
+                    name="horimetro_i" data-fluig-required="true" data-fluig-state-valid="0,4">
             </div>
             <div class="col-sm-3">
                 <label class="control-label">Série da Bateria Incorporada</label>
-                <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt"
-                    display-key="B1_COD" ng-model="vm.Form.serieBateria" name="serieBateria_i">
+
+                <div class="input-group">
+                    <input type="text" id="serieBateria_i" name="serieBateria_i" class="form-control input-lg"
+                        ng-blur="vm.buscaSerie('serieBateria', 'COD_PRODUTO')" data-fluig-required="true"
+                        data-fluig-state-valid="0,4" ng-value="vm.Form.serieBateria.COD_PRODUTO" />
+                    <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                        ng-click="vm.zoomProdLoc('serieBateria')">
+                        <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt" min-length="3"
+                    display-key="B1_COD" ng-model="vm.Form.serieBateria" name="serieBateria_i" search-field="concatena"> -->
             </div>
             <div class="col-sm-3">
                 <label class="control-label">Ativo Bat. (casp Sobresalente)</label>
@@ -51,8 +91,19 @@
             </div>
             <div class="col-sm-3">
                 <label class="control-label">Série Carregador</label>
-                <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt"
-                    display-key="B1_COD" ng-model="vm.Form.serieCarregador" name="serieCarregador_i">
+                <div class="input-group">
+                    <input type="text" id="serieCarregador_i" name="serieCarregador_i" class="form-control input-lg"
+                        ng-blur="vm.buscaSerie('serieCarregador', 'COD_PRODUTO')" data-fluig-required="true"
+                        data-fluig-state-valid="0,4" ng-value="vm.Form.serieCarregador.COD_PRODUTO" />
+                    <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                        ng-click="vm.zoomProdLoc('serieCarregador')">
+                        <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                        </span>
+                    </div>
+                </div>
+                <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsEmpilhadeiraProt" min-length="3"
+                    display-key="B1_COD" ng-model="vm.Form.serieCarregador" name="serieCarregador_i"
+                    search-field="concatena"> -->
             </div>
         </div>
     </div>

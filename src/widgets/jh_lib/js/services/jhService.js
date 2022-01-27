@@ -52,6 +52,16 @@ angular.module('jh.services')
           documentid,
         }, fields);
       },
+      getChecklistFields: (documentid, fields) => {
+        return fluigService.getDataset('jh_item_checklist', {
+          documentid, tablename: 'fields'
+        }, fields);
+      },
 
+      getContratoLoc: (serie, fields) => {
+        return fluigService.getDataset('dsContratosLoc', {
+          serie
+        }, fields);
+      }
     })
   ]);

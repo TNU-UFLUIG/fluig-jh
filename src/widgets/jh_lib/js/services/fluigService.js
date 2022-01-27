@@ -3,7 +3,22 @@ angular.module('jh.services')
     ($q, $http, $log, $document, globalService) => ({
 
       active: DatasetFactory.createConstraint('metadata#active', true, true, ConstraintType.MUST),
-
+      propertiesToIgnore: [
+        'Params',
+        'Errors',
+        'metadata#id',
+        'metadata#parent_id',
+        'metadata#version',
+        'metadata#card_index_id',
+        'metadata#card_index_version',
+        'metadata#active',
+        'cardid',
+        'companyid',
+        'documentid',
+        'id',
+        'tableid',
+        'version'
+      ],
       /**
        * Retorna os usuários do Fluig
        *
@@ -103,8 +118,7 @@ angular.module('jh.services')
             .toString(16)
             .substring(1);
         }
-        return `${s4() + s4()}$${s4()}$${s4()}$${
-                s4()}$${s4()}${s4()}${s4()}`;
+        return `${s4() + s4()}$${s4()}$${s4()}$${s4()}$${s4()}${s4()}${s4()}`;
       },
 
       /**
@@ -150,6 +164,57 @@ angular.module('jh.services')
         });
 
         return dataset;
+      },
+      newCard: function newCard(document) {
+        const defer = $q.defer();
+        try {
+          console.log(document);
+          let cardFormData = this.jsonToFormData(document);
+          console.log(cardFormData)
+
+          let param = {
+            "version": 1000,
+            "parentDocumentId": document["metadata#parent_id"],
+            "inheritSecurity": true,
+            "formData": cardFormData
+          };
+
+          $http.post('/api/public/2.0/cards/create', param)
+            .then((response) => {
+              defer.resolve(response.data);
+            }, (error) => {
+              $log.error('editCard Failed: ', error);
+              defer.reject(error);
+            });
+        } catch (error) {
+          $log.error(error);
+          defer.reject(error);
+        }
+
+        return defer.promise;
+      },
+      jsonToFormData: function jsonToFormData(document) {
+        let cardFormData = [];
+        for (var key in document) {
+          if ($.inArray(key, this.propertiesToIgnore) < 0) {
+            if (angular.isArray(document[key])) {
+              angular.forEach(document[key], (child, index) => {
+                for (var childKey in child) {
+                  cardFormData.push({
+                    name: childKey + '___' + (index + 1),
+                    value: angular.isObject(child[childKey]) ? JSON.stringify(child[childKey]) : child[childKey]
+                  })
+                }
+              });
+            } else {
+              cardFormData.push({
+                name: key,
+                value: angular.isObject(document[key]) ? JSON.stringify(document[key]) : document[key]
+              });
+            }
+          }
+        }
+        return cardFormData;
       },
     })
 

@@ -2,7 +2,7 @@
     <div class="form-group col-sm-4" ng-repeat="field in vm.Form.fields">
         <label ng-class="{'label-no-content':!field.label}" contenteditable="true" ng-model="field.label"
             for=""></label>
-        <i class="fluigicon fluigicon-remove icon-sm fs-float-right"
+        <i class="fluigicon fluigicon-remove icon-sm fs-float-right" ng-show="vm.Params.edit"
             ng-click="vm.removeChild(vm.Form.fields,field)"></i>
         <div class="input-group">
             <span contenteditable="true" ng-model="field.pre" class="input-group-addon"></span>
@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="panel-footer">
+<div class="panel-footer" ng-show="vm.Params.edit">
     <button class="btn btn-default" ng-click="vm.Form.fields.push({})">
         Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
     </button>

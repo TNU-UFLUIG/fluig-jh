@@ -10,12 +10,16 @@
         <tr ng-repeat="field in vm.Form.fields | filter: {documentid: group.group.documentid}">
           <td>
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-6" ng-show="field.field.fieldType == 'combo'">
                 <label for="">{{field.field.title}}</label>
-                <select class="form-control" name="field_value_i" ng-model="field.value">
+                <select class="form-control" name="field_value_s" ng-model="field.value">
                   <option ng-repeat="option in vm.Form.options | filter: {documentid: field.field.documentid}"
-                    value="{{option.value}}">{{option.label}}}}</option>
+                    value="{{option.value}}">{{option.label}}</option>
                 </select>
+              </div>
+              <div class="col-sm-6" ng-show="field.field.fieldType == 'livre'">
+                <label for="">{{field.field.title}}</label>
+                <textarea elastic class="form-control input-lg" name="field_value_t" ng-model="field.value"></textarea>
               </div>
             </div>
           </td>

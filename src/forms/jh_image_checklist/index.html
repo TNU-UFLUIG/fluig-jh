@@ -1,9 +1,9 @@
 <html ng-app="jhApp">
 
 <head>
-	<!-- partial:../partials/head.html -->
+	<!-- partial:../partials/headLocal.html -->
 	<!-- partial -->
-	<title>Item de Checklist</title>
+	<title>Imagens de Checklist</title>
 </head>
 
 <body ng-controller="jhController as vm">
@@ -20,8 +20,51 @@
 
 				<!-- partial:partials/angularMap.html -->
 				<!-- partial -->
+
+				<!-- partial:../partials/alerts.html -->
+				<!-- partial -->
+
 				<!-- partial:partials/header.html -->
 				<!-- partial -->
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							IMPORTAR
+						</h3>
+					</div>
+
+					<div class="panel-body">
+						<div class="col-sm-12" ng-show="!vm.loading">
+							<div ngf-drop="vm.readFile($file)"
+								ngf-drag-over-class="{ accept:'dragover', reject:'dragover-err', delay:100}"
+								ngf-select="vm.readFile($file)" class="col-sm-12 drop-box fs-cursor-pointer fs-txt-center">
+								<span class="fluigicon fluigicon-xl fluigicon-upload"></span>
+								<h2>Clique ou arraste o arquivo aqui</h2>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<button class="btn btn-default btn-lg" ng-click="vm.importar()">Importar</button>
+						</div>
+						<div class="col-sm-12">
+							<table class="table table-condensed table-striped">
+								<thead>
+									<tr>
+										<th>Imagem</th>
+										<th>Texto de Ajuda</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in vm.ItensImportar">
+										<td>{{item.title}}</td>
+										<td>{{item.help}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
 			</form>
 		</div>
 	</div>

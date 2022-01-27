@@ -27,7 +27,21 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-sm-3"
+                ng-repeat="itemField in vm.Form.itemFields | filter: {documentid: item.item.documentid}">
+
+                <label ng-class="{'label-no-content':!itemField.label}">{{itemField.label}}</label>
+                <div class="input-group">
+                  <span class="input-group-addon">{{itemField.pre}}</span>
+                  <input type="text" name="itemField_value_i" ng-model="itemField.value" class="form-control">
+                  <span class="input-group-addon">{{itemField.pos}}</span>
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
               <div class="col-sm-12">
+                <label for="">Observações</label>
                 <textarea class="form-control" name="item_obs_i" elastic ng-model="item.obs"></textarea>
               </div>
             </div>

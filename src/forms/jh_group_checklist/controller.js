@@ -1,7 +1,7 @@
 angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.directives'])
 
-  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile',
-    function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile) {
+  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile', 'jhService',
+    function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile, jhService) {
       const vm = this;
 
       if (window.location.hostname == 'localhost') {
@@ -23,8 +23,21 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
 
       vm.start = function start() {
         vm.checkLocal();
+        vm.Groups = jhService.getGroupChecklist();
         if (vm.Params.formMode == 'ADD') {
           vm.Form.fields.push({});
+        }
+      };
+
+      vm.changeTitle = () => {
+        vm.Errors = [];
+
+        if (vm.Params.formMode == 'ADD') {
+          const existItem = vm.Groups.filter(gr => gr.title === vm.Form.title)[0];
+
+          if (existItem) {
+            vm.Errors.push('Grupo já cadastrado com essa descrição');
+          }
         }
       };
 

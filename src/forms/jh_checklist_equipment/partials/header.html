@@ -1,24 +1,45 @@
 <div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group col-sm-2">
-                    <label class="control-label">Processo</label>
-                    <h4>{{vm.Form.processInstanceId}}</h4>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="control-label">Responsável</label>
-                    <h4>{{vm.Form.solicitante.colleagueName}}</h4>
-                </div>
-                <div class="form-group col-sm-3">
-                    <label class="control-label">Data Início</label>
-                    <h4>{{vm.Form.requestDate | date:'medium'}}</h4>
-                </div>
-                <div class="form-group col-sm-3">
-                    <label class="control-label">Data Fim</label>
-                    <h4>{{vm.Form.endDate | date:'medium'}}</h4>
-                </div>
-            </div>
+
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Processo</label>
+            <input name="processInstanceId_i" disabled class="form-control" ng-value="vm.Form.processInstanceId">
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="control-label">Responsável</label>
+            <input name="colleagueName_i" disabled class="form-control" ng-value="vm.Form.solicitante.colleagueName">
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Data Início</label>
+            <input name="requestDate_i" disabled class="form-control"
+                ng-value="vm.Form.requestDate | date:'dd/MM/yyyy'">
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <div class="form-group">
+            <label class="control-label">Hr Ini</label>
+            <input name="requestHour_i" disabled class="form-control"
+                ng-value="vm.Form.requestDate | date:'hh:mm'"></input>
+        </div>
+
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Data Fim</label>
+            <input name="endDate_i" disabled class="form-control" ng-value="vm.Form.endDate | date:'dd/MM/yyyy'">
+        </div>
+
+    </div>
+    <div class="col-sm-1">
+        <div class="form-group">
+            <label class="control-label">Hr Fim</label>
+            <input name="endHour_i" disabled class="form-control" ng-value="vm.Form.endDate | date:'hh:mm'">
+        </div>
+
+    </div>
+
 </div>

@@ -26,6 +26,59 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.checkRules();
       };
 
+      vm.buscaSerie = (field) => {
+        vm.Form[field] = jhService.getContratoLoc(vm.Form[field])[0];
+      }
+
+      vm.zoomProdLoc = (table, field) => {
+        var dataset = "dsContratosLoc";
+        var fields = "COD_PRODUTO,Empilhadeira,DESC_PRODUTO,Descrição,TIPO_PRODUTO,tipo,CONTRATO,contrato,COD_CLIENTE,cliente,COD_LOJA,loja,NOME,nome,GRUPO,grupo,NUM_NOTA_SAIDA,NF Saída,DT_REMESSA_NF,Data Saída,NUM_NOTA_ENTRADA,NF Entrada,DT_DEVOLUCAO,Data Entrada,TIPO_CONTRATO,Tipo de Contrato,SIT_MOVIMENTO,Sit. Contrato,STATUS_MOVIMENTO,Status Movimento,BAT_INCLUSA,Bat. Inclusa,ATIVO,Ativo,HORIMETRO,Horimetro";
+        //,tipo,AA3_CODPRO,Codigo,AA3_NUMSER,Serie,AA3_MODELO,Modelo,AA4_NSERAC,Acessorio,ATIVO,Ativo";
+        var resultfields = "COD_PRODUTO,DESC_PRODUTO,TIPO_PRODUTO,CONTRATO,COD_CLIENTE,COD_LOJA,NOME,GRUPO,NUM_NOTA_SAIDA,DT_REMESSA_NF,DT_REMESSA_NF,NUM_NOTA_ENTRADA,DT_DEVOLUCAO,TIPO_CONTRATO,SIT_MOVIMENTO,STATUS_MOVIMENTO,BAT_INCLUSA,ATIVO,HORIMETRO";
+        var title = "Selecione a empilhadeira";
+        var filters = "";
+        var type = table;
+        var likefield = "";
+        var likevalue = "";
+        var searchby = "concatena";
+
+        console.log(vm.Form[table]);
+
+        if (vm.Form[table] != '' && vm.Form[table] != undefined &&
+          vm.Form[table][field] != '' && vm.Form[table][field] != undefined) {
+          filters = "concatena," + vm.Form[table][field];
+        } else {
+          vm.Form[table] = "";
+        }
+
+        type += '_i';
+
+        tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
+      }
+
+      vm.zoomClientes = (table, field) => {
+        var dataset = "dsClienteProt";
+        var fields = "codigo,Codigo,loja,Loja,nome,Nome";
+        var resultfields = "codigo,loja,nome";
+        var title = "Clientes";
+        var filters = "";
+        var type = table;
+        var likefield = "";
+        var likevalue = "";
+        var searchby = "filtro";
+
+        if (vm.Form[table] != "" && vm.Form[table] != undefined &&
+          vm.Form[table][field] != "" && vm.Form[table][field] != undefined) {
+          filters = "filtro," + vm.Form[table][field];
+        } else {
+          vm.Form[table] = "";
+        }
+        
+        type += '_i';
+
+        tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
+      }
+
       vm.checkRules = function checkRules() {
         vm.etapas = ['consulta', 'inicio', 'revisarSolicitacao', 'analisarErros'];
 
@@ -50,6 +103,14 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.FieldChecklist = jhService.getFieldChecklist();
         vm.ImageChecklist = jhService.getImageChecklist();
         vm.ItemChecklist = jhService.getItemChecklist();
+
+        vm.GroupEquipment = jhService.getGroupEquipment();
+        vm.FieldOptions = jhService.getFieldOptions();
+        vm.ItemFields = jhService.getChecklistFields();
+
+        vm.GroupFields = jhService.getGroupFields();
+        vm.GroupImages = jhService.getGroupImages();
+        vm.GroupItems = jhService.getGroupItem();
       }
 
       vm.removeChild = function removeChild(Array, item) {
@@ -72,18 +133,22 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.Form.images = [];
         vm.Form.checklist = [];
         vm.Form.options = [];
+        vm.Form.itemFields = [];
 
         if (vm.Form.equipment && vm.Form.equipment.documentid) {
-          vm.Form.groups = jhService.getGroupEquipment(vm.Form.equipment.documentid);
+          // vm.Form.groups = jhService.getGroupEquipment(vm.Form.equipment.documentid);
+          vm.Form.groups = vm.GroupEquipment.filter(g => g.documentid == vm.Form.equipment.documentid);
           vm.Form.groups.forEach(group => {
             group.group = group.group_group;
-            let fields = (group.group.groupType == 'fields') ? jhService.getGroupFields(group.groupId) : [];
-            let images = (group.group.groupType == 'images') ? jhService.getGroupImages(group.groupId) : [];
-            let checklist = (group.group.groupType == 'checklist') ? jhService.getGroupItem(group.groupId) : [];
+            let fields = (group.group.groupType == 'fields') ? vm.GroupFields.filter(g => g.documentid == group.groupId) : [];
+            let images = (group.group.groupType == 'images') ? vm.GroupImages.filter(g => g.documentid == group.groupId) : [];
+            let checklist = (group.group.groupType == 'checklist') ? vm.GroupItems.filter(g => g.documentid == group.groupId) : [];
 
             fields.forEach(field => {
               field.field = field.field_field;
-              let options = jhService.getFieldOptions(field.field.documentid);
+              // let options = jhService.getFieldOptions(field.field.documentid);
+              let options = vm.FieldOptions.filter(f => f.documentid == field.field.documentid);
+
               options.forEach(option => {
                 option.label = option.option_label;
                 option.value = option.option_value;
@@ -96,6 +161,16 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
             });
             checklist.forEach(item => {
               item.item = item.item_item;
+              // let itemFields = jhService.getChecklistFields(item.item.documentid);
+              let itemFields = vm.ItemFields.filter(f => f.documentid == item.item.documentid);
+
+              itemFields.forEach(field => {
+                field.label = field.field_label;
+                field.pre = field.field_pre;
+                field.pos = field.field_pos;
+              });
+
+              vm.Form.itemFields = vm.Form.itemFields.concat(itemFields);
             });
 
             vm.Form.fields = vm.Form.fields.concat(fields);
@@ -103,6 +178,83 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
             vm.Form.checklist = vm.Form.checklist.concat(checklist);
           });
         }
+      }
+
+      vm.upload = (obj, desc) => {
+        JSInterface.showCamera(desc);
+        if (vm.Params.mobile) {
+          obj.docDesc = desc;
+        }
+        else {
+          parent.ECM.attachmentTable.on('change', () => {
+
+            var load = FLUIGC.loading(window);
+
+            load.show();
+
+            var timer = setInterval(() => {
+
+              $.each(parent.ECM.attachmentTable.getData(), function (i, attachment) {
+
+                console.log("Id >>>" + attachment.id);
+                console.log("Name >>> " + attachment.name);
+                console.log("Description >>> " + attachment.description);
+
+                if (attachment.description == desc) {
+
+                  obj.docDesc = desc;
+
+                  $scope.$apply();
+
+                  $(window.top.document).find('#attachmentsStatusTab').trigger('click');
+
+                  load.hide();
+
+                  clearInterval(timer);
+                }
+
+              });
+
+            }, 1000);
+
+          });
+        }
+      }
+
+      vm.deleteFile = (obj, desc) => {
+        if (vm.Params.mobile) {
+          obj.docDesc = null;
+        } else {
+          $.each(parent.ECM.attachmentTable.getData(), function (i, attachment) {
+            var attachmentDescription = attachment.description;
+            if (attachmentDescription == obj.docDesc) {
+              parent.WKFViewAttachment.removeAttach([i]);
+            }
+          });
+          obj.docDesc = null;
+        }
+      }
+
+      vm.openDocument = (docId, docVersion) => {
+        var parentOBJ;
+
+        if (window.opener) {
+          parentOBJ = window.opener.parent;
+        } else {
+          parentOBJ = parent;
+        }
+
+        var cfg = {
+          url: "/ecm_documentview/documentView.ftl",
+          maximized: true,
+          title: "Visualizador de Documentos",
+          callBack: function () {
+            parentOBJ.ECM.documentView.getDocument(docId, docVersion);
+          },
+          customButtons: []
+        };
+
+        parentOBJ.ECM.documentView.panel = parentOBJ.WCMC.panel(cfg);
       }
 
       vm.checkLocal = function checkLocal() {
@@ -128,3 +280,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
     }
   ]);
+
+function setSelectedZoomItem(row) {
+  console.log(row);
+  angular.element("form").scope().vm.Form[row.inputId.replace('_i','')] = row;
+  angular.element("form").scope().$apply();
+}

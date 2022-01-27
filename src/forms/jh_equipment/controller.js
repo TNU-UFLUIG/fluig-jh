@@ -25,6 +25,18 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.checkLocal();
       };
 
+      vm.changeTitle = () => {
+        vm.Errors = [];
+
+        if (vm.Params.formMode == 'ADD') {
+          const existItem = vm.Equipments.filter(eq => eq.title === vm.Form.title)[0];
+
+          if (existItem) {
+            vm.Errors.push('Equipamento já cadastrado com essa descrição');
+          }
+        }
+      };
+
       vm.removeChild = function removeChild(Array, item) {
         FLUIGC.message.confirm({
           message: 'Deseja excluir esse registro?',

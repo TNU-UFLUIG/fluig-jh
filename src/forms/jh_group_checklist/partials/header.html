@@ -5,7 +5,7 @@
             <div class="col-sm-4">
                 <label class="control-label">Título do Grupo</label>
                 <input type="text" class="form-control input-lg" name="title" ng-model="vm.Form.title"
-                    ng-value="vm.Form.title">
+                    ng-value="vm.Form.title" ng-blur="vm.changeTitle()">
             </div>
             <div class="col-sm-8">
                 <label class="control-label">Tipo do Grupo</label>

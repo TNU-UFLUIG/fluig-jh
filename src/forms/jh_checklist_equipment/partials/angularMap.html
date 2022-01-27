@@ -9,11 +9,11 @@
 <input type="hidden" name="area" ng-value="vm.Form.area">
 <input type="hidden" name="horimetro" ng-value="vm.Form.horimetro">
 
-<textarea hidden name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
-<textarea hidden name="serie" ng-value="vm.Form.serie | json:0"></textarea>
-<textarea hidden name="cliente" ng-value="vm.Form.cliente | json:0"></textarea>
-<textarea hidden name="serieBateria" ng-value="vm.Form.serieBateria | json:0"></textarea>
-<textarea hidden name="serieCarregador" ng-value="vm.Form.serieBateria | json:0"></textarea>
+<textarea hidden id="equipment" name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
+<textarea hidden id="serie" name="serie" ng-value="vm.Form.serie | json:0"></textarea>
+<textarea hidden id="cliente" name="cliente" ng-value="vm.Form.cliente | json:0"></textarea>
+<textarea hidden id="serieBateria" name="serieBateria" ng-value="vm.Form.serieBateria | json:0"></textarea>
+<textarea hidden id="serieCarregador" name="serieCarregador" ng-value="vm.Form.serieBateria | json:0"></textarea>
 
 <table hidden tablename="groups" noaddbutton="true" nodeletebutton="true">
   <thead>
@@ -94,6 +94,27 @@
   </tbody>
 </table>
 
+<table hidden tablename="itemFields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="itemField in vm.Form.itemFields">
+      <td>
+        <div class="td-content">
+          <input type="hidden" name="itemField_documentid" ng-value="itemField.documentid">
+          <input type="hidden" name="itemField_label" ng-value="itemField.label">
+          <input type="hidden" name="itemField_pre" ng-value="itemField.pre">
+          <input type="hidden" name="itemField_pos" ng-value="itemField.pos">
+          <input type="hidden" name="itemField_value" ng-value="itemField.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
   <thead>
     <tr>
@@ -108,6 +129,9 @@
           <input type="hidden" name="image_documentid" ng-value="image.documentid">
           <input type="hidden" name="image_groupId" ng-value="image.groupId">
           <input type="hidden" name="image_value" ng-value="image.value">
+          <input type="hidden" name="image_docDesc" ng-value="image.docDesc">
+          <input type="hidden" name="image_docId" ng-value="image.docId">
+          <input type="hidden" name="image_docVersion" ng-value="image.docVersion">
         </div>
       </td>
     </tr>
