@@ -1,54 +1,49 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in vm.Form.checklist | filter: {documentid: group.group.documentid}">
-          <td>
-            <div class="row">
-              <div class="col-sm-9">
-                <h4>{{item.item.title}} / {{item.item.instruction}} / {{item.item.acceptanceCriteria}}</h4>
-              </div>
-              <div class="col-sm-3">
-                <div class="btn-group">
-                  <button type="button" class="btn" ng-class="{'btn-success':item.value=='ok'
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in vm.Form.checklist | filter: {documentid: group.group.documentid}">
+      <td>
+        <div class="row">
+          <div class="col-sm-9">
+            <h4>{{item.item.title}} / {{item.item.instruction}} / {{item.item.acceptanceCriteria}}</h4>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group">
+              <button type="button" class="btn" ng-class="{'btn-success':item.value=='ok'
                     ,'btn-default':item.value!='ok' }" ng-click="item.value = 'ok'">OK</button>
-                  <button type="button" class="btn" ng-class="{'btn-danger':item.value=='nok'
+              <button type="button" class="btn" ng-class="{'btn-danger':item.value=='nok'
                     ,'btn-default':item.value!='nok'}" ng-click="item.value = 'nok'">NOK</button>
-                  <button type="button" class="btn" ng-class="{'btn-warning':item.value=='ac'
+              <button type="button" class="btn" ng-class="{'btn-warning':item.value=='ac'
                     ,'btn-default':item.value!='ac' }" ng-click="item.value = 'ac'">AC</button>
-                  <button type="button" class="btn" ng-class="{'btn-primary':item.value=='na'
+              <button type="button" class="btn" ng-class="{'btn-primary':item.value=='na'
                     ,'btn-default':item.value!='na' }" ng-click="item.value = 'na'">NA</button>
-                </div>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-sm-3"
-                ng-repeat="itemField in vm.Form.itemFields | filter: {documentid: item.item.documentid}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"
+            ng-repeat="itemField in vm.Form.itemFields | filter: {documentid: item.item.documentid}">
 
-                <label ng-class="{'label-no-content':!itemField.label}">{{itemField.label}}</label>
-                <div class="input-group">
-                  <span class="input-group-addon">{{itemField.pre}}</span>
-                  <input type="text" name="itemField_value_i" ng-model="itemField.value" class="form-control">
-                  <span class="input-group-addon">{{itemField.pos}}</span>
-                </div>
-
-              </div>
+            <label ng-class="{'label-no-content':!itemField.label}">{{itemField.label}}</label>
+            <div class="input-group">
+              <span class="input-group-addon">{{itemField.pre}}</span>
+              <input type="text" name="itemField_value_i" ng-model="itemField.value" class="form-control">
+              <span class="input-group-addon">{{itemField.pos}}</span>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <label for="">Observações</label>
-                <textarea class="form-control" name="item_obs_i" elastic ng-model="item.obs"></textarea>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
-  </div>
-</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label for="">Observações</label>
+            <textarea class="form-control" name="item_obs_i" elastic ng-model="item.obs"></textarea>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -62,6 +62,11 @@ angular.module('jh.services')
         return fluigService.getDataset('dsContratosLoc', {
           serie
         }, fields);
+      },
+      getEmpilhadeira: (serie, fields) => {
+        return fluigService.getDataset('DSEMPILHADEIRAPROT', {
+          serie
+        }, fields);
       }
     })
   ]);

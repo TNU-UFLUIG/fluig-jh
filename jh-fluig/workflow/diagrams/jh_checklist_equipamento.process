@@ -2001,10 +2001,10 @@
     <fonts bold="true" name="Arial" size="8"/>
     <fonts bold="true" name="Arial" size="11"/>
   </pi:Diagram>
-  <bpmn2:BpmnProcess author="" cardIndex="207606" category="Checklist" complementsLevel="1" expedient="Default" extendedFields="&lt;list/&gt;" formSource="server" id="jh_checklist_equipamento" instruction="" keyWord="" name="Checklist de Equipamentos" notifyRequisitionerComplements="true" notifyResponsibleComplements="true" serverId="Fluig Producao" version="2" volume="Default"/>
+  <bpmn2:BpmnProcess author="" cardIndex="207606" category="Checklist" complementsLevel="1" expedient="Default" extendedFields="&lt;list/&gt;" formSource="server" id="jh_checklist_equipamento" instruction="" keyWord="" mobileReady="true" name="Checklist de Equipamentos" notifyRequisitionerComplements="true" notifyResponsibleComplements="true" serverId="Fluig Producao" version="5" volume="Default"/>
   <bpmn2:BpmnSwimLane cores="82b0b7" id="swimlane1" name="SwimLane"/>
   <bpmn2:BpmnSwimLane cores="adc9ac" id="swimlane2" name="SwimLane"/>
-  <bpmn2:BpmnStartEvent esforcoCalculo="0" expediente="" id="startevent3" name="In&#237;cio" outgoing="flow9" selecionaColaboradores="1" signalId="0" type="10"/>
+  <bpmn2:BpmnStartEvent esforcoCalculo="0" expediente="" id="startevent3" initializerConfiguration="&lt;org.eclipse.bpmn2.impl.AssignmentControllerRole&gt;&#10;  &lt;roleId&gt;admin&lt;/roleId&gt;&#10;  &lt;mechanismName&gt;Papel&lt;/mechanismName&gt;&#10;&lt;/org.eclipse.bpmn2.impl.AssignmentControllerRole&gt;" name="In&#237;cio" outgoing="flow9" selecionaColaboradores="1" signalId="0" type="10"/>
   <bpmn2:BpmnTask attachedEvents="intermediateerror5" authNotify="true" esforcoCalculo="0" executionAttempts="0" executionSucessfulMessage="Integra&#231;&#227;o executada com sucesso" executionType="1" expediente="" frequency="0" id="servicetask4" incoming="flow8 flow9" loopType="0" name="Integrar com a base de Atendimento" outgoing="flow11" scriptFileName="jh_checklist_equipamento.servicetask4.js" selecionaColaboradores="1" serviceName="ECMWorkflowEngineService" type="82"/>
   <bpmn2:BpmnIntermediateEvent id="intermediateerror5" name="Intermedi&#225;rio" outgoing="flow7" parentTask="servicetask4" sequenceAttached="4" signalId="0" type="43"/>
   <bpmn2:BpmnTask authNotify="true" esforcoCalculo="0" executionAttempts="0" expediente="" frequency="0" id="task6" incoming="flow7" loopType="0" name="Analisar Erros" outgoing="flow8" selecionaColaboradores="1" type="80"/>

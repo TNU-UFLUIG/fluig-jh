@@ -22,12 +22,12 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         });
 
       vm.start = function start() {
-        vm.checkLocal();
+        // vm.checkLocal();
         vm.checkRules();
       };
 
       vm.buscaSerie = (field) => {
-        vm.Form[field] = jhService.getContratoLoc(vm.Form[field])[0];
+        vm.Form[field] = jhService.getEmpilhadeira(vm.Form[field])[0];
       }
 
       vm.zoomProdLoc = (table, field) => {
@@ -36,6 +36,31 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         //,tipo,AA3_CODPRO,Codigo,AA3_NUMSER,Serie,AA3_MODELO,Modelo,AA4_NSERAC,Acessorio,ATIVO,Ativo";
         var resultfields = "COD_PRODUTO,DESC_PRODUTO,TIPO_PRODUTO,CONTRATO,COD_CLIENTE,COD_LOJA,NOME,GRUPO,NUM_NOTA_SAIDA,DT_REMESSA_NF,DT_REMESSA_NF,NUM_NOTA_ENTRADA,DT_DEVOLUCAO,TIPO_CONTRATO,SIT_MOVIMENTO,STATUS_MOVIMENTO,BAT_INCLUSA,ATIVO,HORIMETRO";
         var title = "Selecione a empilhadeira";
+        var filters = "";
+        var type = table;
+        var likefield = "";
+        var likevalue = "";
+        var searchby = "concatena";
+
+        console.log(vm.Form[table]);
+
+        if (vm.Form[table] != '' && vm.Form[table] != undefined &&
+          vm.Form[table][field] != '' && vm.Form[table][field] != undefined) {
+          filters = "concatena," + vm.Form[table][field];
+        } else {
+          vm.Form[table] = "";
+        }
+
+        type += '_i';
+
+        tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
+      }
+
+      vm.zoomEmpilhadeira = (table, field) => {
+        var dataset = "DSEMPILHADEIRAPROT";
+        var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo";
+        var resultfields = "B1_COD,B1_DESC,B1_TIPO";
+        var title = "Selecione a Empilhadeira";
         var filters = "";
         var type = table;
         var likefield = "";
@@ -73,7 +98,7 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         } else {
           vm.Form[table] = "";
         }
-        
+
         type += '_i';
 
         tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
@@ -283,6 +308,6 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
 function setSelectedZoomItem(row) {
   console.log(row);
-  angular.element("form").scope().vm.Form[row.inputId.replace('_i','')] = row;
+  angular.element("form").scope().vm.Form[row.inputId.replace('_i', '')] = row;
   angular.element("form").scope().$apply();
 }
