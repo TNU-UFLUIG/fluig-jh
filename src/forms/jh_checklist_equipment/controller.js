@@ -58,8 +58,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
       vm.zoomEmpilhadeira = (table, field) => {
         var dataset = "DSEMPILHADEIRAPROT";
-        var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo";
-        var resultfields = "B1_COD,B1_DESC,B1_TIPO";
+        
+        var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo,ATIVO,Ativo";
+        var resultfields = "B1_COD,B1_DESC,B1_TIPO,ATIVO";
         var title = "Selecione a Empilhadeira";
         var filters = "";
         var type = table;

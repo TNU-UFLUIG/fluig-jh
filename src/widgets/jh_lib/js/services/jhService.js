@@ -64,7 +64,7 @@ angular.module('jh.services')
         }, fields);
       },
       getEmpilhadeira: (serie, fields) => {
-        return fluigService.getDataset('DSEMPILHADEIRAPROT', {
+        return fluigService.getDataset('dsempilhadeiraProt', {
           serie
         }, fields);
       }

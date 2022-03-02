@@ -174,6 +174,7 @@ angular.module('jh.services')
 
           let param = {
             "version": 1000,
+            "documentDescription": "",
             "parentDocumentId": document["metadata#parent_id"],
             "inheritSecurity": true,
             "formData": cardFormData

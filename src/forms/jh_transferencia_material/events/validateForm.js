@@ -4,7 +4,7 @@ function validateForm(form) {
   const Errors = value(form, 'Errors');
   const Params = value(form, 'Params');
 
-  const materiais = getChildren(form, 'materiais', ['material_produtoCod', 'material_destinoCod', 'material_enderecoCod']);
+  const materiais = getChildren(form, 'materiais', ['material_produtoCod', 'material_armazemDestCod', 'material_enderecoDestCod']);
 
   materiais.forEach((material, index) => {
     if (Params.etapa == 'inicio') {
@@ -13,10 +13,10 @@ function validateForm(form) {
       }
     }
     if (Params.etapa == 'destinarMaterial') {
-      if (!material.material_destinoCod || material.material_destinoCod == '') {
+      if (!material.material_armazemDestCod || material.material_armazemDestCod == '') {
         Errors.push(`Informe o destino na linha ${index + 1}`);
       }
-      if (!material.material_enderecoCod || material.material_enderecoCod == '') {
+      if (!material.material_enderecoDestCod || material.material_enderecoDestCod == '') {
         Errors.push(`Informe o endereço na linha ${index + 1}`);
       }
     }

@@ -72,7 +72,7 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
                       fieldName: reg[1],
                       fieldType,
                       options,
-                      'metadata#parent_id': 207735
+                      'metadata#parent_id': 3459 //207735
                     })
                   }
                 }

@@ -12,7 +12,7 @@
             <label for="">{{field.field.title}}</label>
             <select class="form-control" name="field_value_s" ng-model="field.value">
               <option ng-repeat="option in vm.Form.options | filter: {documentid: field.field.documentid}"
-                value="{{option.value}}">{{option.label}}</option>
+                ng-value="option.value">{{option.label}}</option>
             </select>
           </div>
           <div class="col-sm-6" ng-show="field.field.fieldType == 'livre'">
