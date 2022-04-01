@@ -4,21 +4,16 @@
             <div class="panel-body">
                 <div class="form-group col-sm-3">
                     <label class="control-label">Processo</label>
-                    <h4 class="form-control">{{vm.Form.processInstanceId}}</h4>
+                    <h4 class="form-control input-lg">{{vm.Form.processInstanceId}}</h4>
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label">Data</label>
-                    <h4 class="form-control">{{vm.Form.requestDate | date:'dd/MM/yyyy HH:mm'}}</h4>
+                    <h4 class="form-control input-lg">{{vm.Form.requestDate | date:'dd/MM/yyyy HH:mm'}}</h4>
                 </div>
                 <div class="form-group col-sm-6">
                     <label class="control-label">Solicitante</label>
-                    <h4 class="form-control">{{vm.Form.solicitante.colleagueName}}</h4>
+                    <h4 class="form-control input-lg">{{vm.Form.solicitante.colleagueName}}</h4>
                 </div>
-
-                <!-- <div class="form-group col-sm-4">
-                    <label class="control-label">Departamento</label>
-                    <h4>{{vm.Form.area || 'N/D'}}</h4>
-                </div> -->
             </div>
         </div>
     </div>

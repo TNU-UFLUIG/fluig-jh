@@ -1,4 +1,4 @@
-angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.directives'])
+angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.directives', 'ui.sortable'])
 
   .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile', 'jhService',
     function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile, jhService) {
@@ -22,10 +22,27 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
         });
 
       vm.start = function start() {
+        vm.sortableOptions = {
+          handle: '.handle'
+        };
+
         vm.checkLocal();
+        vm.Itens = jhService.getItemChecklist(null, ['documentid', 'title']);
+        vm.Images = jhService.getImageChecklist(null, ['documentid', 'title']);
+        vm.Fields = jhService.getFieldChecklist(null, ['documentid', 'title']);
         vm.Groups = jhService.getGroupChecklist();
         if (vm.Params.formMode == 'ADD') {
           vm.Form.fields.push({});
+        } else {
+          vm.Form.checklist.forEach(item => {
+            item.item = vm.Itens.filter(i => i.documentid == item.item.documentid)[0];
+          })
+          vm.Form.images.forEach(image => {
+            image.image = vm.Images.filter(i => i.documentid == image.image.documentid)[0];
+          })
+          vm.Form.fields.forEach(field => {
+            field.field = vm.Fields.filter(f => f.documentid == field.field.documentid)[0];
+          })
         }
       };
 

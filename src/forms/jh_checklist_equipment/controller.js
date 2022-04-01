@@ -1,7 +1,7 @@
 angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
-  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', 'jhService', '$compile',
-    function jhController($scope, $http, $timeout, $log, formService, fluigService, jhService, $compile) {
+  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', 'jhService', 'erpService', '$compile',
+    function jhController($scope, $http, $timeout, $log, formService, fluigService, jhService, erpService, $compile) {
       const vm = this;
 
       if (window.location.hostname == 'localhost') {
@@ -26,8 +26,19 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.checkRules();
       };
 
-      vm.buscaSerie = (field) => {
-        vm.Form[field] = jhService.getEmpilhadeira(vm.Form[field])[0];
+      vm.buscaSerie = (field, input) => {
+        if (input.$modelValue && input.$modelValue !== '') {
+          vm.Form[field] = erpService.getEmpilhadeira(input.$modelValue)[0];
+          if (!vm.Form[field]) {
+            // vm.Form[field].B1_COD = null;
+            // vm[`${field}_i`] = null;
+            FLUIGC.toast({
+              title: 'Erro ',
+              message: 'Série não encontrada',
+              type: 'danger'
+            });
+          }
+        }
       }
 
       vm.zoomProdLoc = (table, field) => {
@@ -58,7 +69,7 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
       vm.zoomEmpilhadeira = (table, field) => {
         var dataset = "DSEMPILHADEIRAPROT";
-        
+
         var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo,ATIVO,Ativo";
         var resultfields = "B1_COD,B1_DESC,B1_TIPO,ATIVO";
         var title = "Selecione a Empilhadeira";
@@ -126,9 +137,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
         vm.Equipments = jhService.getEquipment();
         vm.GroupChecklist = jhService.getGroupChecklist();
-        vm.FieldChecklist = jhService.getFieldChecklist();
-        vm.ImageChecklist = jhService.getImageChecklist();
-        vm.ItemChecklist = jhService.getItemChecklist();
+        vm.FieldChecklist = jhService.getFieldChecklist(null, ['documentid', 'title', 'fieldName', 'fieldType', 'fieldFormat']);
+        vm.ImageChecklist = jhService.getImageChecklist(null, ['documentid', 'title', 'help']);
+        vm.ItemChecklist = jhService.getItemChecklist(null, ['documentid', 'title', 'instruction', 'acceptanceCriteria']);
 
         vm.GroupEquipment = jhService.getGroupEquipment();
         vm.FieldOptions = jhService.getFieldOptions();
@@ -171,7 +182,7 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
             let checklist = (group.group.groupType == 'checklist') ? vm.GroupItems.filter(g => g.documentid == group.groupId) : [];
 
             fields.forEach(field => {
-              field.field = field.field_field;
+              field.field = vm.FieldChecklist.filter(f => f.documentid == field.field_field.documentid)[0]; //field.field_field;
               // let options = jhService.getFieldOptions(field.field.documentid);
               let options = vm.FieldOptions.filter(f => f.documentid == field.field.documentid);
 
@@ -183,10 +194,10 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
               vm.Form.options = vm.Form.options.concat(options);
             });
             images.forEach(image => {
-              image.image = image.image_image;
+              image.image = vm.ImageChecklist.filter(i => i.documentid == image.image_image.documentid)[0]; //image.image_image;
             });
             checklist.forEach(item => {
-              item.item = item.item_item;
+              item.item = vm.ItemChecklist.filter(i => i.documentid == item.item_item.documentid)[0]; //item.item_item;
               // let itemFields = jhService.getChecklistFields(item.item.documentid);
               let itemFields = vm.ItemFields.filter(f => f.documentid == item.item.documentid);
 
@@ -310,5 +321,6 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 function setSelectedZoomItem(row) {
   console.log(row);
   angular.element("form").scope().vm.Form[row.inputId.replace('_i', '')] = row;
+  // angular.element("form").scope().vm[row.inputId] = 
   angular.element("form").scope().$apply();
 }

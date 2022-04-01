@@ -1,4 +1,4 @@
-angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
+angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'ui.sortable'])
 
   .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile',
     function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile) {
@@ -22,6 +22,9 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         });
 
       vm.start = function start() {
+        vm.sortableOptions = {
+          handle: '.handle'
+        };
         vm.checkLocal();
       };
 

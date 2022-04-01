@@ -12,6 +12,7 @@ function servicetask4(attempt, message) {
     }
 
     fields.forEach(function(field) {
+      // params[field.fieldName] = field.fieldType == 'number' ? Number(field.value) : String(field.value);
       params[field.fieldName] = String(field.value);
     })
 

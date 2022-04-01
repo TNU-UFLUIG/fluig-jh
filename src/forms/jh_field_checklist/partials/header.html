@@ -1,27 +1,42 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-
-            <div class="col-sm-4">
+            <div class="col-sm-12">
                 <label class="control-label">Título</label>
                 <input type="text" class="form-control input-lg" name="title" ng-model="vm.Form.title"
                     ng-value="vm.Form.title" ng-blur="vm.changeTitle()">
             </div>
-            <div class="col-sm-4">
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
                 <label class="control-label">Campo para integração</label>
                 <input type="text" class="form-control input-lg" name="fieldName" ng-model="vm.Form.fieldName"
                     ng-value="vm.Form.fieldName">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+                <label class="control-label">Formato do campo</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="fieldFormat_i" ng-name="fieldFormat_i" ng-model="vm.Form.fieldFormat"
+                            value="combo"> Combo
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="fieldFormat_i" ng-name="fieldFormat_i" ng-model="vm.Form.fieldFormat"
+                            value="livre"> Livre
+                    </label>
+                    <input type="hidden" name="fieldFormat" ng-value="vm.Form.fieldFormat">
+                </div>
+            </div>
+            <div class="col-sm-3" ng-show="vm.Form.fieldFormat == 'livre'">
                 <label class="control-label">Tipo do campo</label>
                 <div>
                     <label class="radio-inline">
                         <input type="radio" name="fieldType_i" ng-name="fieldType_i" ng-model="vm.Form.fieldType"
-                            value="combo"> Combo
+                            value="text"> Texto
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="fieldType_i" ng-name="fieldType_i" ng-model="vm.Form.fieldType"
-                            value="livre"> Livre
+                            value="number"> Numérico
                     </label>
                     <input type="hidden" name="fieldType" ng-value="vm.Form.fieldType">
                 </div>

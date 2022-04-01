@@ -9,7 +9,8 @@
       <td>
         <div class="row">
           <div class="col-sm-9">
-            <h4>{{item.item.title}} / {{item.item.instruction}} / {{item.item.acceptanceCriteria}}</h4>
+            <h4 ng-class="{'text-danger':!item.value}">{{item.item.title}} / {{item.item.instruction}} /
+              {{item.item.acceptanceCriteria}}</h4>
           </div>
           <div class="col-sm-3">
             <div class="btn-group">

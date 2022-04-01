@@ -1,7 +1,7 @@
 angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
-  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile',
-    function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile) {
+  .controller('jhController', ['$scope', '$http', '$timeout', '$log', 'formService', 'fluigService', '$compile', 'erpService',
+    function jhController($scope, $http, $timeout, $log, formService, fluigService, $compile, erpService) {
       const vm = this;
 
       if (window.location.hostname == 'localhost') {
@@ -33,9 +33,11 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         [
           { regra: 'showProudutos', def: true, etapas: vm.etapas },
           { regra: 'showHeader', def: true, etapas: vm.etapas },
+          { regra: 'showFilial', def: true, etapas: vm.etapas },
           { regra: 'showDestino', def: true, etapas: ['consulta', 'destinarMaterial', 'analisarErros'] },
-          { regra: 'showOrigem', def: true, etapas: ['consulta', 'destinarMaterial', 'analisarErros'] },
+          { regra: 'showOrigem', def: true, etapas: ['consulta', 'inicio', 'destinarMaterial', 'analisarErros'] },
           { regra: 'enableProdutos', def: true, etapas: ['inicio', 'destinarMaterial', 'analisarErros'] },
+          { regra: 'enableOrigem', def: true, etapas: ['analisarErros'] },
           { regra: 'enableDestino', def: true, etapas: ['destinarMaterial', 'analisarErros'] }
         ].forEach(o => {
           vm.regras[o.regra] = vm.Params.user == "adminx" && vm.Params.edit ? true : o.etapas.indexOf(vm.Params.etapa) >= 0 ? o.def : false;
@@ -46,6 +48,13 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           vm.Form.requestDate = new Date().getTime();
           vm.Form.materiais.push({});
         }
+        vm.Armazens = erpService.getArmazem();
+        vm.Filiais = erpService.getEmpFilial();
+        vm.Empresas = [...new Set(vm.Filiais.map(f => f.empresa))].map(e => { return { empresa: e } })
+      }
+
+      vm.changeEmpresa = () => {
+        vm.EmpFiliais = vm.Filiais.filter(f => f.empresa == vm.Form.empresa.empresa);
       }
 
       vm.removeChild = function removeChild(Array, item) {
@@ -96,12 +105,8 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         selecionados.forEach(material => {
           material.armazemDest = vm.armazemDestino;
           material.enderecoDest = vm.enderecoDestino;
-          material.armazemOrig = vm.armazemOrigem;
-          material.enderecoOrig = vm.enderecoOrigem;
         })
 
-        vm.armazemOrigem = null;
-        vm.enderecoOrigem = null;
         vm.armazemDestino = null;
         vm.enderecoDestino = null;
         vm.direcionarModal = false;
@@ -121,6 +126,38 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
       vm.openModalDirecionar = () => {
         vm.direcionarModal = true;
+      }
+
+      vm.changeProduto = material => {
+
+        console.log('vm.changeProduto', material)
+        if (material.produto && material.produto.codigo) {
+          vm.Errors = [];
+          let produtoSaldo = erpService.getProdutoSaldo(vm.Form.empresa.empresa, vm.Form.filial.filial, material.produto.codigo);
+
+          if (!produtoSaldo || produtoSaldo.length == 0) {
+            FLUIGC.message.error({
+              message: 'Produto sem saldo',
+              title: 'Oops'
+            });
+            // vm.Errors.push(`Produto ${material.produto.codigo} sem saldo`)
+            material.produto = null;
+            return;
+          }
+
+          produtoSaldo = produtoSaldo[0];
+
+          console.log(produtoSaldo);
+
+          if (produtoSaldo && produtoSaldo.armazem) {
+            material.armazemOrig = vm.Armazens.filter(a => a.codigo == produtoSaldo.armazem)[0];
+
+            if (material.armazemOrig && material.armazemOrig.codigo) {
+              material.enderecoOrig = produtoSaldo.endereco;
+            }
+          }
+
+        }
       }
 
       vm.checkLocal = function checkLocal() {

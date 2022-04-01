@@ -1,12 +1,20 @@
-<div ng-repeat="image in vm.Form.images">
-    <div class="form-group">
-        <label>Imagem</label>
-        <input class="form-control input-lg" fluig-autocomplete dataset="jh_image_checklist" display-key="title"
-            ng-model="image.image" name="image_image_i">
+<div ui-sortable="vm.sortableOptions" ng-model="vm.Form.images">
+    <div ng-repeat="image in vm.Form.images" class="row">
+        <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
+            <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
+                title="Mover campo"></i>
+        </div>
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label>Imagem</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="jh_image_checklist" display-key="title"
+                    ng-model="image.image" name="image_image_i">
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="vm.Params.edit">
     <div class="col-sm-12">
         <button class="btn btn-default" ng-click="vm.Form.images.push({})">
             Novo <i class="fluigicon fluigicon-plus icon-sm"></i>

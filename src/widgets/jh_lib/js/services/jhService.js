@@ -57,16 +57,5 @@ angular.module('jh.services')
           documentid, tablename: 'fields'
         }, fields);
       },
-
-      getContratoLoc: (serie, fields) => {
-        return fluigService.getDataset('dsContratosLoc', {
-          serie
-        }, fields);
-      },
-      getEmpilhadeira: (serie, fields) => {
-        return fluigService.getDataset('dsempilhadeiraProt', {
-          serie
-        }, fields);
-      }
     })
   ]);

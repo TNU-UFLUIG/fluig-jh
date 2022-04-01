@@ -5,9 +5,15 @@
 	<!-- partial:../partials/head.html -->
 	<!-- partial -->
 	<script type="text/javascript" src="/jh_lib/resources/FLUIGIP.js"></script>
-	<script type="text/javascript" >
+	<script type="text/javascript">
 		function disablePullToRefresh() {
 			return true;
+		}
+	</script>
+	<script type="text/javascript">
+		beforeSendValidate = function (numState, nextState) {
+			console.log("desabilita");
+			return;
 		}
 	</script>
 	<title>Checklist de Equipamentos</title>
@@ -15,7 +21,7 @@
 
 <body ng-controller="jhController as vm">
 	<div class="fluig-style-guide ng-cloak">
-		<div class="container-fluid">
+		<div class="container">
 			<form name="form" role="form" class="form">
 
 				<div class="panel panel-info">

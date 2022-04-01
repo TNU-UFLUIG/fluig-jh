@@ -3,16 +3,19 @@
     <thead>
       <tr>
         <th class="col-sm-11">Grupo</th>
-        <th class="col-sm-1"></th>
+        <th ng-if="vm.Params.edit" class="col-sm-1"></th>
       </tr>
     </thead>
-    <tbody>
+
+    <tbody ui-sortable="vm.sortableOptions" ng-model="vm.Form.groups">
       <tr ng-repeat="group in vm.Form.groups">
         <td>
           <input class="form-control input-lg" fluig-autocomplete dataset="jh_group_checklist" display-key="title"
             ng-model="group.group" name="group_group_i">
         </td>
-        <td class="fs-text-right">
+        <td ng-if="vm.Params.edit" class="fs-text-right">
+          <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
+            title="Mover campo"></i>
           <span ng-if="vm.Params.edit" ng-click="vm.removeChild(vm.Form.groups, group)"
             class="fluigicon fluigicon-md fluigicon-trash fs-cursor-pointer"></span>
         </td>

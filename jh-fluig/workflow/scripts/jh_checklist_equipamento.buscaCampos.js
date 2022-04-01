@@ -16,6 +16,7 @@ function buscaCampos() {
         "title": String(field.title),
         "fieldName": String(field.fieldName),
         "fieldType": String(field.fieldType),
+        "fieldFormat": String(field.fieldFormat),
         "value": String(hAPI.getCardValue("field_value___" + i))
       });
     }

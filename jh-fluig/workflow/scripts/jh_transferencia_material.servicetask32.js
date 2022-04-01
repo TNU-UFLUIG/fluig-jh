@@ -11,6 +11,8 @@ function servicetask32(attempt, message) {
 			endpoint: '/WSTRANSFEREMATERIAL',
 			method: 'post',
 			params: {
+				EMPRESA: String(hAPI.getCardValue("empresaCodigo")),
+				FILIAL: String(hAPI.getCardValue("filialCodigo")),
 				PROCESSINSTANCEID: 'FLUIG' + String(hAPI.getCardValue('processInstanceId')),
 				PRODUCTS: materiais
 			}
@@ -37,6 +39,18 @@ function servicetask32(attempt, message) {
 				}
 
 				throw json.errorMessage;
+			}
+
+			if (json.sucessMessage) {
+				log.info(json.sucessMessage);
+			} else {
+				if (json.message) {
+					throw json.message;
+				} else {
+					throw "Ocorreu um erro na integração."
+				}
+
+				// throw json.errorMessage;
 			}
 		}
 

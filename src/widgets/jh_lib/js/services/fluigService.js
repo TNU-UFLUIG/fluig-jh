@@ -56,11 +56,16 @@ angular.module('jh.services')
        * @param {any} fields
        * @returns
        */
-      getDataset: function getDataset(name, params, fields, children) {
+      getDataset: function getDataset(name, params, fields, children, internal) {
         const that = this;
         let dataset;
 
-        const constraints = new Array(this.active);
+        const constraints = new Array();
+
+        if (!internal) {
+          constraints.push(this.active);
+        }
+
         if (params) {
           Object.keys(params)
             .forEach((prop) => {

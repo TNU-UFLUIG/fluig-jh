@@ -17,48 +17,47 @@
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Código</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
                                         name="material_produtoCod" ng-model="material.produto"
-                                        dataset="protheus_consulta_produto" min-length="3" display-key="codigo">
+                                        dataset="protheus_consulta_produto" min-length="3" display-key="codigo"
+                                        ng-change="vm.changeProduto(material)">
                                 </div>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="">Descrição</label>
                                     <input type="text" fluig-autocomplete class="form-control input-lg"
                                         name="material_produtoDes" ng-model="material.produto"
-                                        dataset="protheus_consulta_produto" min-length="3" display-key="descricao">
+                                        dataset="protheus_consulta_produto" min-length="3" display-key="descricao"
+                                        ng-change="vm.changeProduto(material)">
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="">Quantidade</label>
                                     <input type="text" fluig-number-mask class="form-control input-lg"
                                         name="material_qty_i" ng-model="material.qty">
                                     <input type="hidden" name="material_qty" ng-value="material.qty">
                                 </div>
-                            </div>
+                            </div> -->
                             <textarea hidden name="material_produto" ng-value="material.produto | json:0"></textarea>
                         </div>
                         <div class="row" ng-show="vm.regras.showOrigem">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Armazém Origem</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
-                                        name="material_armazemOrig_i" ng-model="material.armazemOrig"
-                                        dataset="protheus_consulta_local" display-key="codigo">
+                                    <input type="text" class="form-control input-lg" name="material_armazemOrig_i"
+                                        ng-value="material.armazemOrig.codigo" ng-readonly="true">
                                 </div>
                             </div>
                             <div class="col-sm-6" ng-if="material.armazemOrig.codigo">
                                 <div class="form-group">
                                     <label for="">Endereço Origem</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
-                                        name="material_enderecoOrig_i" ng-model="material.enderecoOrig"
-                                        dataset="protheus_consulta_endereco"
-                                        filter-fields="['codLocal',material.armazemOrig.codigo]" display-key="endereco">
+                                    <input type="text" class="form-control input-lg" name="material_enderecoOrig_i"
+                                        ng-value="material.enderecoOrig.endereco" ng-readonly="true">
                                 </div>
                             </div>
                             <textarea hidden name="material_armazemOrig"
