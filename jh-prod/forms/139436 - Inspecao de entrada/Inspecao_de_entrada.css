@@ -1,0 +1,87 @@
+.error
+{
+	border: 1px solid red !important;
+}
+
+.label-error
+{
+	color: red !important; 
+    font-style: italic !important;
+    font-weight : normal !important;
+    font-size: smaller  !important;
+}
+
+.scroll 
+{
+  width:100%; !important;
+  height:inherit; !important;
+  overflow:auto; !important;
+  overflow-y:hidden; !important
+  white-space:nowrap; !important
+}
+
+label-grid
+{
+	min-width: 100px !important;
+}
+
+#ds_observacao_geral
+{ 
+	resize: none; 
+	height: 70px;
+}
+
+.panel-info {
+	border-color: black !important;
+}
+
+.panel-heading {
+	border-color: RGB(255,204,0) !important;
+	background-color: RGB(255,204,0) !important;
+}
+
+.panel-title {
+	color: black !important;
+}
+
+.title-option {
+	font-weight: bold !important;
+}
+
+.button-status {
+	width: 90px !important;
+}
+
+.button-status2 {
+	width: 140px !important;
+}
+
+.button-status3 {
+	width: 80px !important;
+}
+
+.button-accept {
+	width: 60px !important;
+}
+
+label-grid
+{
+	min-width: 100px !important;
+}
+
+ .spacer {
+  height: 5px;
+}
+
+.section-title {
+	background-color: RGB(255,255,204) !important;
+	color: black !important;
+}
+
+.line-text{
+/*
+  display: block; 
+  overflow: hidden; 
+  resize: none;
+ */
+}

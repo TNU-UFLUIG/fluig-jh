@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html ng-app="jhApp">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-flat.min.css">
+<link rel="stylesheet" type="text/css" href="/jh_lib/css/main.css" />
+<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script> 
+<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js"></script>
+<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+<script type="text/javascript" src="/jh_lib/js/vendor.min.js"></script>
+<script type="text/javascript" src="/jh_lib/js/script.min.js"></script>
+<script type="text/javascript" src="custom.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="/jh_lib/resources/FLUIGIP.js"></script>
+	<script type="text/javascript">
+		function disablePullToRefresh() {
+			return true;
+		}
+	</script>
+	<script type="text/javascript">
+		beforeSendValidate = function (numState, nextState) {
+			console.log("desabilita");
+			return;
+		}
+	</script>
+	<title>Checklist de Equipamentos</title>
+</head>
+
+<body ng-controller="jhController as vm">
+	<div class="fluig-style-guide ng-cloak">
+		<div class="container">
+			<form name="form" role="form" class="form">
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<img src="/jh_lib/images/logo.png" style="max-width: 20%; max-height: 20%">
+					</div>
+				</div>
+
+				<input name="Params" type="hidden" id="Params" ng-value="vm.Params | json:0">
+<input name="Errors" type="hidden" id="Errors" ng-value="vm.Errors | json:0">
+
+<input name="displaykey" type="hidden" ng-value="">
+<input type="hidden" name="processInstanceId" ng-value="vm.Form.processInstanceId">
+<textarea hidden name="solicitante" ng-value="vm.Form.solicitante | json:0"
+  ng-bind="vm.Form.solicitante | json:0"></textarea>
+<input type="hidden" name="requestDate" ng-value="vm.Form.requestDate">
+<input type="hidden" name="endDate" ng-value="vm.Form.endDate">
+<input type="hidden" name="area" ng-value="vm.Form.area">
+<input type="hidden" name="horimetro" ng-value="vm.Form.horimetro">
+
+<textarea hidden id="equipment" name="equipment" ng-value="vm.Form.equipment | json:0"></textarea>
+<textarea hidden id="serie" name="serie" ng-value="vm.Form.serie | json:0"></textarea>
+<textarea hidden id="cliente" name="cliente" ng-value="vm.Form.cliente | json:0"></textarea>
+<textarea hidden id="serieBateria" name="serieBateria" ng-value="vm.Form.serieBateria | json:0"></textarea>
+<textarea hidden id="serieCarregador" name="serieCarregador" ng-value="vm.Form.serieBateria | json:0"></textarea>
+
+<table hidden tablename="groups" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="group in vm.Form.groups">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="group.group | json:0" ng-bind="group.group | json:0" name="group_group"></textarea>
+          <input type="hidden" name="group_documentid" ng-value="group.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table hidden tablename="checklist" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="item in vm.Form.checklist">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="item.item | json:0" ng-bind="item.item | json:0" name="item_item"></textarea>
+          <input type="hidden" name="item_documentid" ng-value="item.documentid">
+          <input type="hidden" name="item_groupId" ng-value="item.groupId">
+          <input type="hidden" name="item_value" ng-value="item.value">
+          <input type="hidden" name="item_obs" ng-value="item.obs">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="field in vm.Form.fields">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="field.field | json:0" ng-bind="field.field | json:0" name="field_field"></textarea>
+          <input type="hidden" name="field_documentid" ng-value="field.documentid">
+          <input type="hidden" name="field_groupId" ng-value="field.groupId">
+          <input type="hidden" name="field_value" ng-value="field.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="options" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="option in vm.Form.options">
+      <td>
+        <div class="td-content">
+          <input type="hidden" name="option_documentid" ng-value="option.documentid">
+          <input type="hidden" name="option_label" ng-value="option.label">
+          <input type="hidden" name="option_value" ng-value="option.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="itemFields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="itemField in vm.Form.itemFields">
+      <td>
+        <div class="td-content">
+          <input type="hidden" name="itemField_documentid" ng-value="itemField.documentid">
+          <input type="hidden" name="itemField_label" ng-value="itemField.label">
+          <input type="hidden" name="itemField_pre" ng-value="itemField.pre">
+          <input type="hidden" name="itemField_pos" ng-value="itemField.pos">
+          <input type="hidden" name="itemField_value" ng-value="itemField.value">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="image in vm.Form.images">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="image.image | json:0" ng-bind="image.image | json:0" name="image_image"></textarea>
+          <input type="hidden" name="image_documentid" ng-value="image.documentid">
+          <input type="hidden" name="image_groupId" ng-value="image.groupId">
+          <input type="hidden" name="image_value" ng-value="image.value">
+          <input type="hidden" name="image_docDesc" ng-value="image.docDesc">
+          <input type="hidden" name="image_docId" ng-value="image.docId">
+          <input type="hidden" name="image_docVersion" ng-value="image.docVersion">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							SOLICITAÇÃO
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Processo</label>
+            <input name="processInstanceId_i" disabled class="form-control" ng-value="vm.Form.processInstanceId">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="control-label">Responsável</label>
+            <input name="colleagueName_i" disabled class="form-control" ng-value="vm.Form.solicitante.colleagueName">
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Data Início</label>
+            <input name="requestDate_i" disabled class="form-control"
+                ng-value="vm.Form.requestDate | date:'dd/MM/yyyy'">
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <div class="form-group">
+            <label class="control-label">Hr Ini</label>
+            <input name="requestHour_i" disabled class="form-control"
+                ng-value="vm.Form.requestDate | date:'hh:mm'"></input>
+        </div>
+
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label class="control-label">Data Fim</label>
+            <input name="endDate_i" disabled class="form-control" ng-value="vm.Form.endDate | date:'dd/MM/yyyy'">
+        </div>
+
+    </div>
+    <div class="col-sm-1">
+        <div class="form-group">
+            <label class="control-label">Hr Fim</label>
+            <input name="endHour_i" disabled class="form-control" ng-value="vm.Form.endDate | date:'hh:mm'">
+        </div>
+
+    </div>
+
+</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							EQUIPAMENTO
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="equipment_i" class="control-label">Tipo do Equipamento</label>
+            <input class="form-control input-lg" fluig-autocomplete values="vm.Equipments" display-key="title"
+                ng-model="vm.Form.equipment" name="equipment_i" ng-change="vm.changeEquipment()"
+                data-fluig-required="true" data-fluig-state-valid="0,4" ng-required="true"
+                fluig-error="form.equipment_i.$error">
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="serie_i" class="control-label">Série</label>
+            <div class="input-group">
+                <input type="text" id="serie_i" name="serie_i" class="form-control input-lg"
+                    ng-blur="vm.buscaSerie('serie', form.serie_i)" data-fluig-required="true"
+                    data-fluig-state-valid="0,4" ng-value="vm.Form.serie.B1_COD" ng-model="vm.Form.serie.B1_COD"
+                    ng-required="true" fluig-error="form.serie_i.$error" />
+                <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                    ng-click="vm.zoomEmpilhadeira('serie', 'B1_COD')" ng-if="vm.Params.edit">
+                    <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <label class="control-label">Modelo</label>
+        <input class="form-control input-lg" ng-value="vm.Form.serie.B1_DESC" name="serieDesc" ng-readonly="true">
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="horimetro_a" class="control-label">Horímetro atual</label>
+            <input type="text" class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.horimetro"
+                name="horimetro_a" ng-value="vm.Form.serie.AA3_ZZHORI" fluig-error="form.horimetro_a.$error">
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="cliente_i" class="control-label">Cliente</label>
+            <div class="input-group">
+                <input type="text" class="form-control input-lg zoom-tdi" id="cliente_i" name="cliente_i"
+                    ng-value="vm.Form.cliente.codigo" ng-model="vm.Form.cliente.codigo" ng-readonly="true"
+                    ng-required="true" fluig-error="form.cliente_i.$error" />
+                <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                    ng-click="vm.zoomClientes('cliente', 'codigo')" ng-if="vm.Params.edit">
+
+                    <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-2">
+        <label class="control-label">Loja</label>
+        <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja" ng-readonly="true">
+    </div>
+    <div class="col-sm-8">
+        <label class="control-label">Nome</label>
+        <input class="form-control input-lg" ng-value="vm.Form.cliente.nome" name="clienteNome" ng-readonly="true">
+    </div>
+</div>-->
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="horimetro_i" class="control-label">Horímetro</label>
+            <input type="text" class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.horimetro"
+                name="horimetro_i" data-fluig-required="true" data-fluig-state-valid="0,4" ng-required="true"
+                fluig-error="form.horimetro_i.$error">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="serieBateria_i" class="control-label">Série da Bateria Incorporada</label>
+            <input type="text" id="serieBateria_i" name="serieBateria_i" class="form-control input-lg"
+                data-fluig-state-valid="0,4" data-fluig-write="0,4"
+                ng-value="vm.Form.serie.AA4_NSERAC"
+                ng-model="vm.Form.serieBateria" />
+                 <!-- ng-value="vm.Form.serieBateria" -->
+
+        </div>
+
+        <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt" min-length="3"
+                    display-key="B1_COD" ng-model="vm.Form.serieBateria" name="serieBateria_i" search-field="concatena"> -->
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="ativoBateria" class="control-label">Ativo Bat. (casp Sobresalente)</label>
+            <input class="form-control input-lg" ng-value="vm.Form.serieBateria.ATIVO" name="ativoBateria"
+                ng-readonly="true">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="serieCarregador_i" class="control-label">Série Carregador</label>
+            <div class="input-group">
+                <input type="text" id="serieCarregador_i" name="serieCarregador_i" class="form-control input-lg"
+                    ng-blur="vm.buscaSerie('serieCarregador', form.serieCarregador_i)" data-fluig-state-valid="0,4"
+                    data-fluig-write="0,4" ng-value="vm.Form.serieCarregador.B1_COD"
+                    ng-model="vm.Form.serieCarregador.B1_COD" />
+                <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                    ng-click="vm.zoomEmpilhadeira('serieCarregador', 'B1_COD')" ng-if="vm.Params.edit">
+                    <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsEmpilhadeiraProt" min-length="3"
+                    display-key="B1_COD" ng-model="vm.Form.serieCarregador" name="serieCarregador_i"
+                    search-field="concatena"> -->
+    </div>
+</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							ORIENTAÇÕES
+						</h3>
+					</div>
+					<div class="panel-body">
+						<h3>Característica de controle / Instrução / Critério de aceitação</h3>
+
+<p>OK = CONDIÇÕES NORMAIS</p>
+<p>NOK = NÃO ESTÁ EM CONDIÇÕES NORMAIS</p>
+<p>AC = APROVADO CONDICIONALMENTE</p>
+<p>NA = NÃO SE APLICA</p>
+
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-repeat="group in vm.Form.groups">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							{{$index +1}}. {{group.group.title}}
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div ng-if="group.group.groupType == 'checklist'">
+							<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in vm.Form.checklist | filter: {documentid: group.group.documentid}">
+      <td>
+        <div class="row">
+          <div class="col-sm-9">
+            <h4 ng-class="{'text-danger':!item.value}">{{item.item.title}} / {{item.item.instruction}} /
+              {{item.item.acceptanceCriteria}}</h4>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group">
+              <button type="button" class="btn" ng-class="{'btn-success':item.value=='ok'
+                    ,'btn-default':item.value!='ok' }" ng-click="item.value = 'ok'"
+                ng-disabled="!vm.Params.edit">OK</button>
+              <button type="button" class="btn" ng-class="{'btn-danger':item.value=='nok'
+                    ,'btn-default':item.value!='nok'}" ng-click="item.value = 'nok'"
+                ng-disabled="!vm.Params.edit">NOK</button>
+              <button type="button" class="btn" ng-class="{'btn-warning':item.value=='ac'
+                    ,'btn-default':item.value!='ac' }" ng-click="item.value = 'ac'"
+                ng-disabled="!vm.Params.edit">AC</button>
+              <button type="button" class="btn" ng-class="{'btn-primary':item.value=='na'
+                    ,'btn-default':item.value!='na' }" ng-click="item.value = 'na'"
+                ng-disabled="!vm.Params.edit">NA</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"
+            ng-repeat="itemField in vm.Form.itemFields | filter: {documentid: item.item.documentid}">
+
+            <label ng-class="{'label-no-content':!itemField.label}">{{itemField.label}}</label>
+            <div class="input-group">
+              <span class="input-group-addon">{{itemField.pre}}</span>
+              <input type="text" name="itemField_value_i" ng-model="itemField.value" class="form-control">
+              <span class="input-group-addon">{{itemField.pos}}</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label for="">Observações</label>
+            <textarea class="form-control" name="item_obs_i" elastic ng-model="item.obs"></textarea>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+						</div>
+
+						<div ng-if="group.group.groupType == 'images'">
+							<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="image in vm.Form.images | filter: {documentid: group.group.documentid}">
+      <td>
+        <div class="row">
+          <div class="col-sm-3">
+            <h4 ng-class="{'text-danger':!image.value || !image.docDesc}">{{image.image.title}}</h4>
+          </div>
+          <div class="col-sm-3">
+            <div class="btn-group">
+              <button type="button" class="btn" ng-class="{'btn-success':image.value=='ok'
+                    ,'btn-default':image.value!='ok' }" ng-click="image.value = 'ok'"
+                ng-disabled="!vm.Params.edit">OK</button>
+              <button type="button" class="btn" ng-class="{'btn-danger':image.value=='nok'
+                    ,'btn-default':image.value!='nok'}" ng-click="image.value = 'nok'"
+                ng-disabled="!vm.Params.edit">NOK</button>
+              <button type="button" class="btn" ng-class="{'btn-warning':image.value=='ac'
+                    ,'btn-default':image.value!='ac' }" ng-click="image.value = 'ac'"
+                ng-disabled="!vm.Params.edit">AC</button>
+              <button type="button" class="btn" ng-class="{'btn-primary':image.value=='na'
+                    ,'btn-default':image.value!='na' }" ng-click="image.value = 'na'"
+                ng-disabled="!vm.Params.edit">NA</button>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <!-- <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja"
+                  ng-readonly="true"> -->
+
+            <input type="text" class="form-control" ng-model="image.docDesc" name="image_docDesc_i" ng-readonly="true">
+          </div>
+
+          <div class="col-sm-3">
+            <div class="btn-group">
+              <button ng-if="vm.Params.edit" class="btn btn-default" type="button"
+                ng-click="vm.upload(image, image.image.title)">
+                Incluir
+              </button>
+              <button ng-if="image.docDesc && vm.Params.edit" class="btn btn-danger" type="button"
+                ng-click="vm.deleteFile(image)">
+                Excluir
+              </button>
+              <button type="button" ng-if="image.docId" class="btn btn-default"
+                ng-click="vm.openDocument(image.docId, image.docVersion)">
+                Visualizar
+              </button>
+              <!-- <a ng-if="image.docId" class="btn btn-default" target="_blank" ng-href="/portal/p/01/ecmnavigation?app_ecm_navigation_doc={{image.docId}}">
+                      <i class="fluigicon fluigicon-export" style="font-size: 20px;"></i>
+                    </a> -->
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+						</div>
+
+						<div ng-if="group.group.groupType == 'fields'">
+							<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="field in vm.Form.fields | filter: {documentid: group.group.documentid}">
+      <td>
+        <div class="row">
+          <div class="col-sm-6" ng-show="field.field.fieldFormat == 'combo'">
+            <label ng-class="{'text-danger':!field.value}" for="">{{field.field.title}}</label>
+            <select class="form-control" name="field_value_s" ng-model="field.value">
+              <option ng-repeat="option in vm.Form.options | filter: {documentid: field.field.documentid}"
+                ng-value="option.value">{{option.label}}</option>
+            </select>
+          </div>
+          <div class="col-sm-6" ng-show="field.field.fieldFormat == 'livre'">
+            <label ng-class="{'text-danger':!field.value}" for="">{{field.field.title}}</label>
+            <textarea ng-if="field.field.fieldType == 'text' || !field.field.fieldType" elastic
+              class="form-control input-lg" name="field_value_t" ng-model="field.value" maxlength="{{field.field.fieldSize}}"></textarea>
+              
+            <input type="text" class="form-control" ng-if="field.field.fieldType == 'number'" ng-model="field.value"
+              fluig-number-mask="2" name="field_value_n" maxlength="{{field.field.fieldSize}}">
+
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -3,6 +3,18 @@
 <head>
 	<!-- partial:../partials/head.html -->
 	<!-- partial -->
+	<script type="text/javascript" src="/jh_lib/resources/FLUIGIP.js"></script>
+	<script type="text/javascript">
+		function disablePullToRefresh() {
+			return true;
+		}
+	</script>
+	<script type="text/javascript">
+		beforeSendValidate = function (numState, nextState) {
+			console.log("desabilita");
+			return;
+		}
+	</script>
 	<title>Transferência de Materiais</title>
 </head>
 
@@ -25,7 +37,7 @@
 				<!-- partial:partials/filial.html -->
 				<!-- partial -->
 
-				<div class="panel panel-default" ng-show="vm.Form.filial.filial">
+				<div class="panel panel-default" ng-show="vm.Form.filialDescricao">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							MATERIAIS

@@ -6,6 +6,7 @@
                 <input type="text" class="form-control input-lg" name="title" ng-model="vm.Form.title"
                     ng-value="vm.Form.title" ng-blur="vm.changeTitle()">
             </div>
+
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -13,7 +14,7 @@
                 <input type="text" class="form-control input-lg" name="fieldName" ng-model="vm.Form.fieldName"
                     ng-value="vm.Form.fieldName">
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <label class="control-label">Formato do campo</label>
                 <div>
                     <label class="radio-inline">
@@ -27,7 +28,7 @@
                     <input type="hidden" name="fieldFormat" ng-value="vm.Form.fieldFormat">
                 </div>
             </div>
-            <div class="col-sm-3" ng-show="vm.Form.fieldFormat == 'livre'">
+            <div class="col-sm-2" ng-show="vm.Form.fieldFormat == 'livre'">
                 <label class="control-label">Tipo do campo</label>
                 <div>
                     <label class="radio-inline">
@@ -41,7 +42,39 @@
                     <input type="hidden" name="fieldType" ng-value="vm.Form.fieldType">
                 </div>
             </div>
+            <div class="col-sm-2">
+                <label class="control-label">Mostra Observações</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="showObservations_i" ng-name="showObservations_i"
+                            ng-model="vm.Form.showObservations" value="S"> SIM
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="showObservations_i" ng-name="showObservations_i"
+                            ng-model="vm.Form.showObservations" value="N"> NÃO
+                    </label>
+                    <input type="hidden" name="showObservations" ng-value="vm.Form.showObservations">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="control-label">Obrigatório</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="mandatory_i" ng-name="mandatory_i" ng-model="vm.Form.mandatory"
+                            value="S"> SIM
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="mandatory_i" ng-name="mandatory_i" ng-model="vm.Form.mandatory"
+                            value="N"> NÃO
+                    </label>
+                    <input type="hidden" name="mandatory" ng-value="vm.Form.mandatory">
+                </div>
+            </div>
+            <div class="col-sm-1" ng-show="vm.Form.fieldFormat == 'livre'">
+                <label class="control-label">Tamanho</label>
+                <input type="text" class="form-control input-lg" name="fieldSize" ng-model="vm.Form.fieldSize"
+                    ng-value="vm.Form.fieldSize">
+            </div>
         </div>
-
     </div>
 </div>

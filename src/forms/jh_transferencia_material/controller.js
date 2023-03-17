@@ -43,18 +43,23 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           vm.regras[o.regra] = vm.Params.user == "adminx" && vm.Params.edit ? true : o.etapas.indexOf(vm.Params.etapa) >= 0 ? o.def : false;
         });
 
-        if (vm.Params.etapa == 'inicio') {
+        if (vm.Params.etapa == 'inicio' && vm.Params.formMode == 'ADD') {
           vm.Form.solicitante = fluigService.getUsuarios(vm.Params.user)[0];
           vm.Form.requestDate = new Date().getTime();
-          vm.Form.materiais.push({});
+          vm.Form.materiais.push({ produtoCod: '' });
         }
         vm.Armazens = erpService.getArmazem();
         vm.Filiais = erpService.getEmpFilial();
         vm.Empresas = [...new Set(vm.Filiais.map(f => f.empresa))].map(e => { return { empresa: e } })
-      }
 
-      vm.changeEmpresa = () => {
-        vm.EmpFiliais = vm.Filiais.filter(f => f.empresa == vm.Form.empresa.empresa);
+        vm.ArmazensL = vm.Armazens.filter(a => isNaN(Number(a.codigo)));
+        vm.ArmazensN = vm.Armazens.filter(a => !isNaN(Number(a.codigo)));
+
+        angular.forEach(vm.Form.materiais, m => {
+          m.ArmazensByType = vm.Armazens.filter(a => isNaN(Number(a.codigo)) == isNaN(Number(m.armazemOrig)));
+        })
+
+        vm.Form.empresaCodigo = '01';
       }
 
       vm.removeChild = function removeChild(Array, item) {
@@ -93,6 +98,13 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         });
       }
 
+      vm.changeArmazemDestinoL = () => {
+        vm.enderecoDestinoL = null;
+      }
+      vm.changeArmazemDestinoN = () => {
+        vm.enderecoDestinoN = null;
+      }
+
       vm.alteraSelecionados = () => {
         const selecionados = vm.Form.materiais.filter(m => m.seleciona);
         if (selecionados.length == 0) {
@@ -103,12 +115,20 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
           return;
         }
         selecionados.forEach(material => {
-          material.armazemDest = vm.armazemDestino;
-          material.enderecoDest = vm.enderecoDestino;
-        })
+          if (vm.armazemDestinoL && isNaN(Number(material.armazemOrig))) {
+            material.armazemDest = vm.armazemDestinoL;
+            material.enderecoDest = vm.enderecoDestinoL;
+          }
+          if (vm.armazemDestinoN && !isNaN(Number(material.armazemOrig))) {
+            material.armazemDest = vm.armazemDestinoN;
+            material.enderecoDest = vm.enderecoDestinoN;
+          }
+        });
 
-        vm.armazemDestino = null;
-        vm.enderecoDestino = null;
+        vm.armazemDestinoL = null;
+        vm.enderecoDestinoL = null;
+        vm.armazemDestinoN = null;
+        vm.enderecoDestinoN = null;
         vm.direcionarModal = false;
       }
 
@@ -128,39 +148,114 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
         vm.direcionarModal = true;
       }
 
-      vm.changeProduto = material => {
+      vm.zoomProduto = (material, index) => {
+        var dataset = "protheus_consulta_produto";
+        var fields = "filial,Filial,codigo,Código,descricao,Descrição";
+        var resultfields = "filial,codigo,descricao";
+        var title = "Selecione o produto";
+        var filters = "";
+        var type = `material_produtoCod___${index + 1}`;
+        var likefield = "";
+        var likevalue = "";
+        var searchby = "codigo";
 
-        console.log('vm.changeProduto', material)
-        if (material.produto && material.produto.codigo) {
+        console.log(type);
+        // filters = `filial,${vm.Form.filialCodigo}`;
+
+        tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
+      }
+
+      vm.zoomFilial = () => {
+        var dataset = "dsEmpFilial";
+        var fields = "filial,Filial,descFilial,Descrição";
+        var resultfields = "filial,descFilial";
+        var title = "Selecione a filial";
+        var filters = "";
+        var type = 'filialCodigo';
+        var likefield = "";
+        var likevalue = "";
+        var searchby = "descFilial";
+
+        // filters = "descFilial,";
+
+        // type += '_i';
+
+        tdizoom.open(dataset, fields, resultfields, title, filters, type, likefield, likevalue, searchby);
+      }
+
+      vm.buscaFilial = () => {
+        let filial = vm.Filiais.filter(f => f.filial == vm.Form.filialCodigo)[0];
+        if (filial) {
+          vm.Form.filialCodigo = filial.filial;
+          vm.Form.filialDescricao = filial.descFilial;
+        } else {
+          FLUIGC.toast({
+            title: 'Erro ',
+            message: 'Filial não encontrada',
+            type: 'danger'
+          });
+
+          vm.Form.filialCodigo = '';
+          vm.Form.filialDescricao = '';
+        }
+      }
+
+      vm.buscaProduto = (material, index) => {
+        if (material.produtoCod && material.produtoCod !== '') {
+
+          let produto = erpService.getProduto(material.produtoCod).filter(p => p.codigo == material.produtoCod)[0]
+          if (produto) {
+            vm.setProduto(index, produto.codigo, produto.descricao);
+
+          } else {
+            FLUIGC.toast({
+              title: 'Erro ',
+              message: 'Produto não encontrado',
+              type: 'danger'
+            });
+
+            material.produtoCod = '';
+            material.produtoDesc = '';
+          }
+        } else {
+          material.produtoDesc = '';
+        }
+      }
+
+      vm.setProduto = (index, codigo, descricao) => {
+        vm.Form.materiais[index].produtoCod = codigo;
+        vm.Form.materiais[index].produtoDesc = descricao;
+        vm.changeProduto(vm.Form.materiais[index]);
+      }
+
+      vm.changeProduto = material => {
+        if (material.produtoCod && material.produtoCod !== '') {
           vm.Errors = [];
-          let produtoSaldo = erpService.getProdutoSaldo(vm.Form.empresa.empresa, vm.Form.filial.filial, material.produto.codigo);
+          let produtoSaldo = erpService.getProdutoSaldo(vm.Form.empresaCodigo, vm.Form.filialCodigo, material.produtoCod);
 
           if (!produtoSaldo || produtoSaldo.length == 0) {
             FLUIGC.message.error({
               message: 'Produto sem saldo',
               title: 'Oops'
             });
-            // vm.Errors.push(`Produto ${material.produto.codigo} sem saldo`)
-            material.produto = null;
+            // vm.Errors.push(`Produto ${material.produtoCod} sem saldo`)
+            material.produtoCod = null;
+            material.produtoDesc = null;
             return;
           }
 
           produtoSaldo = produtoSaldo[0];
+          material.armazemOrig = produtoSaldo.armazem;
+          material.enderecoOrig = produtoSaldo.endereco;
+
+          material.ArmazensByType = vm.Armazens.filter(a => isNaN(Number(a.codigo)) == isNaN(Number(material.armazemOrig)));
 
           console.log(produtoSaldo);
-
-          if (produtoSaldo && produtoSaldo.armazem) {
-            material.armazemOrig = vm.Armazens.filter(a => a.codigo == produtoSaldo.armazem)[0];
-
-            if (material.armazemOrig && material.armazemOrig.codigo) {
-              material.enderecoOrig = produtoSaldo.endereco;
-            }
-          }
-
         }
       }
 
       vm.checkLocal = function checkLocal() {
+        return;
         if (window.location.hostname == 'localhost') {
           vm.Params = {
             edit: true,
@@ -306,3 +401,22 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       }
     }
   ]);
+
+
+function setSelectedZoomItem(row) {
+  console.log(row);
+
+  if (row.inputId == "filialCodigo") {
+    angular.element("form").scope().vm.Form.filialCodigo = row.filial;
+    angular.element("form").scope().vm.Form.filialDescricao = row.descFilial;
+  }
+
+  if (/^material_produtoCod/.test(row.inputId)) {
+    let index = row.inputId.split('___')[1] || 1;
+    index = index - 1;
+
+    angular.element("form").scope().vm.setProduto(index, row.codigo, row.descricao);
+  }
+
+  angular.element("form").scope().$apply();
+}

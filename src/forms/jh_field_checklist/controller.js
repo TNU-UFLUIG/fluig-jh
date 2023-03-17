@@ -24,6 +24,8 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
       vm.start = function start() {
         vm.checkLocal();
         vm.Fields = jhService.getFieldChecklist();
+        if (!vm.Form.showObservations) vm.Form.showObservations = 'N';
+        if (!vm.Form.mandatory) vm.Form.mandatory = 'S';
       };
 
       vm.changeTitle = () => {

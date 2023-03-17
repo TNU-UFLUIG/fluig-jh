@@ -1,0 +1,230 @@
+<html ng-app="jhApp">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-flat.min.css">
+<link rel="stylesheet" type="text/css" href="/jh_lib/css/main.css" />
+<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script> 
+<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js"></script>
+<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+<script type="text/javascript" src="/jh_lib/js/vendor.min.js"></script>
+<script type="text/javascript" src="/jh_lib/js/script.min.js"></script>
+<script type="text/javascript" src="custom.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Grupos de Checklist</title>
+</head>
+
+<body ng-controller="jhController as vm">
+	<div class="fluig-style-guide ng-cloak">
+		<div class="container-fluid">
+			<!-- <div fluig-header class="hidden-xs" logo="../../wcm/widget/jh_lib/images/logo.png"></div> -->
+			<form name="form" role="form" class="form">
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<img src="/jh_lib/images/logo.png" style="max-width: 20%; max-height: 20%">
+					</div>
+				</div>
+
+				<input name="Params" type="hidden" id="Params" ng-value="vm.Params | json:0">
+<input name="Errors" type="hidden" id="Errors" ng-value="vm.Errors | json:0">
+
+<input name="displaykey" type="hidden" ng-value="vm.Form.title">
+
+<table hidden tablename="checklist" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="item in vm.Form.checklist">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="item.item | json:0" ng-bind="item.item | json:0" name="item_item"></textarea>
+          <input type="hidden" name="item_itemId" ng-value="item.item.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="fields" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="field in vm.Form.fields">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="field.field | json:0" ng-bind="field.field | json:0" name="field_field"></textarea>
+          <input type="hidden" name="field_fieldId" ng-value="field.field.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table hidden tablename="images" noaddbutton="true" nodeletebutton="true">
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody ng-non-bindable>
+    <tr ng-repeat="image in vm.Form.images">
+      <td>
+        <div class="td-content">
+          <textarea hidden ng-value="image.image | json:0" ng-bind="image.image | json:0" name="image_image"></textarea>
+          <input type="hidden" name="image_imageId" ng-value="image.image.documentid">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+				
+				<div class="row" ng-repeat="erro in vm.Errors">
+    <div class="col-sm-12">
+        <div ng-if="vm.Params.edit" class="alert alert-danger animate" role="alert">
+            {{erro}}
+        </div>
+    </div>
+</div>
+
+				<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <label class="control-label">Título do Grupo</label>
+                <input type="text" class="form-control input-lg" name="title" ng-model="vm.Form.title"
+                    ng-value="vm.Form.title" ng-blur="vm.changeTitle()">
+            </div>
+            <div class="col-sm-8">
+                <label class="control-label">Tipo do Grupo</label>
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="checklist"> Cheklist
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="fields"> Campos
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="groupType_i" ng-model="vm.Form.groupType" value="images"> Imagens
+                    </label>
+                    <input type="hidden" name="groupType" ng-value="vm.Form.groupType">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'checklist'">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							ITENS DO CHECKLIST
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div ui-sortable="vm.sortableOptions" ng-model="vm.Form.checklist">
+    <div ng-repeat="item in vm.Form.checklist" class="row">
+        <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
+            <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
+                title="Mover campo"></i>
+        </div>
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label>Item</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="jh_item_checklist" display-key="title"
+                    ng-model="item.item" name="item_item_i" result-fields="[ 'documentid', 'title']">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="vm.Params.edit">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.checklist.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'images'">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							IMAGENS
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div ui-sortable="vm.sortableOptions" ng-model="vm.Form.images">
+    <div ng-repeat="image in vm.Form.images" class="row">
+        <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
+            <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
+                title="Mover campo"></i>
+        </div>
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label>Imagem</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="jh_image_checklist" display-key="title"
+                    ng-model="image.image" name="image_image_i">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="vm.Params.edit">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.images.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default" ng-if="vm.Form.groupType == 'fields'">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							CAMPOS
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div ui-sortable="vm.sortableOptions" ng-model="vm.Form.fields">
+    <div ng-repeat="field in vm.Form.fields" class="row">
+        <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
+            <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
+                title="Mover campo"></i>
+        </div>
+        <div class="col-sm-11">
+            <div class="form-group">
+                <label>Campo</label>
+                <input class="form-control input-lg" fluig-autocomplete dataset="jh_field_checklist" display-key="title"
+                    ng-model="field.field" name="field_field_i">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="vm.Params.edit">
+    <div class="col-sm-12">
+        <button class="btn btn-default" ng-click="vm.Form.fields.push({})">
+            Novo <i class="fluigicon fluigicon-plus icon-sm"></i>
+        </button>
+    </div>
+</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

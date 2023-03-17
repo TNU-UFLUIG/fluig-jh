@@ -70,8 +70,8 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
       vm.zoomEmpilhadeira = (table, field) => {
         var dataset = "DSEMPILHADEIRAPROT";
 
-        var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo,ATIVO,Ativo";
-        var resultfields = "B1_COD,B1_DESC,B1_TIPO,ATIVO";
+        var fields = "B1_COD,Empilhadeira,B1_DESC,Descrição,B1_TIPO,Tipo,AA4_NSERAC,Bat_incorp,AA3_ZZHORI,Horimetro,ATIVO,Ativo";
+        var resultfields = "B1_COD,B1_DESC,B1_TIPO,AA3_ZZHORI,ATIVO";
         var title = "Selecione a Empilhadeira";
         var filters = "";
         var type = table;
@@ -137,9 +137,11 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
         vm.Equipments = jhService.getEquipment();
         vm.GroupChecklist = jhService.getGroupChecklist();
-        vm.FieldChecklist = jhService.getFieldChecklist(null, ['documentid', 'title', 'fieldName', 'fieldType', 'fieldFormat']);
+        vm.FieldChecklist = jhService.getFieldChecklist(null, ['documentid', 'title', 'fieldName', 'fieldType', 'fieldFormat', 'fieldSize']);
         vm.ImageChecklist = jhService.getImageChecklist(null, ['documentid', 'title', 'help']);
         vm.ItemChecklist = jhService.getItemChecklist(null, ['documentid', 'title', 'instruction', 'acceptanceCriteria']);
+
+        console.log(vm.FieldChecklist);
 
         vm.GroupEquipment = jhService.getGroupEquipment();
         vm.FieldOptions = jhService.getFieldOptions();
@@ -183,32 +185,49 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services'])
 
             fields.forEach(field => {
               field.field = vm.FieldChecklist.filter(f => f.documentid == field.field_field.documentid)[0]; //field.field_field;
-              // let options = jhService.getFieldOptions(field.field.documentid);
-              let options = vm.FieldOptions.filter(f => f.documentid == field.field.documentid);
+              if (field.field) {
+                // let options = jhService.getFieldOptions(field.field.documentid);
+                if (!field.field.showObservations) field.field.showObservations = 'N';
+                if (!field.field.mandatory) field.field.mandatory = 'S';
 
-              options.forEach(option => {
-                option.label = option.option_label;
-                option.value = option.option_value;
-              });
+                let options = vm.FieldOptions.filter(f => f.documentid == field.field.documentid);
 
-              vm.Form.options = vm.Form.options.concat(options);
+                options.forEach(option => {
+                  option.label = option.option_label;
+                  option.value = option.option_value;
+                });
+
+                vm.Form.options = vm.Form.options.concat(options);
+              } else {
+                field.removed = true;
+              }
             });
             images.forEach(image => {
               image.image = vm.ImageChecklist.filter(i => i.documentid == image.image_image.documentid)[0]; //image.image_image;
+
+              if (!image.image) image.removed = true;
             });
             checklist.forEach(item => {
               item.item = vm.ItemChecklist.filter(i => i.documentid == item.item_item.documentid)[0]; //item.item_item;
-              // let itemFields = jhService.getChecklistFields(item.item.documentid);
-              let itemFields = vm.ItemFields.filter(f => f.documentid == item.item.documentid);
+              if (item.item) {
+                // let itemFields = jhService.getChecklistFields(item.item.documentid);
+                let itemFields = vm.ItemFields.filter(f => f.documentid == item.item.documentid);
 
-              itemFields.forEach(field => {
-                field.label = field.field_label;
-                field.pre = field.field_pre;
-                field.pos = field.field_pos;
-              });
+                itemFields.forEach(field => {
+                  field.label = field.field_label;
+                  field.pre = field.field_pre;
+                  field.pos = field.field_pos;
+                });
 
-              vm.Form.itemFields = vm.Form.itemFields.concat(itemFields);
+                vm.Form.itemFields = vm.Form.itemFields.concat(itemFields);
+              } else {
+                item.removed = true;
+              }
             });
+
+            fields = fields.filter(r => !r.removed);
+            images = images.filter(r => !r.removed);
+            checklist = checklist.filter(r => !r.removed);
 
             vm.Form.fields = vm.Form.fields.concat(fields);
             vm.Form.images = vm.Form.images.concat(images);

@@ -9,19 +9,25 @@
       <td>
         <div class="row">
           <div class="col-sm-6" ng-show="field.field.fieldFormat == 'combo'">
-            <label ng-class="{'text-danger':!field.value}" for="">{{field.field.title}}</label>
+            <label ng-class="{'text-danger':!field.value && field.field.mandatory == 'S'}"
+              for="">{{field.field.title}}</label>
             <select class="form-control" name="field_value_s" ng-model="field.value">
               <option ng-repeat="option in vm.Form.options | filter: {documentid: field.field.documentid}"
                 ng-value="option.value">{{option.label}}</option>
             </select>
           </div>
           <div class="col-sm-6" ng-show="field.field.fieldFormat == 'livre'">
-            <label ng-class="{'text-danger':!field.value}" for="">{{field.field.title}}</label>
+            <label ng-class="{'text-danger':!field.value && field.field.mandatory == 'S'}"
+              for="">{{field.field.title}}</label>
             <textarea ng-if="field.field.fieldType == 'text' || !field.field.fieldType" elastic
-              class="form-control input-lg" name="field_value_t" ng-model="field.value"></textarea>
+              class="form-control input-lg" name="field_value_t" ng-model="field.value"
+              maxlength="{{field.field.fieldSize}}"></textarea>
             <input type="text" class="form-control" ng-if="field.field.fieldType == 'number'" ng-model="field.value"
-              fluig-number-mask="2" name="field_value_n">
-
+              fluig-number-mask="2" name="field_value_n" maxlength="{{field.field.fieldSize}}">
+          </div>
+          <div class="col-sm-6" ng-if="field.field.showObservations == 'S'">
+            <label for="field_obs_i">Observações</label>
+            <textarea elastic class="form-control input-lg" name="field_obs_i" ng-model="field.obs"></textarea>
           </div>
         </div>
       </td>

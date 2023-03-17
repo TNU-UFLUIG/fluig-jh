@@ -4,7 +4,12 @@ function validateForm(form) {
   const Errors = value(form, 'Errors');
   const Params = value(form, 'Params');
 
+  const filialCodigo = value(form, 'filialCodigo');
   const materiais = getChildren(form, 'materiais', ['material_produtoCod', 'material_armazemDestCod', 'material_enderecoDestCod']);
+
+  if (!filialCodigo) {
+    Errors.push(`Informe a filial`);
+  }
 
   materiais.forEach((material, index) => {
     if (Params.etapa == 'inicio') {

@@ -15,13 +15,17 @@
           <div class="col-sm-3">
             <div class="btn-group">
               <button type="button" class="btn" ng-class="{'btn-success':item.value=='ok'
-                    ,'btn-default':item.value!='ok' }" ng-click="item.value = 'ok'">OK</button>
+                    ,'btn-default':item.value!='ok' }" ng-click="item.value = 'ok'"
+                ng-disabled="!vm.Params.edit">OK</button>
               <button type="button" class="btn" ng-class="{'btn-danger':item.value=='nok'
-                    ,'btn-default':item.value!='nok'}" ng-click="item.value = 'nok'">NOK</button>
+                    ,'btn-default':item.value!='nok'}" ng-click="item.value = 'nok'"
+                ng-disabled="!vm.Params.edit">NOK</button>
               <button type="button" class="btn" ng-class="{'btn-warning':item.value=='ac'
-                    ,'btn-default':item.value!='ac' }" ng-click="item.value = 'ac'">AC</button>
+                    ,'btn-default':item.value!='ac' }" ng-click="item.value = 'ac'"
+                ng-disabled="!vm.Params.edit">AC</button>
               <button type="button" class="btn" ng-class="{'btn-primary':item.value=='na'
-                    ,'btn-default':item.value!='na' }" ng-click="item.value = 'na'">NA</button>
+                    ,'btn-default':item.value!='na' }" ng-click="item.value = 'na'"
+                ng-disabled="!vm.Params.edit">NA</button>
             </div>
           </div>
         </div>

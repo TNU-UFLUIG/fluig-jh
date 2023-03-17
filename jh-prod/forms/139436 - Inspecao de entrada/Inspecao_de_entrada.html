@@ -1,0 +1,1881 @@
+<!DOCTYPE html><!-- usa isso pra n&atilde;o subir o formul&aacute;rio ao clicar em anexar.-->
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	
+	
+	<link type="text/css" rel="stylesheet" href="Inspecao_de_entrada.css">
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+	<script type="text/javascript" src="FLUIGIP.js"></script>
+	<script type="text/javascript" src="Inspecao_de_entrada.js"></script>
+	
+	
+	
+</head>
+<body>
+<div class="fluig-style-guide">
+<form name="form" role="form">
+
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<img src="logo.png" style="max-width: 20%; max-height: 20%">
+		</div>
+	</div>
+			
+	<div class="panel panel-warning">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-moderator icon-md"></i> Inspeção</h3>
+	    </div>
+	    <div class="panel-body">
+
+			<div class="row">
+	    		<div class="col-md-2">
+					<label class="control-label">Processo</label>
+					<input type="text" class="form-control" id="processo" name="processo" data-fluig-required="true" readonly />
+				</div>	    		    	
+				<div class="col-md-4">
+					<label class="control-label">Responsável</label>
+					<input type="text" class="form-control" id="resp_com" name="resp_com" data-fluig-required="true" readonly />
+					<input type="hidden" id="matricula" name="matricula" />
+				</div>
+				
+				
+				<div class="col-md-2">
+					<label class="control-label">Data inicio</label>
+					<input type="text" class="form-control" id="sol_data" name="sol_data" data-fluig-required="true" readonly />
+				</div>
+				<div class="col-xs-12 col-sm-1">
+					<label class="control-label">Hora inicio</label>
+					<input type="text" class="form-control" id="sol_hora" name="sol_hora" data-fluig-required="true" readonly />
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Data fim</label>
+					<input type="text" class="form-control" id="sol_data_f" name="sol_data_f" data-fluig-required="true" readonly />
+				</div>
+				<div class="col-xs-12 col-sm-1">
+					<label class="control-label">Hora fim</label>
+					<input type="text" class="form-control" id="sol_hora_f" name="sol_hora_f" data-fluig-required="true" readonly />
+				</div>									
+	    	</div>
+	    	<div class="row">
+				<div class="form-gruop col-md-2">
+					<label for="serie">Serie da Maquina</label>
+					<div class="input-group">
+						<input type="text" name="serie" id="serie" class="form-control" onblur="buscaSerie('1')" data-fluig-required="true" data-fluig-state-valid="0,4" /> 
+							<div class="input-group-addon motivo-zoom" 
+						   		  style="cursor:pointer;" 
+						   		  onclick="javascript:zoomProdLoc(this)">
+						  		   <span class="fluigicon fluigicon-zoom-in fluigicon-sm" >
+						  		   </span>
+						    </div>						
+					</div>
+				</div> 
+	    		<div class="col-md-5">
+					<label class="control-label">Modelo da Maquina</label>
+					<input type="text" class="form-control" id="modelo" name="modelo" data-fluig-required="true" readonly />
+				</div>					   			    					
+	    		<!--<div class="col-md-2">
+					<label class="control-label">Cod Cliente</label>
+					<div class="input-group">
+					<input type="text" class="form-control zoom-tdi" id="cod_cli" name="cod_cli" data-fluig-required="true" data-fluig-state-valid="0,4" />
+						<div class="input-group-addon motivo-zoom"
+					   		 style="cursor:pointer;" 
+					   		 onclick="javascript:zoomClientes(this)">
+					   		 <!--data-fluig-state-hide = "5,18,24,26">
+							<span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+						   </span>
+						</div>					
+					</div>
+				</div>-->
+				<div class="col-md-2">
+					<label class="control-label">Horimetro</label>
+					<input type="number" class="form-control" id="horimetro" name="horimetro" mask="999999999" data-fluig-required="true" data-fluig-state-valid="0,4" />
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Cod Cliente</label>
+					<input type="text" class="form-control" id="cod_cli" name="cod_cli" data-fluig-required="true" readonly />
+				</div>
+				<div class="col-xs-12 col-sm-1">
+					<label class="control-label">Loja</label>
+					<input type="text" class="form-control" id="loja" name="loja" data-fluig-required="true" readonly />
+				</div>								
+	    	</div>
+	    	<div class="row">	    		
+	    		<div class="col-md-12">
+					<label class="control-label">Cliente</label>
+					<input type="text" class="form-control" id="nome_cli" name="nome_cli" data-fluig-required="true" readonly />
+				</div>									
+	    	</div>
+	    	
+	    	<div class="row">
+	    		<div class="col-md-3">
+					<label class="control-label">Grupo</label>
+					<input type="text" class="form-control" id="grupo" name="grupo" readonly/>				
+				</div>	    		
+	    		<div class="col-xs-12 col-sm-1">
+					<label class="control-label">Tipo</label>
+					<input type="text" class="form-control" id="tipo" name="tipo" readonly/>				
+				</div>	
+	    		<div class="col-md-2">
+					<label class="control-label">Num Contrato</label>
+					<input type="text" class="form-control" id="contrato" name="contrato" readonly/>				
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Tipo do Contrato</label>
+					<input type="text" class="form-control" id="tipo_cont" name="tipo_cont" readonly/>				
+				</div>					
+				<div class="col-md-2">
+					<label class="control-label">Sit. Movimento</label>
+					<input type="text" class="form-control" id="sit_mov" name="sit_mov" readonly/>				
+				</div>	
+				<div class="col-md-2">
+					<label class="control-label">Status Movimento</label>
+					<input type="text" class="form-control" id="sta_mov" name="sta_mov" readonly/>				
+				</div>							    	
+	    	</div>
+
+	    	<div class="row">
+				<div class="form-gruop col-md-2">
+					<label for="serie_bat_inc">Série da bateria incoporada</label>
+					<div class="input-group">
+						<input type="text" name="serie_bat_inc" id="serie_bat_inc" class="form-control" onblur="buscaSerie('2')" data-fluig-required="true" data-fluig-state-valid="0,4" /> 
+							<div class="input-group-addon motivo-zoom" 
+						   		  style="cursor:pointer;" 
+						   		  onclick="javascript:zoomEmpilhadeira(this)">
+						  		   <span class="fluigicon fluigicon-zoom-in fluigicon-sm" >
+						  		   </span>
+						    </div>						
+					</div>
+				</div> 				
+				<div class="col-md-2">
+					<label class="control-label">Ativo Bat.(caso sobresalente)</label>
+					<input type="text" class="form-control" id="ativo_bat" name="ativo_bat" readonly/>				
+				</div>					
+	    		<div class="col-md-2">
+					<label class="control-label">Num Nota Fiscal Saída</label>
+					<input type="text" class="form-control" id="nf_saida" name="nf_saida" readonly/>				
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Data Nota Fiscal Saída</label>
+					<input type="text" class="form-control" id="dt_nf_s" name="dt_nf_s" readonly/>				
+				</div>
+	    		<div class="col-md-2">
+					<label class="control-label">Num Nota Fiscal Entrada</label>
+					<input type="text" class="form-control" id="nf_entrada" name="nf_entrada" readonly/>				
+				</div>
+				<div class="col-md-2">
+					<label class="control-label">Data Nota Fiscal Entrada</label>
+					<input type="text" class="form-control" id="dt_nf_e" name="dt_nf_e" readonly/>				
+				</div>							
+			</div>
+	    	<div class="row">
+				<div class="form-gruop col-md-2">
+					<label for="serie_carr_c">Serie Carregador</label>
+					<div class="input-group">
+						<input type="text" name="serie_carr_c" id="serie_carr_c" class="form-control" onchange="buscaSerie('3')" data-fluig-write="0,4"/> 
+							<div class="input-group-addon motivo-zoom" 
+						   		  style="cursor:pointer;" 
+						   		  onclick="javascript:zoomEmpilhadeira(this)"
+						   		  onblur="informacoes()">
+						  		   <span class="fluigicon fluigicon-zoom-in fluigicon-sm" >
+						  		   </span>
+						    </div>						
+					</div>
+				</div>
+				
+				<div class= "form-gruop col-md-2">
+					<label>Sem Carregador?</label>
+						<div class="checkbox" data-fluig-state-readonly="16,18" >
+							<label><input class="input-group" type="checkbox" name="sim" data-fluig-state-readonly="16,18"> Sim</label>
+				</div>				
+				 			
+			</div>					
+	    </div>
+	</div>	     
+	
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<label class="control-label">Legenda de Condição Geral da Máquina</label>
+			<textarea class="form-control" id="obs1"
+				name="obs1" data-fluig-required="true"
+				
+				rows="10">
+Resultados das notas:
+
+	Entre 90% a 100% - Check and Paint
+	Entre 80% a 89%	 - Manutenção 1
+	Entre 45% a 79%	 - Manutenção 2
+	Entre 30% a 44%	 - Manutenção 3
+	Entre 15% a 29%	 - Manutenção 4
+	Entre 0% a 14%	 - Scrap
+
+			</textarea>
+		</div>
+		
+	</div>	
+
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Soma dos pontos (%)</h3>
+ 	  		<div class="col-md-1 pull-right">
+		<!-- <label class="control-label">Pontos bloco</label> -->
+			<input type="text" class="form-control" id="totponto" name="totponto" value="0" data-fluig-required="true" readonly />
+			<input type="hidden" id="totponto_ori" name="totponto_ori" />
+			</div>
+			<div class="row">	    	
+	    		<div class="col-md-6">
+					<label class="control-label">Resultado</label>
+					<input type="text" class="form-control" id="resultado" name="resultado" readonly />
+				</div>
+			</div>		
+		</div>
+	</div>		
+		
+		
+
+				    	
+	<div class="panel panel-warning">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-user-selection icon-md"></i>Categoria gerais</h3>
+	    </div>
+	    <div class="panel-body">				    	
+	    	<div class="row">
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-10">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_1" name="etapa_1" readonly >Máqunia funcionando?
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status3" 
+                         id="etapa_1_status" name="etapa_1_status" 
+                         value=" - " onclick="MudarStatusFunc(this)" readonly>
+		  			</div>			  			
+		  			<!--<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_1_status_oficina" name="etapa_1_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> -->			  									  
+				</div>	    	
+			
+	    		<div class="panel-body">
+		    		<div class="form-gruop col-md-10">
+						<label for="info_etapa_1"></label>
+						<textarea rows="3" name="info_etapa_1" id="info_etapa_1" class="form-control" maxlength="250" data-fluig-write="0,4"></textarea> Detalhe, se necessário.
+						
+					</div>	    	
+				</div>			
+				<!--<div class="row">
+		  			<div class="col-xs-12 col-sm-10">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_2" name="etapa_2" readonly >Status TBD
+		      			</textarea>
+	  			</div>	
+	  			<div class="col-xs-12 col-sm-1">
+                        <input type="text" 
+                        class="btn button-status" 
+                        id="etapa_2_status" name="etapa_2_status" 
+                        value=" - " onclick="MudarStatus(this)" readonly>
+	  			</div>-->	
+				
+	    		<!--<div class="panel-body">
+		    		<div class="form-gruop col-md-10" id="etapa_1_status_oficina_info_div">
+						<label for="etapa_1_status_oficina_info"></label>
+						<textarea rows="3" name="etapa_1_status_oficina_info" id="etapa_1_status_oficina_info" class="form-control" data-fluig-state-readonly="0,4,22,38"></textarea>Detalhe, se necessário (Oficina).
+					</div>-->	    	
+				</div>	
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_01" name="etapa_01" readonly >Foto frontal
+		      			</textarea>
+		  			</div>	  			
+					<div class="row">
+						<div class="col-sm-2">
+							<label class="control-label">Foto</label>
+							<input type="text" class="form-control" name="tx_frontal" id="tx_frontal" readonly />
+							<input type="hidden" id="id_frontal" name="id_frontal" />
+							<input type="hidden" id="dc_frontal" name="dc_frontal" />
+							<input type="hidden" id="vr_frontal" name="vr_frontal" />
+							
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-default" id="bt_frontal" name="bt_frontal" value="Incluir" onclick="showCamera(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-danger" id="ex_frontal" name="ex_frontal" value="Excluir" onclick="deleteAttachment(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-primary" id="vw_frontal" name="vw_frontal" value="Visualizar" onclick="viewAttachment(this)" data-fluig-state-hide="0,4" />
+						</div>
+					</div>
+					
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_02" name="etapa_02" readonly >Foto lateral esquerda
+		      			</textarea>
+		  			</div>			  				
+					<div class="row">
+						<div class="col-sm-2">
+							<label class="control-label">Foto</label>
+							<input type="text" class="form-control" name="tx_lateral_esquerda" id="tx_lateral_esquerda" readonly />
+							<input type="hidden" id="id_lateral_esquerda" name="id_lateral_esquerda" />
+							<input type="hidden" id="dc_lateral_esquerdae" name="dc_lateral_esquerdae" />
+							<input type="hidden" id="vr_lateral_esquerda" name="vr_lateral_esquerda" />
+							
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-default" id="bt_lateral_esquerda" name="bt_lateral_esquerda" value="Incluir" onclick="showCamera(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-danger" id="ex_lateral_esquerda" name="ex_lateral_esquerda" value="Excluir" onclick="deleteAttachment(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-primary" id="vw_lateral_esquerda" name="vw_lateral_esquerda" value="Visualizar" onclick="viewAttachment(this)" data-fluig-state-hide="0,4" />
+						</div>
+					</div>
+					
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_03" name="etapa_03" readonly >Foto traseira
+		      			</textarea>
+		  			</div>	  			
+					<div class="row">
+						<div class="col-sm-2">
+							<label class="control-label">Foto</label>
+							<input type="text" class="form-control" name="tx_traseira" id="tx_traseira" readonly />
+							<input type="hidden" id="id_traseira" name="id_traseira" />
+							<input type="hidden" id="dc_traseira" name="dc_traseira" />
+							<input type="hidden" id="vr_traseira" name="vr_traseira" />
+							
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-default" id="bt_traseira" name="bt_traseira" value="Incluir" onclick="showCamera(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-danger" id="ex_traseira" name="ex_traseira" value="Excluir" onclick="deleteAttachment(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-primary" id="vw_traseira" name="vw_traseira" value="Visualizar" onclick="viewAttachment(this)" data-fluig-state-hide="0,4" />
+						</div>
+					</div>
+					
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_04" name="etapa_04" readonly >Foto lateral direita
+		      			</textarea>
+		  			</div>			  			
+					<div class="row">
+						<div class="col-sm-2">
+							<label class="control-label">Foto</label>
+							<input type="text" class="form-control" name="tx_lateral_direita" id="tx_lateral_direita" readonly />
+							<input type="hidden" id="id_lateral_direita" name="id_lateral_direita" />
+							<input type="hidden" id="dc_lateral_direita" name="dc_lateral_direita" />
+							<input type="hidden" id="vr_lateral_direita" name="vr_lateral_direita" />
+							
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-default" id="bt_lateral_direita" name="bt_lateral_direita" value="Incluir" onclick="showCamera(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-danger" id="ex_lateral_direita" name="ex_lateral_direita" value="Excluir" onclick="deleteAttachment(this)"/>
+						</div>
+						<div class="col-sm-1">
+							<br>
+							<input type="button" class="btn btn-primary" id="vw_lateral_direita" name="vw_lateral_direita" value="Visualizar" onclick="viewAttachment(this)" data-fluig-state-hide="0,4" />
+						</div>
+					</div>				
+				</div>
+				
+							
+		</div>	
+	</div>	
+	
+
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Funções Elétricas/Chassi (25%)</h3>
+	    </div>
+	    
+	    <div class="panel-body">				    	
+	    	<div class="row">
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_3" name="etapa_3" readonly >Chicotes
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_3_status" name="etapa_3_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('01')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_3_status_oficina" name="etapa_3_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_01" name="ponto_01" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_01_un" name="ponto_01_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_4" name="etapa_4" readonly >Módulos
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_4_status" name="etapa_4_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('02')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_4_status_oficina" name="etapa_4_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 	
+		  			<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_02" name="ponto_02" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_02_un" name="ponto_02_un" data-fluig-required="true" readonly />
+					</div>	
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_5" name="etapa_5" readonly >Contatores
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_5_status" name="etapa_5_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('03')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_5_status_oficina" name="etapa_5_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_03" name="ponto_03" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_03_un" name="ponto_03_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_6" name="etapa_6" readonly >Trincas
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_6_status" name="etapa_6_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('04')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_6_status_oficina" name="etapa_6_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_04" name="ponto_04" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_04_un" name="ponto_04_un" data-fluig-required="true" readonly />
+					</div>		  			 			  									  
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_7" name="etapa_7" readonly >Alinhamento
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_7_status" name="etapa_7_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('05')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_7_status_oficina" name="etapa_7_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_05" name="ponto_05" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_05_un" name="ponto_05_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_8" name="etapa_8" readonly >Pintura
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_8_status" name="etapa_8_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('06')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_8_status_oficina" name="etapa_8_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_06" name="ponto_06" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_06_un" name="ponto_06_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>				
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_9" name="etapa_9" readonly >Banco
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_9_status" name="etapa_9_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('07')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_9_status_oficina" name="etapa_9_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_07" name="ponto_07" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_07_un" name="ponto_07_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>				
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_10" name="etapa_10" readonly >Adesivos
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_10_status" name="etapa_10_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('08')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_10_status_oficina" name="etapa_10_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_08" name="ponto_08" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_08_un" name="ponto_08_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_11" name="etapa_11" readonly >Carenagem
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_11_status" name="etapa_11_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('09')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_11_status_oficina" name="etapa_11_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_09" name="ponto_09" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_09_un" name="ponto_09_un" data-fluig-required="true" readonly />
+					</div>		  			 			  									  
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_12" name="etapa_12" readonly >Cabine
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_12_status" name="etapa_12_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('10')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_12_status_oficina" name="etapa_12_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_10" name="ponto_10" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_10_un" name="ponto_10_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_13" name="etapa_13" readonly >Buzina
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_13_status" name="etapa_13_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('11')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_13_status_oficina" name="etapa_13_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_11" name="ponto_11" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_11_un" name="ponto_11_un" data-fluig-required="true" readonly />
+					</div>		  			 			  									  
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_14" name="etapa_14" readonly >Botão Emergência
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_14_status" name="etapa_14_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('12')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_14_status_oficina" name="etapa_14_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_12" name="ponto_12" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_12_un" name="ponto_12_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_15" name="etapa_15" readonly >Bateria tracionária
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_15_status" name="etapa_15_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('13')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_15_status_oficina" name="etapa_15_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_13" name="ponto_13" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_13_un" name="ponto_13_un" data-fluig-required="true" readonly />
+					</div>		  						  									  
+				</div>
+
+
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Tração (25%)</h3>
+  	  	
+  	  <!-- 	<div class="col-md-1 pull-right">
+			<!-- <label class="control-label">Pontos bloco</label>
+			<input type="text" class="form-control" id="ponto_parc1" name="ponto_parc1" data-fluig-required="true" readonly />
+		</div> -->
+
+		
+	    
+	    </div>
+	    
+	    <div class="panel-body">				    	
+	    	<div class="row">
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_16" name="etapa_16" readonly >Motor
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_16_status" name="etapa_16_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('14')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_16_status_oficina" name="etapa_16_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_14" name="ponto_14" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_14_un" name="ponto_14_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_17" name="etapa_17" readonly >Rodas/Pneus
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_17_status" name="etapa_17_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('15')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_17_status_oficina" name="etapa_17_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_15" name="ponto_15" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_15_un" name="ponto_15_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>				
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_18" name="etapa_18" readonly >Transmissão
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_18_status" name="etapa_18_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('16')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_18_status_oficina" name="etapa_18_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_16" name="ponto_16" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_16_un" name="ponto_16_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>	
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_19" name="etapa_19" readonly >Freio Eletromagnético
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_19_status" name="etapa_19_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('17')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_19_status_oficina" name="etapa_19_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_17" name="ponto_17" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_17_un" name="ponto_17_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>	
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_20" name="etapa_20" readonly >Sensores
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_20_status" name="etapa_20_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('18')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_20_status_oficina" name="etapa_20_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_18" name="ponto_18" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_18_un" name="ponto_18_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>											
+				
+			</div>
+		</div>	
+	</div>
+	
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Hidráulico (opção de N/A p/ os casos de Rebocador) (25%)</h3>
+  	  	
+  	  <!-- 	<div class="col-md-1 pull-right">
+			<!-- <label class="control-label">Pontos bloco</label>
+			<input type="text" class="form-control" id="ponto_parc1" name="ponto_parc1" data-fluig-required="true" readonly />
+		</div> -->
+
+		
+	    
+	    </div>
+	    
+	    <div class="panel-body">				    	
+	    	<div class="row">	
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_21" name="etapa_21" readonly >Mangueiras
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_21_status" name="etapa_21_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('19')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_21_status_oficina" name="etapa_21_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_19" name="ponto_19" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_19_un" name="ponto_19_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_22" name="etapa_22" readonly >Correntes
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_22_status" name="etapa_22_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('20')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_22_status_oficina" name="etapa_22_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_20" name="ponto_20" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_20_un" name="ponto_20_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_23" name="etapa_23" readonly >Motor
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_23_status" name="etapa_23_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('21')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_23_status_oficina" name="etapa_23_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_21" name="ponto_21" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_21_un" name="ponto_21_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_24" name="etapa_24" readonly >Sistemas Hidráulicos
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_24_status" name="etapa_24_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('22')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_24_status_oficina" name="etapa_24_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_22" name="ponto_22" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_22_un" name="ponto_22_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_25" name="etapa_25" readonly >Chicotes Mastro
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_25_status" name="etapa_25_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('23')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_25_status_oficina" name="etapa_25_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_23" name="ponto_23" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_23_un" name="ponto_23_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_26" name="etapa_26" readonly >Rolamentos Mastro
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_26_status" name="etapa_26_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('24')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_26_status_oficina" name="etapa_26_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_24" name="ponto_24" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_24_un" name="ponto_24_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>																					    	
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_27" name="etapa_27" readonly >Placas Deslizantes
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_27_status" name="etapa_27_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('25')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_27_status_oficina" name="etapa_27_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_25" name="ponto_25" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_25_un" name="ponto_25_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_28" name="etapa_28" readonly >Acionamentos
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_28_status" name="etapa_28_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('26')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_28_status_oficina" name="etapa_28_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_26" name="ponto_26" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_26_un" name="ponto_26_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_29" name="etapa_29" readonly >Sensores
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_29_status" name="etapa_29_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('27')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_29_status_oficina" name="etapa_29_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_27" name="ponto_27" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_27_un" name="ponto_27_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_30" name="etapa_30" readonly >Garfo
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_30_status" name="etapa_30_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('28')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_30_status_oficina" name="etapa_30_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_28" name="ponto_28" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_28_un" name="ponto_28_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="panel-body">
+		    		<div class="form-gruop col-md-6">
+						<label for="info_etapa_30"></label>
+						<input type="number" class="form-control" name="info_etapa_30" data-fluig-write="0,4" /> Medidas (em milimetros):
+						<!--<textarea rows="3" name="info_etapa_30" id="info_etapa_30" class="form-control" data-fluig-write="0,4"></textarea> Medidas (em milimetros): -->
+			
+					</div>	    	
+				</div>													    	
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_31" name="etapa_31" readonly >Protetor de Carga
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_31_status" name="etapa_31_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('29')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_31_status_oficina" name="etapa_31_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_29" name="ponto_29" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_29_un" name="ponto_29_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_32" name="etapa_32" readonly >Desgate Articulação
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_32_status" name="etapa_32_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('30')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_32_status_oficina" name="etapa_32_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_30" name="ponto_30" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_30_un" name="ponto_30_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>					    	
+	    	
+	    	</div>
+		</div>
+	</div>
+
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Direção (25%)</h3>
+  	  	
+  	  <!-- 	<div class="col-md-1 pull-right">
+			<!-- <label class="control-label">Pontos bloco</label>
+			<input type="text" class="form-control" id="ponto_parc1" name="ponto_parc1" data-fluig-required="true" readonly />
+		</div> -->
+
+		
+	    
+	    </div>
+	    
+	    <div class="panel-body">				    	
+	    	<div class="row">	
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_33" name="etapa_33" readonly >Volante/Coluna/Timão
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_33_status" name="etapa_33_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('31')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_33_status_oficina" name="etapa_33_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_31" name="ponto_31" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_31_un" name="ponto_31_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_34" name="etapa_34" readonly >Motor
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_34_status" name="etapa_34_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('32')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_34_status_oficina" name="etapa_34_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_32" name="ponto_32" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_32_un" name="ponto_32_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_35" name="etapa_35" readonly >Eixo Direcional
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_35_status" name="etapa_35_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('33')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_35_status_oficina" name="etapa_35_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_33" name="ponto_33" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_33_un" name="ponto_33_un" data-fluig-required="true" readonly />
+					</div>					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-7">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_36" name="etapa_36" readonly >Sensores
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_36_status" name="etapa_36_status" 
+                         value=" - " onclick="MudarStatus(this)" onblur="calcTotal('34')" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-2">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_36_status_oficina" name="etapa_36_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pont.Max</label>
+						<input type="text" class="form-control pontos" id="ponto_34" name="ponto_34" data-fluig-required="true" readonly />
+					</div>
+	  				<div class="col-xs-12 col-sm-1">
+						<label class="control-label">Pontos(%)</label>
+						<input type="text" class="form-control pontos_uni" id="ponto_34_un" name="ponto_34_un" data-fluig-required="true" readonly />
+					</div>				
+				</div>																																						
+	    	
+	    	</div>
+		</div>
+	</div>	 
+	
+	<div class="panel panel-warning">
+	    <div class="panel-heading clearfix">
+	        <h3 class="panel-title pull-left"><i class="fluigicon fluigicon-user-selection icon-md"></i>Acessórios / Segurança)</h3>
+  	  	
+  	  <!-- 	<div class="col-md-1 pull-right">
+			<!-- <label class="control-label">Pontos bloco</label>
+			<input type="text" class="form-control" id="ponto_parc1" name="ponto_parc1" data-fluig-required="true" readonly />
+		</div> -->
+
+		
+	    
+	    </div>
+	    
+	    <div class="panel-body">				    	
+	    	<div class="row">	
+	    	
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_38" name="etapa_38" readonly >Acessório especial instalado (clamp, push pull etc)?
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_38_status" name="etapa_38_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_38_status_oficina" name="etapa_38_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 	    					
+				</div>
+				
+				<div class="row">
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_42" name="etapa_42" readonly >Saida lateral ou içamento
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_42_status" name="etapa_42_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_42_status_oficina" name="etapa_42_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 	    					
+				</div>					
+					    	
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Possui 4ª via?</label> <select
+							class="form-control" name="via"
+							id="via" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Sim - Original</option>
+							<option value="2">Sim - Solenoide</option>
+							<option value="3">Nao</option>
+						</select>
+					</div>
+					<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_37" name="etapa_37" readonly >4ª via
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_37_status" name="etapa_37_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_37_status_oficina" name="etapa_37_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div>  -->	    					
+				</div>	
+				
+				<div class="panel-body">
+		    		<div class="form-gruop col-md-6">
+						<label for="info_etapa_38"></label>
+						<textarea rows="3" name="info_etapa_38" id="info_etapa_38" class="form-control" data-fluig-write="0,4"></textarea> Descrição
+					
+					</div>	    	
+				</div>					
+				
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Possui Telemetria?</label> <select
+							class="form-control" name="telemetria"
+							id="telemetria" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Sim</option>
+							<option value="2">Nao</option>
+						</select>
+					</div>  
+					<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_39" name="etapa_39" readonly >Telemetria
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_39_status" name="etapa_39_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_39_status_oficina" name="etapa_39_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> -->	    					
+				</div>	
+				
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Engate</label> <select
+							class="form-control" name="engate"
+							id="engate" 
+							data-fluig-state-readonly="10,16,18"
+							data-fluig-write="0,4" >
+							<!--data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							 data-fluig-conditional-valid="$('#engate').val() != ''" -->							
+							<option value="">Selecione...</option>
+							<option value="1">Rockit</option>
+							<option value="2">Pino e Reboque Simples</option>
+							<option value="3">Pino e Reboque Multiplo</option>
+							<option value="4">Outros</option>
+							<option value="0">N/A</option>
+						</select>
+					</div>  
+					<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_40" name="etapa_40" readonly >Tipo Engate
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_40_status" name="etapa_40_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_40_status_oficina" name="etapa_40_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> --> 	    					
+				</div>
+				
+				<div class="panel-body">
+		    		<div class="form-gruop col-md-6">
+						<label for="info_etapa_40"></label>
+						<textarea rows="1" name="info_etapa_40" id="info_etapa_40" class="form-control" data-fluig-write="0,4"></textarea> Medidas (altura) e tipo
+						
+					</div>	    	
+				</div>						
+				
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Possui Recorte Drive In?</label> <select
+							class="form-control" name="RecDrive"
+							id="RecDrive" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Sim</option>
+							<option value="2">Nao</option>
+						</select>
+					</div>
+					<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_41" name="etapa_41" readonly >Recorte Drive-in
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_41_status" name="etapa_41_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_41_status_oficina" name="etapa_41_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 	 -->    					
+				</div>
+				
+				<div class="panel-body">
+		    		<div class="form-gruop col-md-6">
+						<label for="info_etapa_41"></label>
+						<textarea rows="1" name="info_etapa_41" id="info_etapa_41" class="form-control" data-fluig-write="0,4"></textarea> Medidas (Largura / Altura)
+					</div>	    	
+				</div>						
+				
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Possui Roda Guia?</label> <select
+							class="form-control" name="rodaguia"
+							id="rodaguia" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Sim</option>
+							<option value="2">Nao</option>
+						</select>
+					</div>
+					<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_43" name="etapa_43" readonly >Roda guia
+		      			</textarea>
+		  			</div>	
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_43_status" name="etapa_43_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_43_status_oficina" name="etapa_43_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> -->	    					
+				</div>	
+				
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tipo de cabine</label> <select
+							class="form-control" name="cabine"
+							id="cabine" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="A">Comfort (parabrisa e teto)</option>
+							<option value="B">Comfort I (parabrisa, teto e lona traseira)</option>
+							<option value="C">Comfort II (parabrisa, teto e lona traseira e laterais)</option>
+							<option value="D">Comfort III (parabrisa, teto, vidro e portas de ferro)</option>
+							<option value="Z">N/A</option>
+						</select>
+					</div>
+		  			<!-- 
+		  			<div class="col-xs-12 col-sm-8">
+		      			<textarea class="form-control fs-no-border fs-no-bg fs-no-shadow fs-no-padding fs-txt-left line-text" 
+		      			id="etapa_44" name="etapa_44" readonly >Tipo de cabine
+		      			</textarea>
+		  			</div>		  				
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status" 
+                         id="etapa_44_status" name="etapa_44_status" 
+                         value=" - " onclick="MudarStatus(this)" readonly>
+		  			</div>			  			
+		  			<div class="col-xs-12 col-sm-1">
+                         <input type="text" 
+                         class="btn button-status2" 
+                         id="etapa_44_status_oficina" name="etapa_44_status_oficina" 
+                         value=" - " onclick="MudarStatusOfi(this)" readonly>
+		  			</div> 	-->		    					
+				</div>	
+				<!-- 
+				<div class="panel-body">
+		    		<div class="form-gruop col-md-10">
+						<label for="info_etapa_44"></label>
+						<textarea rows="3" name="info_etapa_44" id="info_etapa_44" class="form-control" data-fluig-write="0,4"></textarea> Escolher
+					</div>	    	
+				</div>	 -->	
+				
+				<!--  RETIRADO OS CAMPOS A PEDIDO DO BRUNO EM 06/08/2021																															    	
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tensão de Entrada</label> <select
+							class="form-control" name="tensaoent"
+							id="tensaoent" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">440 TRIFASICO</option>
+							<option value="2">380 TRIFASICO</option>
+							<option value="3">220 TRIFASICO</option>
+							<option value="4">220 MONOFASICO</option>
+						</select>
+					</div>
+				</div>
+				
+				
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Possui Kit Neutro?</label> <select
+							class="form-control" name="kitneutro"
+							id="kitneutro" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="S">Sim</option>
+							<option value="N">Nao</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tomada Alimentação</label> <select
+							class="form-control" name="tomada"
+							id="tomada" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Integrado 03 pinos (2P+T) 20A</option>
+							<option value="2">E230 03 pinos (2P+T) 16A</option>
+							<option value="3">E230 03 pinos (2P+T) 32A</option>
+							<option value="4">D400 04 pinos (3P+T) 16A</option>
+							<option value="5">D400 04 pinos (3P+T) 32A</option>
+							<option value="6">D400 05 pinos (3P+N+T) 16A</option>
+							<option value="7">D400 05 pinos (3P+N+T) 32A</option>
+						</select>
+					</div>
+				</div>								
+
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tomada Carregador</label> <select
+							class="form-control" name="tomcarregador"
+							id="tomcarregador" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">80Ah</option>
+							<option value="2">160Ah</option>
+							<option value="3">320Ah</option>
+						</select>
+					</div>
+				</div>					    
+
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tipo de Tomada (bateria)</label> <select
+							class="form-control" name="tombateria"
+							id="tombateria" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">Rema 80A</option>
+							<option value="2">Rema 160A</option>
+							<option value="3">Rema 320A</option>
+							<option value="4">Schaltbau 320A</option>
+							<option value="5">AnderonPower 350A</option>
+						</select>
+					</div>
+				</div>	
+				 RETIRADO OS CAMPOS A PEDIDO DO BRUNO EM 06/08/2021 -->
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Tipo de bateria?</label> <select
+							class="form-control" name="tpcarregador"
+							id="tpcarregador" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18">
+							<option value="">Selecione...</option>
+							<option value="1">PB-Chumbo Acido</option>
+							<option value="2">LI-Litio</option>
+							<option value="3">EX-Ex-proof</option>
+							<option value="4">G-Gel</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row">
+			  		<div class="col-md-6">
+						<label class="control-label">Troca de óleo e filtro?</label> <select
+							class="form-control" name="trocaoleo"
+							id="trocaoleo" data-fluig-required="true"
+							data-fluig-state-valid="0,4"
+							data-fluig-state-readonly="10,16,18" >
+							<option value="">Selecione...</option>
+							<option value="1">Sim</option>
+							<option value="2">Nao</option>
+						</select>
+					</div>
+				</div>
+				                                                                                                       
+	    	</div>
+		</div>
+	</div>	    		   																			
+
+	<div class="panel panel-warning">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-user-selection icon-md"></i>Informações adicionais</h3>
+	    </div>
+	    <div class="panel-body">				    	
+
+			<div class="row">
+				<div class="form-gruop col-md-10">
+					<label for="info_etapa_10"></label>
+					<textarea rows="3" name="info_etapa_10" id="info_etapa_10" class="form-control" data-fluig-write="0,4"></textarea> Descreva
+				</div>
+			</div>
+		</div>
+	</div>
+
+																		
+</form>
+</div>
+</body>
+<!-- 
+<script type="text/javascript" src="cep.js"></script>
+<script type="text/javascript">
+	var calendarioDataInicio = FLUIGC.calendar('#dataini');
+</script>
+ -->
+</html>

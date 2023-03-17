@@ -36,13 +36,20 @@ angular.module('jhApp', ['angular.fluig', 'ngAnimate', 'jh.services', 'jh.direct
         } else {
           vm.Form.checklist.forEach(item => {
             item.item = vm.Itens.filter(i => i.documentid == item.item.documentid)[0];
+            if (!item.item) item.removed = true;
           })
           vm.Form.images.forEach(image => {
             image.image = vm.Images.filter(i => i.documentid == image.image.documentid)[0];
+            if (!image.image) image.removed = true;
           })
           vm.Form.fields.forEach(field => {
             field.field = vm.Fields.filter(f => f.documentid == field.field.documentid)[0];
+            if (!field.field) field.removed = true;
           })
+
+          vm.Form.checklist = vm.Form.checklist.filter(r => !r.removed);
+          vm.Form.images = vm.Form.images.filter(r => !r.removed);
+          vm.Form.fields = vm.Form.fields.filter(r => !r.removed);
         }
       };
 

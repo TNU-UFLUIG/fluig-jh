@@ -3,6 +3,9 @@
         <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
             <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
                 title="Mover campo"></i>
+            <i class="flaticon flaticon-trash icon-md " data-toggle="tooltip" data-placement="top" title="Remover item"
+                ng-click="vm.removeChild(vm.Form.checklist, item)"></i>
+
         </div>
         <div class="col-sm-11">
             <div class="form-group">

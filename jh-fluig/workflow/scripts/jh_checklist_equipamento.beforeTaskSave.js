@@ -1,5 +1,6 @@
 function beforeTaskSave(colleagueId, nextSequenceId, userList) {
 
+  var nextState	= getValue("WKNextState");
   var attachments = hAPI.listAttachments();
 
   log.info("anexo" + attachments.size());
@@ -19,12 +20,17 @@ function beforeTaskSave(colleagueId, nextSequenceId, userList) {
 
     var images = getImages();
     var image = images.filter(function (img) {
-      return img.docDesc == docDesc && !img.docId;
+      log.info(img.docDesc);
+      return String(img.docDesc) == String(docDesc) && (!img.docId || img.docId == "");
     })[0]
 
     if (image) {
       hAPI.setCardValue("image_docId___" + image.seq, docId);
       hAPI.setCardValue("image_docVersion___" + image.seq, docVersion);
     }
+  }
+
+  if (nextState == 10) {
+    hAPI.setCardValue("endDate", new Date().getTime());
   }
 }

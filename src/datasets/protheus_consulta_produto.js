@@ -34,8 +34,12 @@ function buscaDataset(fields, constraints, sortFields) {
   let sql =
     `SELECT TOP 100 B1_FILIAL AS FILIAL, B1_COD AS CODIGO, B1_DESC  AS DESCRICAO FROM SB1010 WHERE D_E_L_E_T_ = ''  AND B1_MSBLQL != '1'`;
 
+  if (params.filial != '' && params.filial != undefined) {
+    sql = sql + " AND LOWER(B1_FILIAL) = LOWER('" + params.filial + "')"
+  }
+
   if (params.codigo != '' && params.codigo != undefined) {
-    sql = sql + " AND LOWER(B1_COD) LIKE LOWER('%" + params.codigo + "%')"
+    sql = sql + " AND LOWER(B1_COD) = LOWER('" + params.codigo + "')"
   }
 
   if (params.descricao != '' && params.descricao != undefined) {

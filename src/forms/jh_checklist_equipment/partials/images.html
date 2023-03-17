@@ -14,25 +14,31 @@
           <div class="col-sm-3">
             <div class="btn-group">
               <button type="button" class="btn" ng-class="{'btn-success':image.value=='ok'
-                    ,'btn-default':image.value!='ok' }" ng-click="image.value = 'ok'">OK</button>
+                    ,'btn-default':image.value!='ok' }" ng-click="image.value = 'ok'"
+                ng-disabled="!vm.Params.edit">OK</button>
               <button type="button" class="btn" ng-class="{'btn-danger':image.value=='nok'
-                    ,'btn-default':image.value!='nok'}" ng-click="image.value = 'nok'">NOK</button>
+                    ,'btn-default':image.value!='nok'}" ng-click="image.value = 'nok'"
+                ng-disabled="!vm.Params.edit">NOK</button>
               <button type="button" class="btn" ng-class="{'btn-warning':image.value=='ac'
-                    ,'btn-default':image.value!='ac' }" ng-click="image.value = 'ac'">AC</button>
+                    ,'btn-default':image.value!='ac' }" ng-click="image.value = 'ac'"
+                ng-disabled="!vm.Params.edit">AC</button>
               <button type="button" class="btn" ng-class="{'btn-primary':image.value=='na'
-                    ,'btn-default':image.value!='na' }" ng-click="image.value = 'na'">NA</button>
+                    ,'btn-default':image.value!='na' }" ng-click="image.value = 'na'"
+                ng-disabled="!vm.Params.edit">NA</button>
             </div>
           </div>
           <div class="col-sm-3">
             <!-- <input class="form-control input-lg" ng-value="vm.Form.cliente.loja" name="clienteLoja"
                   ng-readonly="true"> -->
 
-            <input type="text" class="form-control" ng-model="image.docDesc" name="image_docDesc_i" ng-readonly="true">
+            <input type="text" class="form-control" ng-model="image.docDesc" name="image_docDesc_i"
+              ng-readonly="true">
           </div>
 
           <div class="col-sm-3">
             <div class="btn-group">
-              <button class="btn btn-default" type="button" ng-click="vm.upload(image, image.image.title)">
+              <button ng-if="vm.Params.edit" class="btn btn-default" type="button"
+                ng-click="vm.upload(image, image.image.title)">
                 Incluir
               </button>
               <button ng-if="image.docDesc && vm.Params.edit" class="btn btn-danger" type="button"

@@ -1,0 +1,20 @@
+.popup {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  min-width: 300px;
+  /* max-height: 50%; */
+  position: fixed;
+  display: block;
+  z-index: 9999999;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 50px;
+}
+
+.label-no-content {
+  width: 20px;
+  background-color: rgba(222, 226, 4, 0.4);
+}

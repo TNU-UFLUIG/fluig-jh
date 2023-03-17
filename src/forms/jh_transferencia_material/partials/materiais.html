@@ -17,56 +17,74 @@
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="material_produtoCod___{{$index + 1}}"
+                                        class="control-label">Produto</label>
+                                    <div class="input-group">
+                                        <input type="text" id="material_produtoCod___{{$index + 1}}"
+                                            name="material_produtoCod" class="form-control "
+                                            ng-blur="vm.buscaProduto(material, $index)" data-fluig-required="true"
+                                            data-fluig-state-valid="0,4" ng-value="material.produtoCod"
+                                            ng-model="material.produtoCod" ng-required="true"
+                                            fluig-error="form.material_produtoCod___{{$index + 1}}.$error" />
+                                        <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
+                                            ng-click="vm.zoomProduto(material, $index)" ng-if="vm.Params.edit">
+                                            <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <label for="">Descrição</label>
+                                <input type="text" class="form-control " name="material_produtoDesc"
+                                    ng-model="material.produtoDesc" ng-value="material.produtoDesc" ng-readonly="true">
+                            </div>
+                            <!-- <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Código</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                    <input type="text" fluig-autocomplete class="form-control "
                                         name="material_produtoCod" ng-model="material.produto"
                                         dataset="protheus_consulta_produto" min-length="3" display-key="codigo"
                                         ng-change="vm.changeProduto(material)">
                                 </div>
-                            </div>
-                            <div class="col-sm-8">
+                            </div> -->
+                            <!-- <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="">Descrição</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                    <input type="text" fluig-autocomplete class="form-control "
                                         name="material_produtoDes" ng-model="material.produto"
                                         dataset="protheus_consulta_produto" min-length="3" display-key="descricao"
                                         ng-change="vm.changeProduto(material)">
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="">Quantidade</label>
-                                    <input type="text" fluig-number-mask class="form-control input-lg"
+                                    <input type="text" fluig-number-mask class="form-control "
                                         name="material_qty_i" ng-model="material.qty">
                                     <input type="hidden" name="material_qty" ng-value="material.qty">
                                 </div>
                             </div> -->
-                            <textarea hidden name="material_produto" ng-value="material.produto | json:0"></textarea>
                         </div>
-                        <div class="row" ng-show="vm.regras.showOrigem">
+                        <div class="row" ng-show="vm.regras.showOrigem && material.armazemOrig">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Armazém Origem</label>
-                                    <input type="text" class="form-control input-lg" name="material_armazemOrig_i"
-                                        ng-value="material.armazemOrig.codigo" ng-readonly="true">
+                                    <input type="text" class="form-control " name="material_armazemOrig"
+                                        ng-model="material.armazemOrig" ng-value="material.armazemOrig"
+                                        ng-readonly="true">
                                 </div>
                             </div>
-                            <div class="col-sm-6" ng-if="material.armazemOrig.codigo">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Endereço Origem</label>
-                                    <input type="text" class="form-control input-lg" name="material_enderecoOrig_i"
-                                        ng-value="material.enderecoOrig.endereco" ng-readonly="true">
+                                    <input type="text" class="form-control " name="material_enderecoOrig"
+                                        ng-value="material.enderecoOrig" ng-model="material.enderecoOrig"
+                                        ng-readonly="true">
                                 </div>
                             </div>
-                            <textarea hidden name="material_armazemOrig"
-                                ng-value="material.armazemOrig | json:0"></textarea>
-                            <input type="hidden" name="material_armazemOrigCod" ng-value="material.armazemOrig.codigo">
-                            <textarea hidden name="material_enderecoOrig"
-                                ng-value="material.enderecoOrig | json:0"></textarea>
-                            <input type="hidden" name="material_enderecoOrigCod"
-                                ng-value="material.enderecoOrig.endereco">
                         </div>
 
 
@@ -74,15 +92,15 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Armazém Destino</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                    <input type="text" fluig-autocomplete class="form-control "
                                         name="material_armazemDest_i" ng-model="material.armazemDest"
-                                        dataset="protheus_consulta_local" display-key="codigo">
+                                        values="material.ArmazensByType" display-key="codigo">
                                 </div>
                             </div>
                             <div class="col-sm-6" ng-if="material.armazemDest.codigo">
                                 <div class="form-group">
                                     <label for="">Endereço Destino</label>
-                                    <input type="text" fluig-autocomplete class="form-control input-lg"
+                                    <input type="text" fluig-autocomplete class="form-control "
                                         name="material_enderecoDest_i" ng-model="material.enderecoDest"
                                         dataset="protheus_consulta_endereco"
                                         filter-fields="['codLocal',material.armazemDest.codigo]" display-key="endereco">
@@ -106,7 +124,7 @@
         </table>
 
         <button ng-if="vm.regras.enableProdutos" type="button" class="btn btn-lg btn-default"
-            ng-click="vm.Form.materiais.push({})">Incluir Produto</button>
+            ng-click="vm.Form.materiais.push({produtoCod:''})">Incluir Produto</button>
 
         <button ng-if="vm.regras.enableProdutos" type="button" class="btn btn-lg btn-default"
             ng-click="vm.selecionarTodos()">Selecionar Todos</button>
@@ -124,58 +142,60 @@
 </div>
 
 <div ng-if="vm.direcionarModal" class="popup animated fluig-style-guide">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span style="font-size: 20px;">Direcionar Produtos</span>
-            <i class="fs-float-right flaticon flaticon-close icon-lg fs-cursor-pointer"
-                ng-click="vm.direcionarModal = false;"></i>
-        </div>
-
-        <div class="panel-body">
-
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="">Armazém Origem</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="armazemOrigem"
-                        ng-model="vm.armazemOrigem" dataset="protheus_consulta_local" display-key="codigo">
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span style="font-size: 20px;">Direcionar Produtos</span>
+                <i class="fs-float-right flaticon flaticon-close icon-lg fs-cursor-pointer"
+                    ng-click="vm.direcionarModal = false;"></i>
+            </div>
+    
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Armazém Destino (Letras)</label>
+                            <input type="text" fluig-autocomplete class="form-control " name="armazemDestinoL"
+                                ng-model="vm.armazemDestinoL" ng-change="vm.changeArmazemDestinoL()" values="vm.ArmazensL"
+                                display-key="codigo">
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-if="vm.armazemDestinoL.codigo">
+                        <div class="form-group">
+                            <label for="">Endereço</label>
+                            <input type="text" fluig-autocomplete class="form-control " name="enderecoDestinoL"
+                                ng-model="vm.enderecoDestinoL" dataset="protheus_consulta_endereco"
+                                filter-fields="['codLocal',vm.armazemDestinoL.codigo]" display-key="endereco">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Armazém Destino (Números)</label>
+                            <input type="text" fluig-autocomplete class="form-control " name="armazemDestinoN"
+                                ng-model="vm.armazemDestinoN" ng-change="vm.changeArmazemDestinoN()" values="vm.ArmazensN"
+                                display-key="codigo">
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-if="vm.armazemDestinoN.codigo">
+                        <div class="form-group">
+                            <label for="">Endereço</label>
+                            <input type="text" fluig-autocomplete class="form-control " name="enderecoDestinoN"
+                                ng-model="vm.enderecoDestinoN" dataset="protheus_consulta_endereco"
+                                filter-fields="['codLocal',vm.armazemDestinoN.codigo]" display-key="endereco">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6" ng-if="vm.armazemOrigem.codigo">
-                <div class="form-group">
-                    <label for="">Endereço</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="enderecoOrigem"
-                        ng-model="vm.enderecoOrigem" dataset="protheus_consulta_endereco"
-                        filter-fields="['codLocal',vm.armazemOrigem.codigo]" display-key="endereco">
-                </div>
+            <div class="panel-footer">
+                <a class="btn btn-defaul btn-lg fs-cursor-pointer" ng-click="vm.direcionarModal = false">
+                    Cancelar
+                </a>
+                <a class="btn btn-success btn-lg" ng-click="vm.alteraSelecionados()">
+                    Salvar
+                </a>
             </div>
-
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="">Armazém Destino</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="armazemDestino"
-                        ng-model="vm.armazemDestino" dataset="protheus_consulta_local" display-key="codigo">
-                </div>
-            </div>
-            <div class="col-sm-6" ng-if="vm.armazemDestino.codigo">
-                <div class="form-group">
-                    <label for="">Endereço</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="enderecoDestino"
-                        ng-model="vm.enderecoDestino" dataset="protheus_consulta_endereco"
-                        filter-fields="['codLocal',vm.armazemDestino.codigo]" display-key="endereco">
-                </div>
-            </div>
-
-        </div>
-        <div class="panel-footer">
-
-            <a class="btn btn-defaul btn-lg fs-cursor-pointer" ng-click="vm.direcionarModal = false">
-                Cancelar
-            </a>
-
-            <a class="btn btn-success btn-lg" ng-click="vm.alteraSelecionados()">
-                Salvar
-            </a>
-
         </div>
     </div>
 </div>

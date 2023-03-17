@@ -56,6 +56,11 @@ angular.module('jh.services')
 
         return fluigService.fixDataset(dataset, null, true);
       },
+      getProduto: (codigo, fields) => {
+        return fluigService.getDataset('protheus_consulta_produto', {
+          codigo
+        }, fields, null, true);
+      },
       getEmpFilial: (fields) => {
         return fluigService.getDataset('dsEmpFilial', {
         }, fields, null, true);

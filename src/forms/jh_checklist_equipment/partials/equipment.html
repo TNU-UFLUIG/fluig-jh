@@ -20,19 +20,26 @@
                     data-fluig-state-valid="0,4" ng-value="vm.Form.serie.B1_COD" ng-model="vm.Form.serie.B1_COD"
                     ng-required="true" fluig-error="form.serie_i.$error" />
                 <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
-                    ng-click="vm.zoomEmpilhadeira('serie', 'B1_COD')">
+                    ng-click="vm.zoomEmpilhadeira('serie', 'B1_COD')" ng-if="vm.Params.edit">
                     <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
                     </span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-7">
         <label class="control-label">Modelo</label>
         <input class="form-control input-lg" ng-value="vm.Form.serie.B1_DESC" name="serieDesc" ng-readonly="true">
     </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="horimetro_a" class="control-label">Horímetro atual</label>
+            <input type="text" class="form-control input-lg" fluig-number-mask="0" ng-model="vm.Form.horimetro"
+                name="horimetro_a" ng-value="vm.Form.serie.AA3_ZZHORI" fluig-error="form.horimetro_a.$error">
+        </div>
+    </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-2">
         <div class="form-group">
             <label for="cliente_i" class="control-label">Cliente</label>
@@ -41,7 +48,7 @@
                     ng-value="vm.Form.cliente.codigo" ng-model="vm.Form.cliente.codigo" ng-readonly="true"
                     ng-required="true" fluig-error="form.cliente_i.$error" />
                 <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
-                    ng-click="vm.zoomClientes('cliente', 'codigo')">
+                    ng-click="vm.zoomClientes('cliente', 'codigo')" ng-if="vm.Params.edit">
 
                     <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
                     </span>
@@ -49,8 +56,6 @@
             </div>
         </div>
 
-        <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsClienteProt" min-length="3"
-                    display-key="codigo" ng-model="vm.Form.cliente" name="clienteCodigo" search-field="filtro"> -->
     </div>
     <div class="col-sm-2">
         <label class="control-label">Loja</label>
@@ -60,7 +65,7 @@
         <label class="control-label">Nome</label>
         <input class="form-control input-lg" ng-value="vm.Form.cliente.nome" name="clienteNome" ng-readonly="true">
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="col-sm-3">
 
@@ -75,8 +80,10 @@
         <div class="form-group">
             <label for="serieBateria_i" class="control-label">Série da Bateria Incorporada</label>
             <input type="text" id="serieBateria_i" name="serieBateria_i" class="form-control input-lg"
-                data-fluig-state-valid="0,4" data-fluig-write="0,4" ng-value="vm.Form.serieBateria"
+                data-fluig-state-valid="0,4" data-fluig-write="0,4" 
+                ng-value="vm.Form.serie.AA4_NSERAC"
                 ng-model="vm.Form.serieBateria" />
+            <!-- ng-value="vm.Form.serieBateria" -->
         </div>
 
         <!-- <input class="form-control input-lg" fluig-autocomplete dataset="dsempilhadeiraProt" min-length="3"
@@ -98,7 +105,7 @@
                     data-fluig-write="0,4" ng-value="vm.Form.serieCarregador.B1_COD"
                     ng-model="vm.Form.serieCarregador.B1_COD" />
                 <div class="input-group-addon motivo-zoom" style="cursor:pointer;"
-                    ng-click="vm.zoomEmpilhadeira('serieCarregador', 'B1_COD')">
+                    ng-click="vm.zoomEmpilhadeira('serieCarregador', 'B1_COD')" ng-if="vm.Params.edit">
                     <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
                     </span>
                 </div>

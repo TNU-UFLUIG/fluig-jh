@@ -1,16 +1,38 @@
 <div class="row" ng-show="vm.regras.showFilial">
     <div class="col-sm-12">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    FILIAL
+                </h3>
+            </div>
             <div class="panel-body">
-                <div class="form-group col-sm-2">
+                <div class="form-group col-sm-3 col-md-2" ng-show="false">
                     <label class="control-label">Empresa</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="empresa_i"
-                        ng-model="vm.Form.empresa" values="vm.Empresas" ng-change="vm.changeEmpresa()" display-key="empresa">
+                    <input type="text" class="form-control " name="empresaCodigo" ng-model="vm.Form.empresaCodigo"
+                        ng-readonly="true">
                 </div>
-                <div class="form-group col-sm-3">
-                    <label class="control-label">Filial</label>
-                    <input type="text" fluig-autocomplete class="form-control input-lg" name="filial_i"
-                        ng-model="vm.Form.filial" values="vm.EmpFiliais" display-key="filial">
+                <div class="form-group col-sm-3 col-md-2">
+                    <!-- <label class="control-label">Filial</label>
+                    <input type="text" fluig-autocomplete class="form-control " name="filial_i"
+                        ng-model="vm.Form.filial" values="vm.EmpFiliais" display-key="filial"> -->
+
+                    <label for="filialCodigo" class="control-label">Filial</label>
+                    <div class="input-group">
+                        <input type="text" id="filialCodigo" name="filialCodigo" class="form-control "
+                            ng-blur="vm.buscaFilial()" ng-value="vm.Form.filialCodigo" ng-model="vm.Form.filialCodigo"
+                            ng-required="true" fluig-error="form.filialCodigo.$error" />
+                        <div class="input-group-addon motivo-zoom" style="cursor:pointer;" ng-click="vm.zoomFilial()"
+                            ng-if="vm.Params.edit">
+                            <span class="fluigicon fluigicon-zoom-in fluigicon-sm">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-5">
+                    <label for="filialDescricao" class="control-label">Descrição</label>
+                    <input type="text" id="filialDescricao" name="filialDescricao" class="form-control "
+                        ng-value="vm.Form.filialDescricao" ng-model="vm.Form.filialDescricao" ng-readonly="true" />
                 </div>
             </div>
         </div>

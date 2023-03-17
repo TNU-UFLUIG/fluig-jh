@@ -1,10 +1,13 @@
 <div ui-sortable="vm.sortableOptions" ng-model="vm.Form.images">
     <div ng-repeat="image in vm.Form.images" class="row">
-        <div class="col-sm-1 fs-md-space" ng-if="vm.Params.edit">
+        <div class="col-sm-2 fs-md-space" ng-if="vm.Params.edit">
             <i class="flaticon flaticon-move icon-md fs-cursor-move handle" data-toggle="tooltip" data-placement="top"
                 title="Mover campo"></i>
+            <i class="flaticon flaticon-trash icon-md " data-toggle="tooltip" data-placement="top" title="Remover imagem"
+                ng-click="vm.removeChild(vm.Form.images, image)"></i>
+
         </div>
-        <div class="col-sm-11">
+        <div class="col-sm-10">
             <div class="form-group">
                 <label>Imagem</label>
                 <input class="form-control input-lg" fluig-autocomplete dataset="jh_image_checklist" display-key="title"

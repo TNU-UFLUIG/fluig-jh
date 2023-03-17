@@ -12,9 +12,9 @@ function buscaMateriais() {
         "PRODUCTID": String(PRODUCTID),
         "DESTINATIONID": String(hAPI.getCardValue("material_armazemDestCod___" + i)),
         "DESTINATIONADDRESSID": String(hAPI.getCardValue("material_enderecoDestCod___" + i)),
-        "SOURCEID": String(hAPI.getCardValue("material_armazemOrigCod___" + i)),
-        "SOURCEADDRESSID": String(hAPI.getCardValue("material_enderecoOrigCod___" + i)),
-        "QTY": Number(hAPI.getCardValue("material_qty___" + i) || 1)
+        "SOURCEID": String(hAPI.getCardValue("material_armazemOrig___" + i)),
+        "SOURCEADDRESSID": String(hAPI.getCardValue("material_enderecoOrig___" + i)),
+        "QTY": 1
       });
     }
   } while (PRODUCTID);

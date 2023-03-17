@@ -19,6 +19,7 @@ gulp.task('webserver', function () {
       livereload: false,
       directoryListing: true,
       open: true,
+      port: 8005,
       // path: 'jh-fluig',
       proxies: [
         // { source: '/', target: params.cliServer }
